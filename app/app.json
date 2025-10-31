@@ -7,17 +7,12 @@
   "success_url": "/",
   "keywords": [
     "lead-generation",
-    "business-data", 
+    "business-data",
     "api-integration",
     "supabase",
     "real-data"
   ],
-  "stack": "heroku-22",
-  "buildpacks": [
-    {
-      "url": "heroku/nodejs"
-    }
-  ],
+
   "env": {
     "NODE_ENV": {
       "description": "Node environment",
@@ -29,7 +24,7 @@
       "required": true
     },
     "SUPABASE_ANON_KEY": {
-      "description": "Supabase anonymous/public key from Settings > API", 
+      "description": "Supabase anonymous/public key from Settings > API",
       "required": true
     },
     "SUPABASE_SERVICE_ROLE_KEY": {
@@ -45,7 +40,7 @@
       "required": true
     },
     "HUNTER_IO_API_KEY": {
-      "description": "Hunter.io API key for email discovery", 
+      "description": "Hunter.io API key for email discovery",
       "required": true
     },
     "NEVERBOUNCE_API_KEY": {
