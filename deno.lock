@@ -111,7 +111,7 @@
         "npm:ts-node@^10.9.2",
         "npm:tsx@^4.20.6",
         "npm:typescript@^5.9.3",
-        "npm:vercel@48.6.0",
+        "npm:vercel@^48.8.0",
         "npm:vite@^7.1.10",
         "npm:vitest@^3.2.4",
         "npm:zustand@^4.4.7"
