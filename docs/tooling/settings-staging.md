@@ -1,3 +1,9 @@
+# 2025-10-31: Highlight Node Helper Rollout
+
+- Scaffolded `dev-tools/observability/highlight-node/` with `initHighlightNode`, middleware, and edge helpers (no-op fallback for Deno/Edge).
+- Updated backend edge function (`enrichment-cobalt`) to use `withHighlightEdge` for error capture and future trace support.
+- This enables portable, full-stack observability and session correlation for agents and Supabase Edge Functions.
+
 # 2025-10-31: VS Code Task Shims for Agent Reports Sync & Provenance Refresh
 
 - Added `.vscode/tasks.json` shims for new Taskfile targets: `reports_sync` and `provenance_refresh`.

@@ -1,3 +1,8 @@
+# 2025-10-31: Highlight Node Helper Integration
+
+- Added `dev-tools/observability/highlight-node/` and wired `enrichment-cobalt` edge function to use `withHighlightEdge` for error capture and trace forwarding.
+- Validated no-op fallback in Deno/Edge; ready for future Node/agent integration and Highlight trace validation.
+
 # 2025-10-31: Agent Reports Sync & Provenance Refresh Automation
 
 - Added Taskfile targets and VS Code shims for `reports_sync` and `provenance_refresh`.
