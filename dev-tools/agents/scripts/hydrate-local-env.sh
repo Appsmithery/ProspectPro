@@ -9,7 +9,7 @@ trap 'rm -f "$tmp"' EXIT
 
 
 # Use npx for all CLIs for portability
-VERCEL_TOKEN_ENV="${VERCEL_TOKEN:-${CI_VERCEL_TOKEN:-}}"
+VERCEL_TOKEN_ENV="${VERCEL_TOKEN}
 if [[ -z "$VERCEL_TOKEN_ENV" ]]; then
   echo "❌ VERCEL_TOKEN or CI_VERCEL_TOKEN is not set. Export it before running." >&2
   exit 1
@@ -49,6 +49,7 @@ fi
 
 
 echo "VERCEL_TOKEN=$VERCEL_TOKEN_ENV" >>"$tmp"
+
 
 
 sort -u "$tmp" >"$ENV_FILE"
