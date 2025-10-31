@@ -7,37 +7,27 @@ vars:
   SYSTEM_ARCH_DIR: dev-tools/agents/_system-architect
 
 tasks:
-  agents:test:unit:
-    desc: Run unit tests across all agent profiles
+  tests:unit:
+    desc: Run all unit tests in app/tests/unit
     cmds:
-      - task -d {{.DEV_WORKFLOW_DIR}} test:unit
-      - task -d {{.OBSERVABILITY_DIR}} test:unit
-      - task -d {{.PRODUCTION_OPS_DIR}} test:unit
-      - task -d {{.SYSTEM_ARCH_DIR}} test:unit
+      - npx vitest run app/tests/unit
 
-  agents:test:integration:
-    desc: Run integration tests across all agent profiles
+  tests:integration:
+    desc: Run all integration tests in app/tests/integration
     cmds:
-      - task -d {{.DEV_WORKFLOW_DIR}} test:integration
-      - task -d {{.OBSERVABILITY_DIR}} test:integration
-      - task -d {{.PRODUCTION_OPS_DIR}} test:integration
-      - task -d {{.SYSTEM_ARCH_DIR}} test:integration
+      - npx vitest run app/tests/integration
 
-  agents:test:e2e:
-    desc: Run Playwright E2E suites for all agent profiles
+  tests:e2e:
+    desc: Run all E2E tests in app/tests/e2e
     cmds:
-      - task -d {{.DEV_WORKFLOW_DIR}} test:e2e
-      - task -d {{.OBSERVABILITY_DIR}} test:e2e
-      - task -d {{.PRODUCTION_OPS_DIR}} test:e2e
-      - task -d {{.SYSTEM_ARCH_DIR}} test:e2e
+      - npx playwright test app/tests/e2e
 
-  agents:test:full:
-    desc: Run full test matrix for all agent profiles
-    cmds:
-      - task -d {{.DEV_WORKFLOW_DIR}} test:full
-      - task -d {{.OBSERVABILITY_DIR}} test:full
-      - task -d {{.PRODUCTION_OPS_DIR}} test:full
-      - task -d {{.SYSTEM_ARCH_DIR}} test:full
+  tests:full:
+    desc: Run all tests (unit, integration, E2E)
+    deps:
+      - tests:unit
+      - tests:integration
+      - tests:e2e
 
   agents:reports:sync:
     desc: Sync agent reports for all profiles

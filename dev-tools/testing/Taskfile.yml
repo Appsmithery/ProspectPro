@@ -5,39 +5,27 @@ vars:
   REPORTS_DIR: ./reports
 
 tasks:
-  agents:test:unit:
-    desc: Run all agent unit tests (Vitest)
+  tests:unit:
+    desc: Run all unit tests in app/tests/unit (Vitest)
     cmds:
-      - npx vitest --config {{.VITEST_CONFIG}} run agents/unit
-    sources:
-      - agents/**/unit/**/*.test.ts
-    generates:
-      - "{{.REPORTS_DIR}}/coverage/*"
+      - npx vitest run ../../app/tests/unit
 
-  agents:test:integration:
-    desc: Run all agent integration tests (Vitest)
+  tests:integration:
+    desc: Run all integration tests in app/tests/integration (Vitest)
     cmds:
-      - npx vitest --config {{.VITEST_CONFIG}} run agents/integration
-    sources:
-      - agents/**/integration/**/*.test.ts
-    generates:
-      - "{{.REPORTS_DIR}}/coverage/*"
+      - npx vitest run ../../app/tests/integration
 
-  agents:test:e2e:
-    desc: Run all agent E2E tests (Playwright)
+  tests:e2e:
+    desc: Run all E2E tests in app/tests/e2e (Playwright)
     cmds:
-      - npx playwright test --config {{.PLAYWRIGHT_CONFIG}}
-    sources:
-      - agents/**/e2e/**/*.spec.ts
-    generates:
-      - "{{.REPORTS_DIR}}/playwright/*"
+      - npx playwright test ../../app/tests/e2e
 
-  agents:test:full:
-    desc: Run all agent tests (unit, integration, E2E)
+  tests:full:
+    desc: Run all tests (unit, integration, E2E)
     deps:
-      - agents:test:unit
-      - agents:test:integration
-      - agents:test:e2e
+      - tests:unit
+      - tests:integration
+      - tests:e2e
 
   agents:test:watch:
     desc: Watch all agent unit/integration tests (Vitest)
@@ -80,17 +68,6 @@ tasks:
       - npm run docs:update
       - echo "Provenance and inventories refreshed."
 # Synchronize all agent reports to canonical reports directory
-reports:sync:
-  desc: Sync all agent reports to dev-tools/reports
-  cmds:
-    - rsync -a ./reports/ ../../reports/
-
-# Refresh provenance and inventory files
-provenance:refresh:
-  desc: Refresh provenance and inventory files (docs:update, inventories)
-  cmds:
-    - npm run docs:update
-    - echo "Provenance and inventories refreshed."
 # Per-agent Taskfiles should be placed in dev-tools/testing/agents/<agent>/Taskfile.yml
 # Example agent Taskfile:
 # version: '3'
