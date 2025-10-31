@@ -75,6 +75,9 @@
 - **Production/staging secrets:** Managed via Vercel and Supabase dashboards; never stored in the repo. Staging/production inherit Highlight and other credentials from Vercel environment groups.
 - **Troubleshooting:** If validation fails, ensure `.env.agent.local` exists and is hydrated. For new secrets, update `.env.example` and the hydration script as needed.
 
+**Deno/Supabase Edge Test Hydration:**
+For Deno-based Supabase Edge tests (see `app/tests/deno`), you must provide `SUPABASE_SESSION_JWT` in your `.env.local` (or export it manually) before running tests. See `dev-tools/scripts/testing/README-deno-env.md` for details and the export script. This is not hydrated by Vercel by default.
+
 ## Copilot Response Guidelines
 
 1. Assume the team understands the production architecture; focus on actionable fixes.
