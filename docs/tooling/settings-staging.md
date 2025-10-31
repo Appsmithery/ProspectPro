@@ -1,3 +1,8 @@
+# 2025-10-31: VS Code Task Shims for Agent Testing
+
+- Updated `.vscode/tasks.json` to run `task -d dev-tools/testing agents:*` for lint, unit, integration, e2e, full, watch, and coverage targets.
+- Added a Task CLI shim for `task -d dev-tools/testing reports:clean` to replace the legacy npm cleanup script.
+
 # 2025-10-31: Agent Test Orchestration – Task CLI Migration
 
 - Migrated all agent test orchestration tasks in `.vscode/tasks.json` (unit, integration, e2e, full, watch, coverage, lint, clean) to use direct Task CLI wrappers (`task agents:test:<target> -d dev-tools/testing`).

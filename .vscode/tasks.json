@@ -76,6 +76,112 @@
       "problemMatcher": []
     },
     {
+      "label": "Agents: Lint",
+      "type": "shell",
+      "command": "task",
+      "args": ["-d", "dev-tools/testing", "agents:lint"],
+      "group": "test",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Agents: Test Unit",
+      "type": "shell",
+      "command": "task",
+      "args": ["-d", "dev-tools/testing", "agents:test:unit"],
+      "group": "test",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Agents: Test Integration",
+      "type": "shell",
+      "command": "task",
+      "args": ["-d", "dev-tools/testing", "agents:test:integration"],
+      "group": "test",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Agents: Test E2E",
+      "type": "shell",
+      "command": "task",
+      "args": ["-d", "dev-tools/testing", "agents:test:e2e"],
+      "group": "test",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Agents: Test Full",
+      "type": "shell",
+      "command": "task",
+      "args": ["-d", "dev-tools/testing", "agents:test:full"],
+      "group": "test",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Agents: Test Watch",
+      "type": "shell",
+      "command": "task",
+      "args": ["-d", "dev-tools/testing", "agents:test:watch"],
+      "group": "test",
+      "isBackground": true,
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "dedicated"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Agents: Test Coverage",
+      "type": "shell",
+      "command": "task",
+      "args": ["-d", "dev-tools/testing", "agents:test:coverage"],
+      "group": "test",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Agents: Clean Reports",
+      "type": "shell",
+      "command": "task",
+      "args": ["-d", "dev-tools/testing", "reports:clean"],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
       "label": "Deploy: Full Automated Frontend",
       "type": "shell",
       "command": "npm run lint && npm test && npm run build && npx --yes vercel@latest --prod --confirm --scope appsmithery --project prospect-pro --cwd dist",
