@@ -2,7 +2,7 @@
 
 > Primary #codebase reference. Regenerate with `npm run docs:update` before audits or deployments.
 
-_Last generated: 2025-10-31T02:10:56.842Z_
+_Last generated: 2025-10-31T02:52:54.358Z_
 
 ## Supabase Edge Functions
 
@@ -28,6 +28,7 @@ _Last generated: 2025-10-31T02:10:56.842Z_
 - [app/backend/functions/_shared/edge-auth-simplified.ts](app/backend/functions/_shared/edge-auth-simplified.ts) — Simplified session verification helper
 - [app/backend/functions/_shared/edge-auth.ts](app/backend/functions/_shared/edge-auth.ts) — Shared Supabase edge authentication
 - [app/backend/functions/_shared/highlight-context.ts](app/backend/functions/_shared/highlight-context.ts) — Shared Supabase utility
+- [app/backend/functions/_shared/highlight-node.ts](app/backend/functions/_shared/highlight-node.ts) — Shared Supabase utility
 - [app/backend/functions/_shared/vault-client.ts](app/backend/functions/_shared/vault-client.ts) — Vault client utilities for secret access
 
 ## Configuration & Policies

@@ -24,5 +24,33 @@
     "runTestsUI": "npx playwright test --ui",
     "generateTest": "npx playwright codegen",
     "showReport": "npx playwright show-report"
-  }
+  },
+  "observability": {
+    "highlight": {
+      "projectId": "kgr09vng",
+      "enabled": true,
+      "environment": "production",
+      "features": {
+        "errorTracking": true,
+        "sessionReplay": false,
+        "performanceMonitoring": true
+      }
+    },
+    "opentelemetry": {
+      "endpoint": "http://localhost:4318/v1/traces",
+      "serviceName": "production-ops-agent"
+    }
+  },
+  "context7_rules": [
+    {
+      "when": [
+        "code generation",
+        "setup",
+        "configuration",
+        "library docs",
+        "API docs"
+      ],
+      "then": "use context7"
+    }
+  ]
 }
