@@ -1,3 +1,9 @@
+# 2025-10-31: VS Code Task Shims for Agent Reports Sync & Provenance Refresh
+
+- Added `.vscode/tasks.json` shims for new Taskfile targets: `reports_sync` and `provenance_refresh`.
+- These tasks invoke `task -d dev-tools/testing reports_sync` and `task -d dev-tools/testing provenance_refresh` directly, ensuring all agent reporting and provenance/inventory refresh workflows are Taskfile-driven.
+- No npm scripts are referenced; all automation is now Task CLI-first for these agent workflows.
+
 # 2025-10-31: VS Code Task Shims for Agent Testing
 
 - Updated `.vscode/tasks.json` to run `task -d dev-tools/testing agents:*` for lint, unit, integration, e2e, full, watch, and coverage targets.

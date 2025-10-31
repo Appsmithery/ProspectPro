@@ -71,3 +71,15 @@ tasks:
     cmds:
       - rm -rf ../reports/coverage/client-service-layer/*
       - rm -rf ../reports/playwright/client-service-layer/*
+
+  reports_sync:
+    desc: Sync client service layer reports to dev-tools/reports
+    cmds:
+      - rsync -a ../reports/coverage/client-service-layer/ ../../../reports/client-service-layer/
+      - rsync -a ../reports/playwright/client-service-layer/ ../../../reports/client-service-layer/
+
+  provenance_refresh:
+    desc: Refresh provenance and inventory files (docs:update, inventories)
+    cmds:
+      - npm run docs:update
+      - echo "Provenance and inventories refreshed."

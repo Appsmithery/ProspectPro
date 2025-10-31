@@ -69,6 +69,28 @@ tasks:
     desc: Open Playwright HTML report
     cmds:
       - npx playwright show-report {{.REPORTS_DIR}}/playwright
+  reports_sync:
+    desc: Sync all agent reports to dev-tools/reports
+    cmds:
+      - rsync -a ./reports/ ../../reports/
+
+  provenance_refresh:
+    desc: Refresh provenance and inventory files (docs:update, inventories)
+    cmds:
+      - npm run docs:update
+      - echo "Provenance and inventories refreshed."
+# Synchronize all agent reports to canonical reports directory
+reports:sync:
+  desc: Sync all agent reports to dev-tools/reports
+  cmds:
+    - rsync -a ./reports/ ../../reports/
+
+# Refresh provenance and inventory files
+provenance:refresh:
+  desc: Refresh provenance and inventory files (docs:update, inventories)
+  cmds:
+    - npm run docs:update
+    - echo "Provenance and inventories refreshed."
 # Per-agent Taskfiles should be placed in dev-tools/testing/agents/<agent>/Taskfile.yml
 # Example agent Taskfile:
 # version: '3'

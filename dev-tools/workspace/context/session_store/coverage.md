@@ -1,3 +1,9 @@
+# 2025-10-31: Agent Reports Sync & Provenance Refresh Automation
+
+- Added Taskfile targets and VS Code shims for `reports_sync` and `provenance_refresh`.
+- Ran `npm run docs:update` to refresh inventories; confirmed all `*-filetree.txt` inventories reflect new Taskfile targets.
+- All agent reporting and provenance/inventory refresh workflows are now Taskfile-driven and reproducible via Task CLI or VS Code tasks.
+
 # 2025-10-31: Task CLI Agent Test Orchestration – Final Validation
 
 - All agent test orchestration in `.vscode/tasks.json` is now Task CLI-driven (no npm shims remain).

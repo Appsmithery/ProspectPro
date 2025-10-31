@@ -67,3 +67,15 @@ tasks:
     cmds:
       - rm -rf ../reports/coverage/mcp-servers/*
       - rm -rf ../reports/playwright/mcp-servers/*
+
+  reports_sync:
+    desc: Sync MCP servers reports to dev-tools/reports
+    cmds:
+      - rsync -a ../reports/coverage/mcp-servers/ ../../../reports/mcp-servers/
+      - rsync -a ../reports/playwright/mcp-servers/ ../../../reports/mcp-servers/
+
+  provenance_refresh:
+    desc: Refresh provenance and inventory files (docs:update, inventories)
+    cmds:
+      - npm run docs:update
+      - echo "Provenance and inventories refreshed."

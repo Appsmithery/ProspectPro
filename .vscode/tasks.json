@@ -89,6 +89,32 @@
       "problemMatcher": []
     },
     {
+      "label": "Agents: Reports Sync",
+      "type": "shell",
+      "command": "task",
+      "args": ["-d", "dev-tools/testing", "reports_sync"],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Agents: Provenance Refresh",
+      "type": "shell",
+      "command": "task",
+      "args": ["-d", "dev-tools/testing", "provenance_refresh"],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
       "label": "Agents: Test Unit",
       "type": "shell",
       "command": "task",

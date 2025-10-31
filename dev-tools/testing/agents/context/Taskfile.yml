@@ -67,3 +67,15 @@ tasks:
     cmds:
       - rm -rf ../reports/coverage/context/*
       - rm -rf ../reports/playwright/context/*
+
+  reports_sync:
+    desc: Sync context agent reports to dev-tools/reports
+    cmds:
+      - rsync -a ../reports/coverage/context/ ../../../reports/context/
+      - rsync -a ../reports/playwright/context/ ../../../reports/context/
+
+  provenance_refresh:
+    desc: Refresh provenance and inventory files (docs:update, inventories)
+    cmds:
+      - npm run docs:update
+      - echo "Provenance and inventories refreshed."
