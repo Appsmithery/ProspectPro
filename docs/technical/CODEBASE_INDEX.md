@@ -2,7 +2,7 @@
 
 > Primary #codebase reference. Regenerate with `npm run docs:update` before audits or deployments.
 
-_Last generated: 2025-10-31T04:59:09.769Z_
+_Last generated: 2025-10-31T05:56:39.730Z_
 
 ## Supabase Edge Functions
 
@@ -12,12 +12,10 @@ _Last generated: 2025-10-31T04:59:09.769Z_
 - [app/backend/functions/business-discovery-user-aware/index.ts](app/backend/functions/business-discovery-user-aware/index.ts) — Legacy synchronous discovery maintained for compatibility
 - [app/backend/functions/campaign-export/index.ts](app/backend/functions/campaign-export/index.ts) — Internal automation export handler
 - [app/backend/functions/campaign-export-user-aware/index.ts](app/backend/functions/campaign-export-user-aware/index.ts) — User-authorised campaign export function
-- [app/backend/functions/enrichment-business-license/index.ts](app/backend/functions/enrichment-business-license/index.ts) — Professional licensing enrichment module
 - [app/backend/functions/enrichment-cobalt/index.ts](app/backend/functions/enrichment-cobalt/index.ts) — Cobalt SOS enrichment connector
 - [app/backend/functions/enrichment-hunter/index.ts](app/backend/functions/enrichment-hunter/index.ts) — Hunter.io discovery and caching wrapper
 - [app/backend/functions/enrichment-neverbounce/index.ts](app/backend/functions/enrichment-neverbounce/index.ts) — NeverBounce verification helper
 - [app/backend/functions/enrichment-orchestrator/index.ts](app/backend/functions/enrichment-orchestrator/index.ts) — Primary enrichment coordinator orchestrating downstream providers
-- [app/backend/functions/enrichment-pdl/index.ts](app/backend/functions/enrichment-pdl/index.ts) — People Data Labs enrichment integration
 - [app/backend/functions/example-function/index.ts](app/backend/functions/example-function/index.ts) — Supabase Edge Function module
 
 ## Shared Edge Utilities

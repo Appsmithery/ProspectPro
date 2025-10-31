@@ -12,12 +12,10 @@ app/backend/functions/business-discovery-optimized/index.ts
 app/backend/functions/business-discovery-user-aware/index.ts
 app/backend/functions/campaign-export-user-aware/index.ts
 app/backend/functions/campaign-export/index.ts
-app/backend/functions/enrichment-business-license/index.ts
 app/backend/functions/enrichment-cobalt/index.ts
 app/backend/functions/enrichment-hunter/index.ts
 app/backend/functions/enrichment-neverbounce/index.ts
 app/backend/functions/enrichment-orchestrator/index.ts
-app/backend/functions/enrichment-pdl/index.ts
 app/backend/functions/example-function/index.ts
 
 app/backend/functions/_shared/api-usage.ts

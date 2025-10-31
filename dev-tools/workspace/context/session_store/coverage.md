@@ -601,3 +601,12 @@ ev## 2025-10-23: Codespaces Bootstrap Realignment
 - Added/updated Vitest and Playwright config wrappers for agents
 - Expanded setup.ts with deterministic seeding and Highlight node bootstrapping
 - Refreshed documentation and inventories
+
+## $(date +%Y-%m-%d): Unified Test Rollout & Deno Integration
+
+- Executed `dev-tools/scripts/automation/execute-testing-rollout.sh`
+- Taskfiles regenerated; all suites scaffolded and run (unit, integration, deno, e2e)
+- Supabase Deno tests migrated to app/tests/deno; legacy function folders removed
+- Vitest + Playwright + Deno reports stored in dev-tools/testing/reports/
+- Inventories refreshed via `npm run docs:update`
+- Next: stage .vscode updates in docs/tooling/settings-staging.md if modified
