@@ -1,3 +1,11 @@
+# 2025-10-31: Task CLI Agent Test Orchestration – Final Validation
+
+- All agent test orchestration in `.vscode/tasks.json` is now Task CLI-driven (no npm shims remain).
+- Ran `npm run docs:update` to refresh documentation and inventories; all `*-filetree.txt` inventories are up to date.
+- Ran `task -d dev-tools/testing agents:test:full` and confirmed all agent/unit/integration tests pass and coverage is reported.
+- All changes align with the staged plan in `settings-staging.md` and the automation plan in `automated-tooling-update.md`.
+- This completes the migration to portable, reproducible, automation-first agent testing and documentation workflows.
+
 ## 2025-10-29: Taskfile Integration Validation & Inventory Refresh
 
 - Ran `npm run docs:update` and `npm run repo:scan` to refresh documentation and inventories. All inventory files updated successfully.
