@@ -205,7 +205,7 @@
     "Github.copilot",
     "Github.copilot.chat"
   ],
-  "github.copilot.nextEditSuggestions.enabled": false,
+  "github.copilot.nextEditSuggestions.enabled": true,
   "github.copilot.chat.agent.thinkingTool": true,
   "github.copilot.chat.alternateGptPrompt.enabled": true,
   "github.copilot.chat.editor.temporalContext.enabled": true,
