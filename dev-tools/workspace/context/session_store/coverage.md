@@ -610,3 +610,24 @@ ev## 2025-10-23: Codespaces Bootstrap Realignment
 - Vitest + Playwright + Deno reports stored in dev-tools/testing/reports/
 - Inventories refreshed via `npm run docs:update`
 - Next: stage .vscode updates in docs/tooling/settings-staging.md if modified
+
+# 2025-10-31: Testing Implementation Confirmation & Progress Log
+
+## Phase: Integration & E2E Expansion
+
+- Backend unit test for CacheManager: **complete** (see dev-tools/testing/agents/client-service-layer/unit/cache-manager.test.ts)
+- Frontend integration test for BusinessDiscovery: **complete** (see app/tests/integration/business-discovery.integration.test.ts)
+- E2E Playwright test for business discovery flow: **in progress** (scaffolded, running cross-browser, see app/tests/e2e/business-discovery.spec.ts)
+- Deno test for Supabase cache endpoint: **pending**
+
+**Validation:**
+
+- All completed tests pass under Taskfile and npm runner orchestration.
+- Coverage and Playwright reports are generated in dev-tools/testing/reports/.
+- Task CLI (`task agents:test:full`) and VS Code shims validated.
+
+**Next:**
+
+- Finalize E2E Playwright test for business discovery flow.
+- Implement and validate Deno test for Supabase cache endpoint.
+- Continue to log provenance and update inventories after each phase.

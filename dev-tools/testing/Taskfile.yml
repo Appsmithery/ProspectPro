@@ -1,3 +1,9 @@
+  agents:test:full:
+    desc: Run all agent tests (unit, integration, e2e)
+    deps:
+      - tests:unit
+      - tests:integration
+      - tests:e2e
 version: "3"
 vars:
   VITEST_CONFIG: ./configs/vitest.agents.config.ts
@@ -39,20 +45,20 @@ tasks:
     generates:
       - "{{.REPORTS_DIR}}/coverage/*"
 
-  agents:test:lint:
-    desc: Lint all agent test code
-    cmds:
-      - npx eslint agents/**/*.ts
-    sources:
-      - agents/**/*.ts
-
-  agents:test:clean:
-    desc: Clean all agent test reports
-    cmds:
-      - rm -rf {{.REPORTS_DIR}}/*
-    generates:
       - "{{.REPORTS_DIR}}/*"
+version: "3"
+vars:
+  VITEST_CONFIG: ./configs/vitest.agents.config.ts
+  PLAYWRIGHT_CONFIG: ./configs/playwright.agents.config.ts
+  REPORTS_DIR: ./reports
 
+
+  agents:test:full:
+    desc: Run all agent tests (unit, integration, e2e)
+    deps:
+      - tests:unit
+      - tests:integration
+      - tests:e2e
   reports:open:
     desc: Open Playwright HTML report
     cmds:
