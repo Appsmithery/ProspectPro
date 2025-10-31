@@ -1,0 +1,13 @@
+# MCP Client Rule: Auto-invoke Context7
+
+# Always use Context7 for any code generation, setup, configuration, or library/API documentation request.
+
+# This ensures up-to-date, version-specific docs and code examples are included automatically.
+
+rule:
+when: code generation | setup | configuration | library docs | API docs
+then: use context7
+
+# Example: For any prompt involving code, setup, or docs, Context7 MCP tools will be invoked automatically.
+
+# You can further customize this rule to match your workflow or client.
