@@ -1,3 +1,36 @@
+# 2025-10-31: Automated Test Audit & Agent Test Tree Proposal
+
+## Audit Summary
+
+- Ran automated inventory: all `*.test.*`/`*.spec.*` files mapped to `dev-tools/reports/testing/test-inventory.json`.
+- Coverage run completed for business-layer tests; 10 test files, 32 tests, all passed, but coverage report shows 0% (likely config or source mapping issue; needs follow-up).
+- Most test files are in dev-tools/testing/agents/_, app/frontend/src/utils/**tests**/_, and dev-tools/agents/client-service-layer/**tests**/\*.
+- Placeholder/boilerplate tests (e.g., mcp-servers) exist; some dev-tools and integration tests are not strictly required for application validation.
+- Node_modules and third-party package tests are present in the inventory and should be excluded from future audits.
+
+## Next Actions
+
+- [ ] Prune or relocate non-essential dev-tools/integration tests to `dev-tools/testing/agents/<profile>/validation/`.
+- [ ] Move all business logic and workflow tests to `app/tests/{unit,integration,e2e}` as per the recommended agent-oriented test tree.
+- [ ] Update agent Taskfiles to point to the new `app/tests` hierarchy for all core test runs.
+- [ ] Exclude node_modules and third-party package tests from inventory and coverage.
+- [ ] Investigate and fix 0% coverage reporting (likely due to config or source mapping).
+- [ ] Continue to keep only minimal validation runners in dev-tools/integration; all other tests should be application-focused.
+
+## Proposed Agent-Oriented Test Tree
+
+```
+app/tests/
+├── unit/                # Business logic specs (Vitest)
+├── integration/         # Supabase + API boundary checks
+├── e2e/                 # Playwright user journeys
+├── fixtures/            # Shared test data/mocks
+└── utils/               # Helpers & setup (Highlight, env bootstrap)
+```
+
+Agents keep minimal dev-tools validation under `dev-tools/testing/agents/<profile>/validation/`.
+Each agent Taskfile points to the standardized `app/tests` hierarchy, while agent-specific harnesses remain within profile directories for portability.
+
 # 2025-10-31: Agent Taskfile Migration
 
 - Removed `dev-tools/testing/Taskfile.yml` and legacy per-suite Taskfiles so `dev-tools/testing` contains only test sources.
