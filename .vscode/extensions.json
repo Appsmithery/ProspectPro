@@ -20,7 +20,8 @@
     "supabase.vscode-supabase-extension",
     "antfu.vite",
     "huggingface.huggingface-vscode-chat",
-    "chrisdias.promptboost"
+    "chrisdias.promptboost",
+    "vira.vsc-vira-theme"
   ],
   "unwantedRecommendations": [
     "ms-mssql.mssql",
