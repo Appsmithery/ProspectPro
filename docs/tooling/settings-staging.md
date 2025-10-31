@@ -1,3 +1,11 @@
+# 2025-10-31: Agent Taskfile Relocation & VS Code Shim Update
+
+- Removed `dev-tools/testing/Taskfile.yml` and all per-suite Taskfiles so the testing tree only holds test assets.
+- Added shared helper `dev-tools/agents/Taskfile.base.yml` and new Taskfiles under each agent profile to orchestrate Highlight bootstrap, env validation, and Vitest/Playwright runs.
+- Updated root `Taskfile.yml` to expose `agents:test:{unit,integration,e2e,full}`, report sync/clean, and provenance helpers that dispatch to the profile Taskfiles.
+- Refreshed `.vscode/tasks.json` to call the new root Task targets (`task agents:...`) and removed watch/coverage shims tied to the deleted testing Taskfile.
+- NPM scripts `test:agents*` now call the root Taskfile targets so CLI and editor flows stay aligned with the portable agent Taskfiles.
+
 # 2025-10-31: Highlight Node Helper Rollout
 
 - Scaffolded `dev-tools/observability/highlight-node/` with `initHighlightNode`, middleware, and edge helpers (no-op fallback for Deno/Edge).
@@ -6,9 +14,9 @@
 
 # 2025-10-31: VS Code Task Shims for Agent Reports Sync & Provenance Refresh
 
-- Added `.vscode/tasks.json` shims for new Taskfile targets: `reports_sync` and `provenance_refresh`.
-- These tasks invoke `task -d dev-tools/testing reports_sync` and `task -d dev-tools/testing provenance_refresh` directly, ensuring all agent reporting and provenance/inventory refresh workflows are Taskfile-driven.
-- No npm scripts are referenced; all automation is now Task CLI-first for these agent workflows.
+- Added `.vscode/tasks.json` shims for the agent report sync/provenance tasks.
+- These tasks now invoke `task agents:reports:sync` and `task agents:provenance:refresh`, ensuring all agent reporting and provenance/inventory refresh workflows are Task CLI-driven.
+- No npm scripts are referenced; all automation is Task CLI-first for these agent workflows.
 
 # 2025-10-31: VS Code Task Shims for Agent Testing
 
@@ -17,10 +25,10 @@
 
 # 2025-10-31: Agent Test Orchestration – Task CLI Migration
 
-- Migrated all agent test orchestration tasks in `.vscode/tasks.json` (unit, integration, e2e, full, watch, coverage, lint, clean) to use direct Task CLI wrappers (`task agents:test:<target> -d dev-tools/testing`).
+- Migrated all agent test orchestration tasks in `.vscode/tasks.json` (unit, integration, e2e, full) to use root Task CLI wrappers (`task agents:test:<target>`), replacing the previous `dev-tools/testing` Taskfile delegates.
 - Removed all legacy npm script references for agent test runs from `.vscode/tasks.json`.
 - This ensures all agent test runs are now Taskfile-driven, matching the canonical automation-first workflow and enabling portable, reproducible test execution.
-- See `dev-tools/testing/Taskfile.yml` for authoritative task definitions.
+- See `dev-tools/agents/Taskfile.base.yml` plus per-profile Taskfiles for authoritative task definitions.
 - All changes staged here for review; inventories and provenance will be updated after validation.
 
 ## 2025-10-29: Taskfile Integration for Agent Testing

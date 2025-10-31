@@ -9,10 +9,10 @@ Deliver a portable, automation-first testing stack where every canonical agent t
 ## Phase 0 · Baseline Validation
 
 | Step | Action                                                                | Outputs                               |
-| ---- | --------------------------------------------------------------------- | ------------------------------------- | ----- | ------------------------------------------- |
+| ---- | --------------------------------------------------------------------- | ------------------------------------- | ------------------------------------------- |
 | 0.1  | `npm run repo:scan`                                                   | `repo-tree-summary.txt`, domain trees |
 | 0.2  | Snapshot current Task CLI targets: `task -d dev-tools/testing --list` | Baseline task inventory               |
-| 0.3  | Run smoke: `task -d dev-tools/testing agents:test:full                |                                       | true` | Capture existing Vitest/Playwright failures |
+| 0.3  | Run smoke: `task agents:test:full`                                    | true                                  | Capture existing Vitest/Playwright failures |
 | 0.4  | Log baseline in `coverage.md` (summary + current failures)            | Provenance seed                       |
 
 **Agent prompt (Development Workflow)**
@@ -69,7 +69,7 @@ Deliver a portable, automation-first testing stack where every canonical agent t
 ## Phase 5 · Automation & Telemetry
 
 1. Update `package.json` scripts:
-   - `"test:agents"` → `task -d dev-tools/testing agents:test:full`
+   - `"test:agents"` → `task agents:test:full`
    - Add unit/e2e/watch shims.
 2. Confirm Highlight node helper (`dev-tools/observability/highlight-node/`) is initialised conditionally in setup.
 3. Ensure Task targets call `npm run docs:update` and `npm run repo:scan` when `agents:test:full` succeeds.
@@ -88,13 +88,13 @@ Deliver a portable, automation-first testing stack where every canonical agent t
 
 ## Validation Matrix
 
-| Validation       | Command                                      | Expected Result                          |
-| ---------------- | -------------------------------------------- | ---------------------------------------- |
-| Task CLI list    | `task -d dev-tools/testing --list`           | New targets visible                      |
-| Unit tests       | `task -d dev-tools/testing agents:test:unit` | Vitest green                             |
-| E2E tests        | `task -d dev-tools/testing agents:test:e2e`  | Playwright green                         |
-| Full suite       | `npm run test:agents`                        | All pipelines pass, reports generated    |
-| Docs/inventories | `npm run docs:update`                        | Inventories refreshed without diff noise |
+| Validation       | Command                            | Expected Result                          |
+| ---------------- | ---------------------------------- | ---------------------------------------- |
+| Task CLI list    | `task -d dev-tools/testing --list` | New targets visible                      |
+| Unit tests       | `task agents:test:unit`            | Vitest green                             |
+| E2E tests        | `task agents:test:e2e`             | Playwright green                         |
+| Full suite       | `npm run test:agents`              | All pipelines pass, reports generated    |
+| Docs/inventories | `npm run docs:update`              | Inventories refreshed without diff noise |
 
 ---
 

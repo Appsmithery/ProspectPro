@@ -1,0 +1,70 @@
+version: "3"
+
+vars:
+  DEV_WORKFLOW_DIR: dev-tools/agents/_development-workflow
+  OBSERVABILITY_DIR: dev-tools/agents/_observability
+  PRODUCTION_OPS_DIR: dev-tools/agents/_production-ops
+  SYSTEM_ARCH_DIR: dev-tools/agents/_system-architect
+
+tasks:
+  agents:test:unit:
+    desc: Run unit tests across all agent profiles
+    cmds:
+      - task -d {{.DEV_WORKFLOW_DIR}} test:unit
+      - task -d {{.OBSERVABILITY_DIR}} test:unit
+      - task -d {{.PRODUCTION_OPS_DIR}} test:unit
+      - task -d {{.SYSTEM_ARCH_DIR}} test:unit
+
+  agents:test:integration:
+    desc: Run integration tests across all agent profiles
+    cmds:
+      - task -d {{.DEV_WORKFLOW_DIR}} test:integration
+      - task -d {{.OBSERVABILITY_DIR}} test:integration
+      - task -d {{.PRODUCTION_OPS_DIR}} test:integration
+      - task -d {{.SYSTEM_ARCH_DIR}} test:integration
+
+  agents:test:e2e:
+    desc: Run Playwright E2E suites for all agent profiles
+    cmds:
+      - task -d {{.DEV_WORKFLOW_DIR}} test:e2e
+      - task -d {{.OBSERVABILITY_DIR}} test:e2e
+      - task -d {{.PRODUCTION_OPS_DIR}} test:e2e
+      - task -d {{.SYSTEM_ARCH_DIR}} test:e2e
+
+  agents:test:full:
+    desc: Run full test matrix for all agent profiles
+    cmds:
+      - task -d {{.DEV_WORKFLOW_DIR}} test:full
+      - task -d {{.OBSERVABILITY_DIR}} test:full
+      - task -d {{.PRODUCTION_OPS_DIR}} test:full
+      - task -d {{.SYSTEM_ARCH_DIR}} test:full
+
+  agents:reports:sync:
+    desc: Sync agent reports for all profiles
+    cmds:
+      - task -d {{.DEV_WORKFLOW_DIR}} reports:sync
+      - task -d {{.OBSERVABILITY_DIR}} reports:sync
+      - task -d {{.PRODUCTION_OPS_DIR}} reports:sync
+      - task -d {{.SYSTEM_ARCH_DIR}} reports:sync
+
+  agents:reports:clean:
+    desc: Clean agent report directories for all profiles
+    cmds:
+      - task -d {{.DEV_WORKFLOW_DIR}} reports:clean
+      - task -d {{.OBSERVABILITY_DIR}} reports:clean
+      - task -d {{.PRODUCTION_OPS_DIR}} reports:clean
+      - task -d {{.SYSTEM_ARCH_DIR}} reports:clean
+
+  agents:env:validate:
+    desc: Ensure each agent profile has the required environment file
+    cmds:
+      - task -d {{.DEV_WORKFLOW_DIR}} env:validate
+      - task -d {{.OBSERVABILITY_DIR}} env:validate
+      - task -d {{.PRODUCTION_OPS_DIR}} env:validate
+      - task -d {{.SYSTEM_ARCH_DIR}} env:validate
+
+  agents:provenance:refresh:
+    desc: Refresh inventories and sync agent reports
+    cmds:
+      - npm run docs:update
+      - task: agents:reports:sync

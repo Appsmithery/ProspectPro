@@ -1,0 +1,78 @@
+version: "3"
+
+vars:
+	ROOT_DIR: ../../..
+	AGENT_ID: production-ops
+	REPORTS_DIR: ../../testing/reports/production-ops
+	REPORTS_DEST: ../../reports/agents/production-ops
+	HIGHLIGHT_DIR: ../../observability/highlight-node
+	ENV_FILE: ../.env.agent.local
+	VITEST_CONFIG: dev-tools/testing/configs/vitest.agents.config.ts
+	PLAYWRIGHT_CONFIG: dev-tools/testing/configs/playwright.agents.config.ts
+	UNIT_TARGETS: dev-tools/testing/agents/client-service-layer/unit dev-tools/testing/agents/mcp-servers/unit
+	INTEGRATION_TARGETS: dev-tools/testing/agents/client-service-layer/integration dev-tools/testing/agents/mcp-servers/integration
+	E2E_TARGETS: dev-tools/testing/agents/client-service-layer/e2e dev-tools/testing/agents/mcp-servers/e2e
+
+includes:
+	common:
+		taskfile: ../Taskfile.base.yml
+		vars:
+			ROOT_DIR: "{{.ROOT_DIR}}"
+			REPORTS_DIR: "{{.REPORTS_DIR}}"
+			REPORTS_DEST: "{{.REPORTS_DEST}}"
+			HIGHLIGHT_DIR: "{{.HIGHLIGHT_DIR}}"
+			ENV_FILE: "{{.ENV_FILE}}"
+			AGENT_ID: "{{.AGENT_ID}}"
+
+tasks:
+	init:highlight:
+		desc: Build Highlight helper before running production operations workflows
+		cmds:
+			- task: common:init:highlight
+
+	env:validate:
+		desc: Ensure agent environment file exists
+		cmds:
+			- task: common:env:validate
+
+	reports:clean:
+		desc: Clear generated reports for the production ops agent
+		cmds:
+			- task: common:scripts:clean
+
+	reports:sync:
+		desc: Sync production ops agent reports to the canonical directory
+		cmds:
+			- task: common:reports:sync
+
+	test:unit:
+		desc: Run unit tests for production operations guardrails
+		cmds:
+			- task: init:highlight
+			- task: env:validate
+			- cmd: npx vitest --config {{.VITEST_CONFIG}} run {{.UNIT_TARGETS}}
+				dir: "{{.ROOT_DIR}}"
+
+	test:integration:
+		desc: Run integration tests for production operations guardrails
+		cmds:
+			- task: init:highlight
+			- task: env:validate
+			- cmd: npx vitest --config {{.VITEST_CONFIG}} run {{.INTEGRATION_TARGETS}}
+				dir: "{{.ROOT_DIR}}"
+
+	test:e2e:
+		desc: Run Playwright E2E suites covering production operations workflows
+		cmds:
+			- task: init:highlight
+			- task: env:validate
+			- cmd: npx playwright test {{.E2E_TARGETS}} --config {{.PLAYWRIGHT_CONFIG}} --reporter=line
+				dir: "{{.ROOT_DIR}}"
+
+	test:full:
+		desc: Run unit, integration, and E2E tests then sync reports
+		cmds:
+			- task: test:unit
+			- task: test:integration
+			- task: test:e2e
+			- task: reports:sync

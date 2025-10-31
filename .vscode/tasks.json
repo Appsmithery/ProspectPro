@@ -105,7 +105,7 @@
       "label": "Agents: Provenance Refresh",
       "type": "shell",
       "command": "task",
-      "args": ["-d", "dev-tools/testing", "provenance_refresh"],
+      "args": ["agents:provenance:refresh"],
       "group": "build",
       "presentation": {
         "echo": true,
@@ -118,7 +118,7 @@
       "label": "Agents: Test Unit",
       "type": "shell",
       "command": "task",
-      "args": ["-d", "dev-tools/testing", "agents:test:unit"],
+      "args": ["agents:test:unit"],
       "group": "test",
       "presentation": {
         "echo": true,
@@ -131,7 +131,7 @@
       "label": "Agents: Test Integration",
       "type": "shell",
       "command": "task",
-      "args": ["-d", "dev-tools/testing", "agents:test:integration"],
+      "args": ["agents:test:integration"],
       "group": "test",
       "presentation": {
         "echo": true,
@@ -144,7 +144,7 @@
       "label": "Agents: Test E2E",
       "type": "shell",
       "command": "task",
-      "args": ["-d", "dev-tools/testing", "agents:test:e2e"],
+      "args": ["agents:test:e2e"],
       "group": "test",
       "presentation": {
         "echo": true,
@@ -157,35 +157,7 @@
       "label": "Agents: Test Full",
       "type": "shell",
       "command": "task",
-      "args": ["-d", "dev-tools/testing", "agents:test:full"],
-      "group": "test",
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "panel": "shared"
-      },
-      "problemMatcher": []
-    },
-    {
-      "label": "Agents: Test Watch",
-      "type": "shell",
-      "command": "task",
-      "args": ["-d", "dev-tools/testing", "agents:test:watch"],
-      "group": "test",
-      "isBackground": true,
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": false,
-        "panel": "dedicated"
-      },
-      "problemMatcher": []
-    },
-    {
-      "label": "Agents: Test Coverage",
-      "type": "shell",
-      "command": "task",
-      "args": ["-d", "dev-tools/testing", "agents:test:coverage"],
+      "args": ["agents:test:full"],
       "group": "test",
       "presentation": {
         "echo": true,
@@ -198,7 +170,7 @@
       "label": "Agents: Clean Reports",
       "type": "shell",
       "command": "task",
-      "args": ["-d", "dev-tools/testing", "reports:clean"],
+      "args": ["agents:reports:clean"],
       "group": "build",
       "presentation": {
         "echo": true,

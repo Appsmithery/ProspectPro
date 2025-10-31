@@ -1,3 +1,10 @@
+# 2025-10-31: Agent Taskfile Migration
+
+- Removed `dev-tools/testing/Taskfile.yml` and legacy per-suite Taskfiles so `dev-tools/testing` contains only test sources.
+- Added `dev-tools/agents/Taskfile.base.yml` plus new Taskfiles for `_development-workflow`, `_observability`, `_production-ops`, and `_system-architect` to wrap Highlight bootstrap, env validation, and Vitest/Playwright orchestration.
+- Updated root `Taskfile.yml`, `.vscode/tasks.json`, and npm shims to route through the new profile-scoped tasks; synced reports now land in `dev-tools/reports/agents/<profile>`.
+- Follow-up: validate with `task agents:test:full` after hydrating `.env.agent.local`.
+
 # 2025-10-31: Highlight Node Helper Integration
 
 - Added `dev-tools/observability/highlight-node/` and wired `enrichment-cobalt` edge function to use `withHighlightEdge` for error capture and trace forwarding.
@@ -13,14 +20,14 @@
 
 - All agent test orchestration in `.vscode/tasks.json` is now Task CLI-driven (no npm shims remain).
 - Ran `npm run docs:update` to refresh documentation and inventories; all `*-filetree.txt` inventories are up to date.
-- Ran `task -d dev-tools/testing agents:test:full` and confirmed all agent/unit/integration tests pass and coverage is reported.
+- Ran `task agents:test:full` (legacy command: `task -d dev-tools/testing agents:test:full`) and confirmed all agent/unit/integration tests pass and coverage is reported.
 - All changes align with the staged plan in `settings-staging.md` and the automation plan in `automated-tooling-update.md`.
 - This completes the migration to portable, reproducible, automation-first agent testing and documentation workflows.
 
 ## 2025-10-29: Taskfile Integration Validation & Inventory Refresh
 
 - Ran `npm run docs:update` and `npm run repo:scan` to refresh documentation and inventories. All inventory files updated successfully.
-- Ran `task -d dev-tools/testing agents:test:full` to validate Task CLI agent test orchestration:
+- Ran `task agents:test:full` (legacy command: `task -d dev-tools/testing agents:test:full`) to validate Task CLI agent test orchestration:
   - Task CLI invoked all agent test targets (unit, integration, e2e) as expected.
   - Vitest reported: No test files found for both unit and integration (exit code 1).
   - Playwright E2E runner executed, HTML report available via `npx playwright show-report reports/playwright/html`.
