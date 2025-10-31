@@ -64,6 +64,17 @@
 - Update inventories in `dev-tools/workspace/context/session_store/{app-filetree,dev-tools-filetree,integration-filetree}.txt` whenever files move; log provenance in `coverage.md`.
 - After migratory work, run `npm run docs:update` and refresh references in FAST README and platform playbooks.
 
+### Environment & Secrets Management (Canonical Workflow)
+
+- **Primary agent env file:** `dev-tools/agents/.env.agent.local` is the single source of truth for agent secrets and environment variables in local dev and CI. It is gitignored and must never be committed with real secrets. Hydrate it using:
+  - `dev-tools/agents/scripts/hydrate-local-env.sh` (pulls from Vercel/Supabase, requires `VERCEL_TOKEN` and optionally `SUPABASE_PROJECT_REF`)
+  - Or manually add/override variables for local testing (never commit real secrets)
+- **Templates:** `.env.example` provides a reference for required keys and structure.
+- **Frontend/Edge/Other:** Frontend uses `.env.local`, `.env.production`, etc., hydrated via Vercel CLI or `npm run env:pull`. Edge functions and MCP servers read from `.env.agent.local` or injected secrets in CI/CD.
+- **Validation:** Run `dev-tools/agents/scripts/validate-agents.sh` to check all required secrets for each agent persona. Run `npm run validate:ignores` to ensure no secrets or sensitive files are accidentally committed.
+- **Production/staging secrets:** Managed via Vercel and Supabase dashboards; never stored in the repo. Staging/production inherit Highlight and other credentials from Vercel environment groups.
+- **Troubleshooting:** If validation fails, ensure `.env.agent.local` exists and is hydrated. For new secrets, update `.env.example` and the hydration script as needed.
+
 ## Copilot Response Guidelines
 
 1. Assume the team understands the production architecture; focus on actionable fixes.
