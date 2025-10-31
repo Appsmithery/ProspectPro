@@ -4,6 +4,8 @@
   "type": "module",
   "description": "ProspectPro - Verified Business Intelligence Platform",
   "scripts": {
+    "test:deno": "bash dev-tools/scripts/testing/run-deno-tests.sh",
+    "test:scaffold": "node dev-tools/scripts/testing/scaffold-tests.mjs",
     "deploy:staging:alias": "npx vercel@48.6.0 alias set $STAGING_DEPLOY_URL staging.prospectpro.appsmithery.co",
     "env:pull": "npx vercel@48.6.0 env pull .env.local",
     "env:pull:preview": "npx vercel@48.6.0 env pull .env.preview --environment preview",

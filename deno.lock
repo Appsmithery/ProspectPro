@@ -75,6 +75,7 @@
         "npm:@typescript-eslint/eslint-plugin@^8.46.1",
         "npm:@typescript-eslint/parser@^8.46.1",
         "npm:@vitejs/plugin-react@^4.2.1",
+        "npm:@vitest/coverage-v8@^3.2.4",
         "npm:autoprefixer@^10.4.16",
         "npm:clsx@2",
         "npm:dotenv-cli@11",

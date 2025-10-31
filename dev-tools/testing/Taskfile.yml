@@ -67,6 +67,11 @@ tasks:
     cmds:
       - npm run docs:update
       - echo "Provenance and inventories refreshed."
+# Scaffold missing test files and directories
+scaffold_tests:
+  desc: Scaffold missing test files and directories
+  cmds:
+    - node ../scripts/testing/scaffold-tests.mjs
 # Synchronize all agent reports to canonical reports directory
 # Per-agent Taskfiles should be placed in dev-tools/testing/agents/<agent>/Taskfile.yml
 # Example agent Taskfile:
