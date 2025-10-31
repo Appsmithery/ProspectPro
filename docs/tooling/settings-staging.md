@@ -5,6 +5,7 @@
 - This ensures all agent test runs are now Taskfile-driven, matching the canonical automation-first workflow and enabling portable, reproducible test execution.
 - See `dev-tools/testing/Taskfile.yml` for authoritative task definitions.
 - All changes staged here for review; inventories and provenance will be updated after validation.
+
 ## 2025-10-29: Taskfile Integration for Agent Testing
 
 - Added direct Task CLI runners to `.vscode/tasks.json` for all agent test orchestration targets (unit, integration, e2e, full, watch, coverage, lint, clean).
