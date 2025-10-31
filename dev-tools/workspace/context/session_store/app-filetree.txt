@@ -1,173 +1,464 @@
-app/
-|-- backend/
-|   |-- .branches/
-|   |   `-- _current_branch
-|   |-- .temp/
-|   |   |-- cli-latest
-|   |   |-- gotrue-version
-|   |   |-- pooler-url
-|   |   |-- postgres-version
-|   |   |-- project-ref
-|   |   |-- rest-version
-|   |   `-- storage-version
-|   |-- backend
-|   |-- db/
-|   |   |-- schema/
-|   |   |   `-- users.ts
-|   |   |-- client.ts
-|   |   |-- drizzle.config.ts
-|   |   `-- example-crud.ts
-|   |-- functions/
-|   |   |-- _shared/
-|   |   |   |-- api-usage.ts
-|   |   |   |-- cache-manager.ts
-|   |   |   |-- cobalt-cache.ts
-|   |   |   |-- edge-auth-simplified.ts
-|   |   |   |-- edge-auth.ts
-|   |   |   |-- highlight-context.ts
-|   |   |   `-- vault-client.ts
-|   |   |-- auth-diagnostics/
-|   |   |   |-- function.toml
-|   |   |   `-- index.ts
-|   |   |-- business-discovery-background/
-|   |   |   |-- function.toml
-|   |   |   `-- index.ts
-|   |   |-- business-discovery-optimized/
-|   |   |   |-- function.toml
-|   |   |   `-- index.ts
-|   |   |-- business-discovery-user-aware/
-|   |   |   |-- function.toml
-|   |   |   `-- index.ts
-|   |   |-- campaign-export/
-|   |   |   |-- function.toml
-|   |   |   `-- index.ts
-|   |   |-- campaign-export-user-aware/
-|   |   |   |-- function.toml
-|   |   |   `-- index.ts
-|   |   |-- enrichment-business-license/
-|   |   |   |-- function.toml
-|   |   |   `-- index.ts
-|   |   |-- enrichment-cobalt/
-|   |   |   |-- function.toml
-|   |   |   `-- index.ts
-|   |   |-- enrichment-hunter/
-|   |   |   |-- function.toml
-|   |   |   `-- index.ts
-|   |   |-- enrichment-neverbounce/
-|   |   |   |-- function.toml
-|   |   |   `-- index.ts
-|   |   |-- enrichment-orchestrator/
-|   |   |   |-- function.toml
-|   |   |   `-- index.ts
-|   |   |-- enrichment-pdl/
-|   |   |   |-- function.toml
-|   |   |   `-- index.ts
-|   |   |-- example-function/
-|   |   |   |-- function.toml
-|   |   |   `-- index.ts
-|   |   `-- tests/
-|   |       |-- test-google-places/
-|   |       |   |-- function.toml
-|   |       |   `-- index.ts
-|   |       |-- test-new-auth/
-|   |       |   |-- function.toml
-|   |       |   `-- index.ts
-|   |       |-- test-user-deduplication/
-|   |       |   |-- function.toml
-|   |       |   `-- index.ts
-|   |       `-- business-discovery.test.ts
-|   |-- migrations/
-|   |   |-- 20251017175251_remote_schema.sql
-|   |   |-- 20251017180924_install_pgtap.sql
-|   |   |-- 20251017181104_install_pgtap.sql
-|   |   |-- 20251017181118_install_pgtap.sql
-|   |   |-- 20251017181742_remote_schema.sql
-|   |   |-- 20251018001004_remote_schema.sql
-|   |   |-- 20251018072140_remote_schema.sql
-|   |   `-- _install_pgtap.sql
-|   |-- schema/
-|   |   |-- 001_core_schema.sql
-|   |   |-- 002_user_functions.sql
-|   |   |-- 003_deduplication.sql
-|   |   |-- 004_enrichment_cache.sql
-|   |   `-- README.md
-|   `-- config.toml
-|-- frontend/
-|   |-- public/
-|   |   |-- favicon-yellow-arrow.svg
-|   |   `-- logo-full.svg
-|   |-- src/
-|   |   |-- components/
-|   |   |   |-- ApiUsageChart.tsx
-|   |   |   |-- ApiUsageTable.tsx
-|   |   |   |-- AuthComponent.tsx
-|   |   |   |-- CampaignsTable.tsx
-|   |   |   |-- CollapsibleCard.tsx
-|   |   |   |-- EnrichmentButton.tsx
-|   |   |   |-- ErrorBoundary.tsx
-|   |   |   |-- GeographicSelector.tsx
-|   |   |   |-- Layout.tsx
-|   |   |   |-- LeadCard.tsx
-|   |   |   |-- LeadDetailsDrawer.tsx
-|   |   |   |-- LeadExplorerGrid.tsx
-|   |   |   |-- LeadExplorerTable.tsx
-|   |   |   |-- LogoIcon.tsx
-|   |   |   |-- MultiSelectBusinessTypes.tsx
-|   |   |   |-- PaymentMethods.tsx
-|   |   |   |-- ProgressDisplay.tsx
-|   |   |   |-- SelectedChips.tsx
-|   |   |   |-- Stepper.tsx
-|   |   |   |-- Tabs.tsx
-|   |   |   |-- ThemeToggle.tsx
-|   |   |   `-- TierSelector.tsx
-|   |   |-- constants/
-|   |   |   `-- businessTaxonomy.ts
-|   |   |-- contexts/
-|   |   |   `-- AuthContext.tsx
-|   |   |-- hooks/
-|   |   |   |-- useBusinessDiscovery.ts
-|   |   |   |-- useCampaignResults.ts
-|   |   |   |-- useJobProgress.tsx
-|   |   |   `-- useLeadEnrichment.ts
-|   |   |-- lib/
-|   |   |   |-- highlight.ts
-|   |   |   |-- supabase.ts
-|   |   |   `-- utils.ts
-|   |   |-- pages/
-|   |   |   |-- AccountPage.tsx
-|   |   |   |-- AdminPanel.tsx
-|   |   |   |-- AuthCallback.tsx
-|   |   |   |-- BusinessDiscovery.tsx
-|   |   |   |-- Campaign.tsx
-|   |   |   |-- CampaignProgress.tsx
-|   |   |   |-- Dashboard.tsx
-|   |   |   `-- Results.tsx
-|   |   |-- stores/
-|   |   |   |-- utils/
-|   |   |   |   `-- leadSanitizers.ts
-|   |   |   |-- campaignStore.ts
-|   |   |   `-- enhancedCampaignStore.ts
-|   |   |-- types/
-|   |   |   |-- index.ts
-|   |   |   `-- supabase.ts
-|   |   |-- utils/
-|   |   |   |-- __tests__/
-|   |   |   |   |-- basic.test.ts
-|   |   |   |   |-- campaignTransforms.test.ts
-|   |   |   |   `-- smoke.test.ts
-|   |   |   |-- campaignTransforms.ts
-|   |   |   |-- exportLeadsToCsv.ts
-|   |   |   `-- leadFilters.ts
-|   |   |-- App.tsx
-|   |   |-- index.css
-|   |   `-- main.tsx
-|   |-- .env.development
-|   |-- .env.local
-|   |-- index.html
-|   |-- package-lock.json
-|   |-- package.json
-|   |-- tsconfig.node.json
-|   |-- vite-env.d.ts
-|   |-- vite.config.devtools.ts
-|   `-- vitest.config.ts
-`-- app.json
+app/app.json
+app/backend/config.toml
+app/backend/db/client.ts
+app/backend/db/drizzle.config.ts
+app/backend/db/example-crud.ts
+app/backend/db/schema/users.ts
+app/backend/functions/auth-diagnostics/function.toml
+app/backend/functions/auth-diagnostics/index.ts
+app/backend/functions/business-discovery-background/function.toml
+app/backend/functions/business-discovery-background/index.ts
+app/backend/functions/business-discovery-optimized/function.toml
+app/backend/functions/business-discovery-optimized/index.ts
+app/backend/functions/business-discovery-user-aware/function.toml
+app/backend/functions/business-discovery-user-aware/index.ts
+app/backend/functions/campaign-export/function.toml
+app/backend/functions/campaign-export/index.ts
+app/backend/functions/campaign-export-user-aware/function.toml
+app/backend/functions/campaign-export-user-aware/index.ts
+app/backend/functions/enrichment-business-license/function.toml
+app/backend/functions/enrichment-business-license/index.ts
+app/backend/functions/enrichment-cobalt/function.toml
+app/backend/functions/enrichment-cobalt/index.ts
+app/backend/functions/enrichment-hunter/function.toml
+app/backend/functions/enrichment-hunter/index.ts
+app/backend/functions/enrichment-neverbounce/function.toml
+app/backend/functions/enrichment-neverbounce/index.ts
+app/backend/functions/enrichment-orchestrator/function.toml
+app/backend/functions/enrichment-orchestrator/index.ts
+app/backend/functions/enrichment-pdl/function.toml
+app/backend/functions/enrichment-pdl/index.ts
+app/backend/functions/example-function/function.toml
+app/backend/functions/example-function/index.ts
+app/backend/functions/_shared/api-usage.ts
+app/backend/functions/_shared/cache-manager.ts
+app/backend/functions/_shared/cobalt-cache.ts
+app/backend/functions/_shared/edge-auth-simplified.ts
+app/backend/functions/_shared/edge-auth.ts
+app/backend/functions/_shared/highlight-context.ts
+app/backend/functions/_shared/highlight-node.ts
+app/backend/functions/_shared/vault-client.ts
+app/backend/functions/tests/business-discovery.test.ts
+app/backend/functions/tests/test-google-places/function.toml
+app/backend/functions/tests/test-google-places/index.ts
+app/backend/functions/tests/test-new-auth/function.toml
+app/backend/functions/tests/test-new-auth/index.ts
+app/backend/functions/tests/test-user-deduplication/function.toml
+app/backend/functions/tests/test-user-deduplication/index.ts
+app/backend/migrations/20251017175251_remote_schema.sql
+app/backend/migrations/20251017180924_install_pgtap.sql
+app/backend/migrations/20251017181104_install_pgtap.sql
+app/backend/migrations/20251017181118_install_pgtap.sql
+app/backend/migrations/20251017181742_remote_schema.sql
+app/backend/migrations/20251018001004_remote_schema.sql
+app/backend/migrations/20251018072140_remote_schema.sql
+app/backend/migrations/_install_pgtap.sql
+app/backend/schema/001_core_schema.sql
+app/backend/schema/002_user_functions.sql
+app/backend/schema/003_deduplication.sql
+app/backend/schema/004_enrichment_cache.sql
+app/backend/schema/README.md
+app/frontend/dist/assets/index-56d6294a.js
+app/frontend/dist/assets/index-7392c34a.css
+app/frontend/dist/favicon.svg
+app/frontend/dist/index.html
+app/frontend/dist/logo-full.svg
+app/frontend/index.html
+app/frontend/package.json
+app/frontend/package-lock.json
+app/frontend/public/favicon-yellow-arrow.svg
+app/frontend/public/logo-full.svg
+app/frontend/src/App.tsx
+app/frontend/src/components/ApiUsageChart.tsx
+app/frontend/src/components/ApiUsageTable.tsx
+app/frontend/src/components/AuthComponent.tsx
+app/frontend/src/components/CampaignsTable.tsx
+app/frontend/src/components/CollapsibleCard.tsx
+app/frontend/src/components/EnrichmentButton.tsx
+app/frontend/src/components/ErrorBoundary.tsx
+app/frontend/src/components/GeographicSelector.tsx
+app/frontend/src/components/Layout.tsx
+app/frontend/src/components/LeadCard.tsx
+app/frontend/src/components/LeadDetailsDrawer.tsx
+app/frontend/src/components/LeadExplorerGrid.tsx
+app/frontend/src/components/LeadExplorerTable.tsx
+app/frontend/src/components/LogoIcon.tsx
+app/frontend/src/components/MultiSelectBusinessTypes.tsx
+app/frontend/src/components/PaymentMethods.tsx
+app/frontend/src/components/ProgressDisplay.tsx
+app/frontend/src/components/SelectedChips.tsx
+app/frontend/src/components/Stepper.tsx
+app/frontend/src/components/Tabs.tsx
+app/frontend/src/components/ThemeToggle.tsx
+app/frontend/src/components/TierSelector.tsx
+app/frontend/src/constants/businessTaxonomy.ts
+app/frontend/src/contexts/AuthContext.tsx
+app/frontend/src/hooks/useBusinessDiscovery.ts
+app/frontend/src/hooks/useCampaignResults.ts
+app/frontend/src/hooks/useJobProgress.tsx
+app/frontend/src/hooks/useLeadEnrichment.ts
+app/frontend/src/index.css
+app/frontend/src/lib/highlight.ts
+app/frontend/src/lib/supabase.ts
+app/frontend/src/lib/utils.ts
+app/frontend/src/main.tsx
+app/frontend/src/pages/AccountPage.tsx
+app/frontend/src/pages/AdminPanel.tsx
+app/frontend/src/pages/AuthCallback.tsx
+app/frontend/src/pages/BusinessDiscovery.tsx
+app/frontend/src/pages/CampaignProgress.tsx
+app/frontend/src/pages/Campaign.tsx
+app/frontend/src/pages/Dashboard.tsx
+app/frontend/src/pages/Results.tsx
+app/frontend/src/stores/campaignStore.ts
+app/frontend/src/stores/enhancedCampaignStore.ts
+app/frontend/src/stores/utils/leadSanitizers.ts
+app/frontend/src/types/index.ts
+app/frontend/src/types/supabase.ts
+app/frontend/src/utils/campaignTransforms.ts
+app/frontend/src/utils/exportLeadsToCsv.ts
+app/frontend/src/utils/leadFilters.ts
+app/frontend/src/utils/__tests__/basic.test.ts
+app/frontend/src/utils/__tests__/campaignTransforms.test.ts
+app/frontend/src/utils/__tests__/smoke.test.ts
+app/frontend/tsconfig.node.json
+app/frontend/vite.config.devtools.ts
+app/frontend/vite-env.d.ts
+app/frontend/vitest.config.ts
+dev-tools/agents/client-service-layer/dist/ChatModeLoader.d.ts
+dev-tools/agents/client-service-layer/dist/ChatModeLoader.d.ts.map
+dev-tools/agents/client-service-layer/dist/ChatModeLoader.js
+dev-tools/agents/client-service-layer/dist/ChatModeLoader.js.map
+dev-tools/agents/client-service-layer/dist/ConfigLocator.d.ts
+dev-tools/agents/client-service-layer/dist/ConfigLocator.d.ts.map
+dev-tools/agents/client-service-layer/dist/ConfigLocator.js
+dev-tools/agents/client-service-layer/dist/ConfigLocator.js.map
+dev-tools/agents/client-service-layer/dist/index.d.ts
+dev-tools/agents/client-service-layer/dist/index.d.ts.map
+dev-tools/agents/client-service-layer/dist/index.js
+dev-tools/agents/client-service-layer/dist/index.js.map
+dev-tools/agents/client-service-layer/dist/MCPClientAdapter.d.ts
+dev-tools/agents/client-service-layer/dist/MCPClientAdapter.d.ts.map
+dev-tools/agents/client-service-layer/dist/MCPClientAdapter.js
+dev-tools/agents/client-service-layer/dist/MCPClientAdapter.js.map
+dev-tools/agents/client-service-layer/dist/MCPClientManager.d.ts
+dev-tools/agents/client-service-layer/dist/MCPClientManager.d.ts.map
+dev-tools/agents/client-service-layer/dist/MCPClientManager.js
+dev-tools/agents/client-service-layer/dist/MCPClientManager.js.map
+dev-tools/agents/client-service-layer/dist/TelemetrySink.d.ts
+dev-tools/agents/client-service-layer/dist/TelemetrySink.d.ts.map
+dev-tools/agents/client-service-layer/dist/TelemetrySink.js
+dev-tools/agents/client-service-layer/dist/TelemetrySink.js.map
+dev-tools/agents/client-service-layer/dist/TracingTelemetrySink.d.ts
+dev-tools/agents/client-service-layer/dist/TracingTelemetrySink.d.ts.map
+dev-tools/agents/client-service-layer/dist/TracingTelemetrySink.js
+dev-tools/agents/client-service-layer/dist/TracingTelemetrySink.js.map
+dev-tools/agents/client-service-layer/dist/WorkspaceContext.d.ts
+dev-tools/agents/client-service-layer/dist/WorkspaceContext.d.ts.map
+dev-tools/agents/client-service-layer/dist/WorkspaceContext.js
+dev-tools/agents/client-service-layer/dist/WorkspaceContext.js.map
+dev-tools/agents/client-service-layer/package.json
+dev-tools/agents/client-service-layer/package-lock.json
+dev-tools/agents/client-service-layer/README.md
+dev-tools/agents/client-service-layer/src/ChatModeLoader.ts
+dev-tools/agents/client-service-layer/src/ConfigLocator.ts
+dev-tools/agents/client-service-layer/src/index.ts
+dev-tools/agents/client-service-layer/src/MCPClientAdapter.ts
+dev-tools/agents/client-service-layer/src/MCPClientManager.ts
+dev-tools/agents/client-service-layer/src/TelemetrySink.ts
+dev-tools/agents/client-service-layer/src/TracingTelemetrySink.ts
+dev-tools/agents/client-service-layer/src/WorkspaceContext.ts
+dev-tools/agents/client-service-layer/__tests__/ConfigLocator.test.ts
+dev-tools/agents/client-service-layer/__tests__/MCPClientManager.integration.test.ts
+dev-tools/agents/client-service-layer/__tests__/MCPClientManager.test.ts
+dev-tools/agents/client-service-layer/__tests__/WorkspaceContext.test.ts
+dev-tools/agents/client-service-layer/tsconfig.json
+dev-tools/agents/context/agents-manifest.json
+dev-tools/agents/context/checkpoint-contexts.ts
+dev-tools/agents/context/CONTEXTMANAGER_QUICKREF.md
+dev-tools/agents/context/context-manager.ts
+dev-tools/agents/context/get-canonical-timestamp.js
+dev-tools/agents/context/MCP_MODE_TOOL_MATRIX.md
+dev-tools/agents/context/README.md
+dev-tools/agents/context/RELEASE_NOTES_AND_DIFF_TEMPLATE.md
+dev-tools/agents/context/schemas/agent-context.schema.json
+dev-tools/agents/context/schemas/environment-context.schema.json
+dev-tools/agents/context/schemas/task-ledger.schema.json
+dev-tools/agents/context/store/development-workflow.json
+dev-tools/agents/context/store/observability.json
+dev-tools/agents/context/store/production-ops.json
+dev-tools/agents/context/store/README.md
+dev-tools/agents/context/store/shared/cost-thresholds.json
+dev-tools/agents/context/store/system-architect.json
+dev-tools/agents/context/TEST_RUN_EXPECTATIONS.md
+dev-tools/agents/context/update-checksum.cjs
+dev-tools/agents/context/update-checksum.js
+dev-tools/agents/_development-workflow/config.json
+dev-tools/agents/_development-workflow/instructions.md
+dev-tools/agents/_development-workflow/taskfile.yaml
+dev-tools/agents/_development-workflow/toolset.jsonc
+dev-tools/agents/.env.agent.local
+dev-tools/agents/mcp-servers/active-registry.json
+dev-tools/agents/mcp-servers/environments/development.js
+dev-tools/agents/mcp-servers/environments/production.js
+dev-tools/agents/mcp-servers/environments/troubleshooting.js
+dev-tools/agents/mcp-servers/mcp.json
+dev-tools/agents/mcp-servers/MCP-package.json
+dev-tools/agents/mcp-servers/observability-server.js
+dev-tools/agents/mcp-servers/package.json
+dev-tools/agents/mcp-servers/package-lock.json
+dev-tools/agents/mcp-servers/README.md
+dev-tools/agents/mcp-servers/test-results.json
+dev-tools/agents/mcp-servers/tool-reference.md
+dev-tools/agents/mcp-servers/utility/dist/index.d.ts
+dev-tools/agents/mcp-servers/utility/dist/index.d.ts.map
+dev-tools/agents/mcp-servers/utility/dist/index.js
+dev-tools/agents/mcp-servers/utility/dist/index.js.map
+dev-tools/agents/mcp-servers/utility/dist/memory.d.ts
+dev-tools/agents/mcp-servers/utility/dist/memory.d.ts.map
+dev-tools/agents/mcp-servers/utility/dist/memory.js
+dev-tools/agents/mcp-servers/utility/dist/memory.js.map
+dev-tools/agents/mcp-servers/utility/dist/sequential.d.ts
+dev-tools/agents/mcp-servers/utility/dist/sequential.d.ts.map
+dev-tools/agents/mcp-servers/utility/dist/sequential.js
+dev-tools/agents/mcp-servers/utility/dist/sequential.js.map
+dev-tools/agents/mcp-servers/utility/package.json
+dev-tools/agents/mcp-servers/utility/package-lock.json
+dev-tools/agents/mcp-servers/utility/src/index.ts
+dev-tools/agents/mcp-servers/utility/src/memory.ts
+dev-tools/agents/mcp-servers/utility/src/sequential.ts
+dev-tools/agents/mcp-servers/utility/tsconfig.json
+dev-tools/agents/observability-cli.js
+dev-tools/agents/_observability/config.json
+dev-tools/agents/_observability/instructions.md
+dev-tools/agents/_observability/taskfile.yaml
+dev-tools/agents/_observability/toolset.jsonc
+dev-tools/agents/_production-ops/config.json
+dev-tools/agents/_production-ops/deployment-checklist-template.md
+dev-tools/agents/_production-ops/instructions.md
+dev-tools/agents/_production-ops/taskfile.yaml
+dev-tools/agents/_production-ops/toolset.jsonc
+dev-tools/agents/scripts/cache-session.js
+dev-tools/agents/scripts/context-snapshot.sh
+dev-tools/agents/scripts/deploy-client-service-layer.sh
+dev-tools/agents/scripts/fetch-repo-context.js
+dev-tools/agents/scripts/fetch-supabase-context.js
+dev-tools/agents/scripts/hydrate-local-env.sh
+dev-tools/agents/scripts/mcp-chat-sync.js
+dev-tools/agents/scripts/mcp-chat-validate.js
+dev-tools/agents/scripts/participant-routing.sh
+dev-tools/agents/scripts/remove-legacy-troubleshooting-server.sh
+dev-tools/agents/scripts/start-mcp.sh
+dev-tools/agents/scripts/stop-mcp.sh
+dev-tools/agents/scripts/toolset-sync.cjs
+dev-tools/agents/scripts/validate-agents.sh
+dev-tools/agents/scripts/validate-highlight-integration.sh
+dev-tools/agents/scripts/validate-observability-migration.sh
+dev-tools/agents/_system-architect/config.json
+dev-tools/agents/_system-architect/instructions.md
+dev-tools/agents/_system-architect/taskfile.yaml
+dev-tools/agents/_system-architect/toolset.jsonc
+dev-tools/agents/Taskfile.base.yml
+dev-tools/automation/ci-cd/check-docs-schema.sh
+dev-tools/automation/ci-cd/ci.yml
+dev-tools/automation/ci-cd/generate-diagram-bundle.sh
+dev-tools/automation/ci-cd/patch-diagrams.sh
+dev-tools/automation/ci-cd/pipeline.yml
+dev-tools/automation/ci-cd/render-diagrams.sh
+dev-tools/automation/ci-cd/repo_scan.sh
+dev-tools/automation/ci-cd/stage-taxonomy.sh
+dev-tools/context/repo-GPS/app-filetree.txt
+dev-tools/context/repo-GPS/dev-tools-filetree.txt
+dev-tools/context/repo-GPS/integration-filetree.txt
+dev-tools/context/repo-GPS/repo-tree-summary.txt
+dev-tools/context/session_store/app-filetree.txt
+dev-tools/context/session_store/dev-tools-filetree.txt
+dev-tools/context/session_store/integration-filetree.txt
+dev-tools/context/session_store/repo-tree-summary.txt
+dev-tools/observability/highlight-node/index.ts
+dev-tools/observability/highlight-node/mcp-adapter.ts
+dev-tools/observability/highlight-node/package.json
+dev-tools/observability/highlight-node/README.md
+dev-tools/observability/highlight-node/tsconfig.json
+dev-tools/README.md
+dev-tools/reports/highlight-integration-inventory.md
+dev-tools/reports/highlight-integration-rollout.md
+dev-tools/reports/highlight-integration-validation.md
+dev-tools/reports/validation/mcp-audit-20251029-114951.md
+dev-tools/reports/validation/mcp-servers-backup-20251029-115254.tar.gz
+dev-tools/scripts/automation/audit-mcp-servers.sh
+dev-tools/scripts/automation/deploy-highlight-integration.sh
+dev-tools/scripts/automation/enhance-production-ops-context.sh
+dev-tools/scripts/automation/finalize-client-service-layer-rename.sh
+dev-tools/scripts/automation/generate-configs.mjs
+dev-tools/scripts/automation/highlight-integration-inventory.sh
+dev-tools/scripts/automation/inject-playwright-tasks.sh
+dev-tools/scripts/automation/install-task-cli.sh
+dev-tools/scripts/automation/integrate-highlight-edge-functions.ts
+dev-tools/scripts/automation/patch-staging-environment.sh
+dev-tools/scripts/automation/promote-e2e-docs.sh
+dev-tools/scripts/automation/README.md
+dev-tools/scripts/automation/remove-legacy-paths.sh
+dev-tools/scripts/automation/sample-automation.sh
+dev-tools/scripts/automation/scaffold-highlight-node.sh
+dev-tools/scripts/automation/start-ollama.sh
+dev-tools/scripts/automation/test-path-rewrite.txt
+dev-tools/scripts/automation/update-agent-telemetry-context.sh
+dev-tools/scripts/automation/update-chatmodes.sh
+dev-tools/scripts/automation/update-telemetry-quickref.sh
+dev-tools/scripts/automation/validate-testing-prerequisites.sh
+dev-tools/scripts/automation/verify-agent-context.sh
+dev-tools/scripts/operations/ensure-supabase-cli-session.sh
+dev-tools/scripts/operations/launch-react-devtools.sh
+dev-tools/scripts/operations/shared-functions.sh
+dev-tools/scripts/README.md
+dev-tools/scripts/setup/.codespaces-init.sh
+dev-tools/scripts/tooling/migrate-supabase-functions.sh
+dev-tools/scripts/tooling/validate-ignore-config.cjs
+dev-tools/testing/agents/client-service-layer/e2e/client-service-layer.spec.ts
+dev-tools/testing/agents/client-service-layer/integration/client-service-layer.integration.ts
+dev-tools/testing/agents/client-service-layer/Taskfile.yml
+dev-tools/testing/agents/client-service-layer/unit/client-service-layer.test.ts
+dev-tools/testing/agents/context/e2e/context.spec.ts
+dev-tools/testing/agents/context/integration/context.integration.ts
+dev-tools/testing/agents/context/Taskfile.yml
+dev-tools/testing/agents/context/unit/context.test.ts
+dev-tools/testing/agents/mcp-servers/e2e/mcp-servers.spec.ts
+dev-tools/testing/agents/mcp-servers/integration/mcp-servers.integration.ts
+dev-tools/testing/agents/mcp-servers/Taskfile.yml
+dev-tools/testing/agents/mcp-servers/unit/mcp-servers.test.ts
+dev-tools/testing/configs/playwright.agents.config.ts
+dev-tools/testing/configs/vitest.agents.config.ts
+dev-tools/testing/dev-tools/testing/fixtures/sample-mcp-response.json
+dev-tools/testing/dev-tools/workspace/context/session_store/diagnostics/mcp-diagnostics-test.json
+dev-tools/testing/fixtures/fixture-dataset.json
+dev-tools/testing/fixtures/sample-mcp-response.json
+dev-tools/testing/fixtures/sample-vercel-status.json
+dev-tools/testing/integration/api/README.md
+dev-tools/testing/integration/context.test.js
+dev-tools/testing/README.md
+dev-tools/testing/reports/playwright/html/index.html
+dev-tools/testing/reports/playwright/.last-run.json
+dev-tools/testing/reports/playwright/playwright-report.json
+dev-tools/testing/reports/playwright/results/.last-run.json
+dev-tools/testing/reports/vitest-results.json
+dev-tools/testing/Taskfile.yml
+dev-tools/testing/unit/app/agents.spec.ts
+dev-tools/testing/unit/dev-tools/automation.bats
+dev-tools/testing/unit/dev-tools/automation.spec.ts
+dev-tools/testing/unit/dev-tools/devtools-regression.sh
+dev-tools/testing/unit/mcp/mcp.spec.ts
+dev-tools/testing/utils/fixtures/campaigns.json
+dev-tools/testing/utils/fixtures/fixture-dataset.json
+dev-tools/testing/utils/fixtures/sample-mcp-response.json
+dev-tools/testing/utils/fixtures/sample-vercel-status.json
+dev-tools/testing/utils/setup.ts
+dev-tools/workspace/context/archive/agent-MCP-map.mmd
+dev-tools/workspace/context/archive/agent-workflows-sequence.mmd
+dev-tools/workspace/context/archive/app-filetree.txt
+dev-tools/workspace/context/archive/automated-agent-update.md
+dev-tools/workspace/context/archive/chatmode-sync-2025-10-28/chatmode-ref-sync.sh
+dev-tools/workspace/context/archive/chatmode-sync-2025-10-28/documentation_prov.sh
+dev-tools/workspace/context/archive/chatmode-sync-2025-10-28/live-tooling-list.txt
+dev-tools/workspace/context/archive/chatmode-sync-2025-10-28/manifest-refresh.sh
+dev-tools/workspace/context/archive/chatmode-sync-2025-10-28/MCP_MODE_TOOL_MATRIX.md
+dev-tools/workspace/context/archive/chatmode-sync-2025-10-28/Optimized Audit & Refactor Plan.md
+dev-tools/workspace/context/archive/chatmode-sync-2025-10-28/workflow-enhancements.md
+dev-tools/workspace/context/archive/client-service-layer-rename-status.md
+dev-tools/workspace/context/archive/context-development.mmd
+dev-tools/workspace/context/archive/context-mgmt.mmd
+dev-tools/workspace/context/archive/context-production.mmd
+dev-tools/workspace/context/archive/context-schema.mmd
+dev-tools/workspace/context/archive/context-staging.mmd
+dev-tools/workspace/context/archive/e2e-playwright-reactdevtools-workplan.md
+dev-tools/workspace/context/archive/ex1.mmd
+dev-tools/workspace/context/archive/ex2.mmd
+dev-tools/workspace/context/archive/ex3.mmd
+dev-tools/workspace/context/archive/mcp-integration-plan.md
+dev-tools/workspace/context/archive/mece-agent-mcp-integration-plan.md
+dev-tools/workspace/context/archive/# OTEL-Observability-MCP-Migration.md
+dev-tools/workspace/context/archive/patch-execution.sh
+dev-tools/workspace/context/archive/patch-implementation.sh
+dev-tools/workspace/context/archive/phase-5-validation-log.md
+dev-tools/workspace/context/archive/system-architecture.mmd
+dev-tools/workspace/context/archive/Untitled-2.mmd
+dev-tools/workspace/context/archive/Untitled-3.mmd
+dev-tools/workspace/context/archive/Untitled-4.mmd
+dev-tools/workspace/context/event-bus.ts
+dev-tools/workspace/context/schemas/compile.sh
+dev-tools/workspace/context/schemas/ollama-helper.sh
+dev-tools/workspace/context/session_store/Agent Testing Refactor Playbook (2025-.md
+dev-tools/workspace/context/session_store/app-filetree.txt
+dev-tools/workspace/context/session_store/automated-agent-refactor.sh
+dev-tools/workspace/context/session_store/coverage.md
+dev-tools/workspace/context/session_store/dev-tools-filetree.txt
+dev-tools/workspace/context/session_store/integration-filetree.txt
+dev-tools/workspace/context/session_store/live-tooling-list.txt
+dev-tools/workspace/context/session_store/Optimized Agents Config Patch Plan.md
+dev-tools/workspace/context/session_store/repo-tree-summary.txt
+integration/data/foursquare-places.md
+integration/data/google-places.md
+integration/data/hunter-io.md
+integration/data/neverbounce.md
+integration/environments/development.json
+integration/environments/environments.yml
+integration/environments/production.json
+integration/environments/staging.json
+integration/infrastructure/scripts/cache-publishable-key.sh
+integration/infrastructure/scripts/check-docs-schema.sh
+integration/infrastructure/scripts/deploy.sh
+integration/infrastructure/scripts/git-hooks/pre-push-ignore-check.sh
+integration/infrastructure/scripts/inject-api-keys.sh
+integration/infrastructure/scripts/install-git-hooks.sh
+integration/infrastructure/scripts/launch-react-devtools.sh
+integration/infrastructure/scripts/migration-phase.sh
+integration/infrastructure/scripts/populate-secrets.sh
+integration/infrastructure/scripts/preflight-checklist.sh
+integration/infrastructure/scripts/snapshot-pre-move.sh
+integration/infrastructure/scripts/toggle-gitignore.sh
+integration/infrastructure/scripts/update-paths.sh
+integration/monitoring/diagnostics/collect-diagnostics.sh
+integration/monitoring/diagnostics/debug-campaign.sql
+integration/monitoring/diagnostics/deployment-validation-workflow.sh
+integration/monitoring/diagnostics/diagnose-campaign-failure.sh
+integration/monitoring/diagnostics/diagnose-zero-results.sh
+integration/monitoring/diagnostics/edge-function-diagnostics.sh
+integration/monitoring/diagnostics/manual-verification.sh
+integration/monitoring/diagnostics/monitor-discovery-job.sh
+integration/monitoring/diagnostics/production-health-check.sh
+integration/monitoring/diagnostics/validate-production-enrichment.sh
+integration/monitoring/diagnostics/validate-supabase-architecture.sh
+integration/monitoring/diagnostics/verify-toolchain.sh
+integration/monitoring/observability/redis-observability.sh
+integration/monitoring/observability/start-observability.sh
+integration/monitoring/observability/stop-observability.sh
+integration/monitoring/observability/supabase-pull-logs.sh
+integration/monitoring/observability/verify-observability.sh
+integration/monitoring/otel-config.yml
+integration/platform/github/docs-automation/generate-mermaid-diagrams.js
+integration/platform/github/docs-automation/mermaid-template-registry.js
+integration/platform/github/docs-automation/mermaid-template-registry.json
+integration/platform/github/docs-automation/sync-github-projects.js
+integration/platform/github/webhook-handler.js
+integration/platform/github/webhook-validator.js
+integration/platform/supabase/package-supabase.json
+integration/platform/supabase/scripts/deploy-background-tasks.sh
+integration/platform/supabase/scripts/ensure-supabase-cli-session.sh
+integration/platform/supabase/scripts/supabase_cli_helpers.sh
+integration/platform/supabase/scripts/update-edge-secrets.sh
+integration/platform/supabase/supabase-ca-2021.crt
+integration/platform/supabase/supabase.js
+integration/platform/supabase/tests/database/campaigns.test.sql
+integration/platform/supabase/tests/database/core_schema.test.sql
+integration/platform/supabase/tests/database/edge-functions.test.ts
+integration/platform/supabase/tests/database/leads.test.sql
+integration/platform/supabase/tests/database/placeholder.test.ts
+integration/platform/vercel/vercel.json
+integration/platform/vercel/vercel-status-check.sh
+integration/platform/vercel/vercel-validate.sh
+integration/platform/workflow/engine.ts
+integration/symlinks/create-symlinks.sh
+integration/symlinks/platform-detector.js
+integration/symlinks/validate-symlinks.sh
+integration/templates/init-template.sh
+integration/templates/.prospectpro-template-schema.json
