@@ -38,7 +38,7 @@ function createNoopHighlight() {
     record: () => {},
     trace: () => {},
     flush: () => {},
-    middleware: () => (req: any, res: any, next: any) => next(),
+    middleware: () => (_req: any, _res: any, next: any) => next(),
   };
 }
 
@@ -47,7 +47,7 @@ export function highlightRequestMiddleware() {
   const h = initHighlightNode();
   return h.middleware
     ? h.middleware()
-    : (req: Request, res: Response, next: NextFunction) => next();
+    : (_req: Request, _res: Response, next: NextFunction) => next();
 }
 
 // Utility for edge function handlers (Supabase, etc.)

@@ -13,7 +13,7 @@ export interface MCPHighlightConfig {
 }
 
 export function createMCPHighlightMiddleware(config: MCPHighlightConfig) {
-  const H = initHighlightNode(config);
+  const H = initHighlightNode();
 
   return {
     /**
