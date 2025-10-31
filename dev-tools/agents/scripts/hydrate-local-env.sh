@@ -14,9 +14,7 @@ require_cli() {
 }
 
 require_cli vercel
-if [[ -n "${SUPABASE_PROJECT_REF:-}" ]]; then
-  require_cli supabase
-fi
+# No need to require_cli supabase; use npx for portability
 
 echo "# ProspectPro Agent Credentials (hydrated)" >"$tmp"
 echo "# Generated $(date -u +%Y-%m-%dT%H:%M:%SZ)" >>"$tmp"
@@ -25,11 +23,12 @@ echo >>"$tmp"
 echo "# Shared settings" >>"$tmp"
 vercel env pull --environment=production --yes -t "${VERCEL_TOKEN:?}" "$tmp"
 
+
 if [[ -n "${SUPABASE_PROJECT_REF:-}" ]]; then
   echo >>"$tmp"
   echo "# Supabase project secrets" >>"$tmp"
-  supabase secrets list --project-ref "${SUPABASE_PROJECT_REF}" --output json |
-    jq -r '.[] | select(.name | test("^(AGENT_|VITE_|SUPABASE_|VERCEL_|GITHUB_)")) | "\(.name)=\(.value)"' >>"$tmp"
+  npx supabase secrets list --project-ref "${SUPABASE_PROJECT_REF}" --output json |
+    jq -r '.[] | select(.name | test("^(AGENT_|VITE_|SUPABASE_|VERCEL_|GITHUB_)") ) | "\(.name)=\(.value)"' >>"$tmp"
 fi
 
 
