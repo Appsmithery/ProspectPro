@@ -107,6 +107,27 @@ npx playwright test --reporter=list
 
 ## Documentation & Context
 
+## Context7 Auto-Invocation Rule
+
+All code generation, setup, configuration, and library/API documentation requests in this agent profile will automatically invoke Context7 MCP tools. This ensures:
+
+- Up-to-date, version-specific documentation and code examples are always included.
+- Consistency with the `.windsurfrules` and other client rules.
+- Seamless support for VS Code-based agent workflows—no manual invocation required.
+
+**Rule (see `toolset.jsonc`):**
+
+```
+"context7_rules": [
+	{
+		"when": ["code generation", "setup", "configuration", "library docs", "API docs"],
+		"then": "use context7"
+	}
+]
+```
+
+This rule is discoverable by all MCP-aware tools and agents. You can further customize it in `toolset.jsonc` as needed for your workflow.
+
 - Repo maps: `dev-tools/context/session_store/{app-filetree,dev-tools-filetree,integration-filetree}.txt`
 - E2E/DevTools references: promote current workplan into `docs/dev-tools/testing/`
 - Observability overview: `docs/dev-tools/observability/overview.md` (update alongside new tooling)
