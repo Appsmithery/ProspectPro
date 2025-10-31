@@ -1,4 +1,8 @@
-#!/usr/bin/env -S deno run --allow-read --allow-write
+#!/usr/bin/env -S deno run --allow-read --allow-write --allow-env
+/**
+ * This is a Deno script. TypeScript errors are expected when checked with Node.js tsc.
+ * Run with: deno run --allow-read --allow-write --allow-env dev-tools/scripts/automation/integrate-highlight-edge-functions.ts
+ */
 
 import { walk } from "https://deno.land/std@0.208.0/fs/walk.ts";
 import {
