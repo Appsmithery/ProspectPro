@@ -8,10 +8,33 @@ tmp="$(mktemp)"
 trap 'rm -f "$tmp"' EXIT
 
 
-# Use npx for all CLIs for portability
-VERCEL_TOKEN_ENV="${VERCEL_TOKEN}
+
+# Argument parsing for --token
+VERCEL_TOKEN_ENV=""
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    --token)
+      shift
+      VERCEL_TOKEN_ENV="$1"
+      ;;
+    *)
+      # ignore unknown args
+      ;;
+  esac
+  shift
+done
+
+# Fallback to env vars if not set by argument
 if [[ -z "$VERCEL_TOKEN_ENV" ]]; then
-  echo "❌ VERCEL_TOKEN or CI_VERCEL_TOKEN is not set. Export it before running." >&2
+  if [[ -n "${VERCEL_TOKEN:-}" ]]; then
+    VERCEL_TOKEN_ENV="$VERCEL_TOKEN"
+  elif [[ -n "${CI_VERCEL_TOKEN:-}" ]]; then
+    VERCEL_TOKEN_ENV="$CI_VERCEL_TOKEN"
+  fi
+fi
+
+if [[ -z "$VERCEL_TOKEN_ENV" ]]; then
+  echo "❌ VERCEL_TOKEN, CI_VERCEL_TOKEN, or --token is not set. Export or pass it before running." >&2
   exit 1
 fi
 if [[ -z "${SUPABASE_ACCESS_TOKEN:-}" ]]; then
