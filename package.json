@@ -2,7 +2,7 @@
   "name": "prospectpro-verified-business-intelligence",
   "version": "4.1.0",
   "type": "module",
-  "description": "ProspectPro - Verified Business Intelligence Platform with Zero Fake Data Policy",
+  "description": "ProspectPro - Verified Business Intelligence Platform",
   "scripts": {
     "deploy:staging:alias": "npx vercel@48.6.0 alias set $STAGING_DEPLOY_URL staging.prospectpro.appsmithery.co",
     "env:pull": "npx vercel@48.6.0 env pull .env.local",
