@@ -1,7 +1,5 @@
 app/
 |-- backend/
-|   |-- .temp/
-|   |   `-- cli-latest
 |   |-- db/
 |   |   |-- schema/
 |   |   |   `-- users.ts
@@ -83,16 +81,6 @@ app/
 |   |   |-- ensure-supabase-cli-session.sh
 |   |   |-- supabase_cli_helpers.sh
 |   |   `-- update-edge-secrets.sh
-|   |-- supabase/
-|   |   `-- .temp/
-|   |       |-- cli-latest
-|   |       |-- gotrue-version
-|   |       |-- pooler-url
-|   |       |-- postgres-version
-|   |       |-- project-ref
-|   |       |-- rest-version
-|   |       |-- storage-migration
-|   |       `-- storage-version
 |   |-- tests/
 |   |   `-- database/
 |   |       |-- campaigns.test.sql
@@ -187,12 +175,10 @@ app/
 |   |   |-- client-service-layer.spec.ts
 |   |   |-- context.spec.ts
 |   |   `-- mcp-servers.spec.ts
-|   |-- fixtures/
 |   |-- integration/
 |   |   `-- integration-placeholder.test.ts
-|   |-- unit/
-|   |   |-- client-service-layer.test.ts
-|   |   |-- context.test.ts
-|   |   `-- mcp-servers.test.ts
-|   `-- utils/
+|   `-- unit/
+|       |-- client-service-layer.test.ts
+|       |-- context.test.ts
+|       `-- mcp-servers.test.ts
 `-- app.json

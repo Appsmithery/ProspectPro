@@ -1,15 +1,16 @@
 ProspectPro/
-|-- .deno_lsp/
 |-- .devcontainer/
 |-- app/
 |   |-- backend/
 |   |-- frontend/
-|   `-- shared/
+|   `-- tests/
 |-- config/
 |-- dev-tools/
 |   |-- agents/
 |   |-- automation/
 |   |-- context/
+|   |-- observability/
+|   |-- reports/
 |   |-- scripts/
 |   |-- testing/
 |   `-- workspace/
@@ -17,13 +18,11 @@ ProspectPro/
 |   |-- app/
 |   |-- deployment/
 |   |-- dev-tools/
-|   |-- development/
-|   |-- diagrams/
 |   |-- guides/
 |   |-- integration/
+|   |-- mmd-shared/
 |   |-- product-roadmap/
 |   |-- scripts/
-|   |-- setup/
 |   |-- shared/
 |   |-- technical/
 |   `-- tooling/
@@ -33,13 +32,8 @@ ProspectPro/
 |   |-- infrastructure/
 |   |-- monitoring/
 |   |-- platform/
-|   |-- security/
 |   |-- symlinks/
 |   `-- templates/
-|-- supabase/
-|   |-- .temp/
-|   |-- db/
-|   |-- functions/
-|   |-- migrations/
-|   `-- schema/
+|-- reports/
+|   `-- playwright/
 `-- tests/

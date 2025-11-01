@@ -6,6 +6,7 @@ integration/
 |   `-- neverbounce.md
 |-- environments/
 |   |-- development.json
+|   |-- environments.yml
 |   |-- production.json
 |   `-- staging.json
 |-- infrastructure/
@@ -44,39 +45,22 @@ integration/
 |   |   |-- stop-observability.sh
 |   |   |-- supabase-pull-logs.sh
 |   |   `-- verify-observability.sh
-|   |-- otel-config.yml
-|   `-- prometheus.yml
+|   `-- otel-config.yml
 |-- platform/
 |   |-- github/
 |   |   |-- docs-automation/
 |   |   |   |-- generate-mermaid-diagrams.js
+|   |   |   |-- mermaid-template-registry.js
 |   |   |   |-- mermaid-template-registry.json
 |   |   |   `-- sync-github-projects.js
 |   |   |-- webhook-handler.js
 |   |   `-- webhook-validator.js
-|   |-- supabase/
-|   |   |-- scripts/
-|   |   |   |-- deploy-background-tasks.sh
-|   |   |   |-- ensure-supabase-cli-session.sh
-|   |   |   |-- supabase_cli_helpers.sh
-|   |   |   `-- update-edge-secrets.sh
-|   |   |-- tests/
-|   |   |   `-- database/
-|   |   |       |-- campaigns.test.sql
-|   |   |       |-- core_schema.test.sql
-|   |   |       |-- edge-functions.test.ts
-|   |   |       |-- leads.test.sql
-|   |   |       `-- placeholder.test.ts
-|   |   |-- package-supabase.json
-|   |   |-- supabase-ca-2021.crt
-|   |   `-- supabase.js
 |   |-- vercel/
 |   |   |-- vercel-status-check.sh
 |   |   |-- vercel-validate.sh
 |   |   `-- vercel.json
 |   `-- workflow/
 |       `-- engine.ts
-|-- security/
 |-- symlinks/
 |   |-- create-symlinks.sh
 |   |-- platform-detector.js
