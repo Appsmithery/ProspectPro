@@ -16,10 +16,10 @@ fi
 FUNC_SLUG="$1"
 SINCE_TIME="$2"
 
-source scripts/operations/ensure-supabase-cli-session.sh
+source dev-tools/scripts/operations/ensure-supabase-cli-session.sh
 mkdir -p dev-tools/workspace/context/session_store/diagnostics
 LOG_FILE="dev-tools/workspace/context/session_store/diagnostics/${FUNC_SLUG}-$(date +%Y%m%d-%H%M%S).log"
 
-cd supabase
-npx --yes supabase@latest functions logs "$FUNC_SLUG" --since="$SINCE_TIME" > "../$LOG_FILE"
+cd app/backend
+npx --yes supabase@latest functions logs "$FUNC_SLUG" --since="$SINCE_TIME" > "../../$LOG_FILE"
 echo "Logs saved to $LOG_FILE"

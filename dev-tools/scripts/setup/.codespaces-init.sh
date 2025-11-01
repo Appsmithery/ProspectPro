@@ -69,7 +69,7 @@ else
 fi
 
 # 8. Link Supabase project if not already linked
-SUPABASE_CONFIG="$REPO_ROOT/supabase/config.toml"
+SUPABASE_CONFIG="$REPO_ROOT/app/backend/config.toml"
 if [[ -d "$REPO_ROOT/supabase" ]]; then
   if [[ -f "$SUPABASE_CONFIG" ]] && grep -q 'project_id = "sriycekxdqnesdsgwiuc"' "$SUPABASE_CONFIG"; then
     echo "✅ Supabase project already linked"

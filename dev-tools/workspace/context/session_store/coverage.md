@@ -631,3 +631,65 @@ ev## 2025-10-23: Codespaces Bootstrap Realignment
 - Finalize E2E Playwright test for business discovery flow.
 - Implement and validate Deno test for Supabase cache endpoint.
 - Continue to log provenance and update inventories after each phase.
+
+# 2025-11-01: Supabase Directory Restructuring
+
+## Migration Summary
+
+Successfully migrated all Supabase assets from split locations into a consolidated `app/backend/` structure, eliminating the root-level symlink for improved clarity and maintainability.
+
+### Changes Made
+
+1. **Directory Structure**
+   - Removed root-level `supabase/` symlink (previously pointed to `app/backend`)
+   - Merged `integration/platform/supabase/scripts/` → `app/backend/scripts/`
+   - Merged `integration/platform/supabase/tests/` → `app/backend/tests/`
+   - Copied support files (supabase.js, supabase-ca-2021.crt, package-supabase.json) to `app/backend/`
+
+2. **Script Updates**
+   - Updated 30+ npm scripts in `package.json`
+   - Updated 5 tasks in `.vscode/tasks.json`
+   - Updated 7 shell scripts in integration/monitoring and dev-tools
+   - Changed all `cd supabase` references to `cd app/backend`
+   - Changed all `../scripts/operations` references to `../../dev-tools/scripts/operations`
+
+3. **Documentation**
+   - Created `SUPABASE_MIGRATION.md` at repo root
+   - Updated `app-filetree.txt` inventory
+
+### Benefits
+
+- **Clear separation**: App code under `app/`, dev tools under `dev-tools/`
+- **No symlinks**: Eliminates confusion and path resolution issues
+- **Consolidated**: All Supabase files in one location
+- **Maintainable**: Easier to understand and navigate
+- **Consistent**: Matches Supabase best practices
+
+### Files Modified
+
+- package.json (30+ script updates)
+- .vscode/tasks.json (5 task updates)
+- integration/monitoring/observability/supabase-pull-logs.sh
+- integration/monitoring/diagnostics/diagnose-campaign-failure.sh
+- integration/monitoring/diagnostics/deployment-validation-workflow.sh
+- integration/monitoring/diagnostics/edge-function-diagnostics.sh
+- integration/infrastructure/scripts/inject-api-keys.sh
+- dev-tools/scripts/setup/.codespaces-init.sh
+
+### Files Created
+
+- SUPABASE_MIGRATION.md
+- app/backend/scripts/ (merged from integration)
+- app/backend/tests/ (merged from integration)
+- app/backend/supabase.js
+- app/backend/supabase-ca-2021.crt
+- app/backend/package-supabase.json
+
+### Validation Pending
+
+- [ ] Test `npm run supabase:status` from new location
+- [ ] Verify all Supabase CLI commands work
+- [ ] Run deployment scripts to confirm functionality
+- [ ] Update integration-filetree.txt if needed
+- [ ] Stage summary in docs/tooling/settings-staging.md
+
