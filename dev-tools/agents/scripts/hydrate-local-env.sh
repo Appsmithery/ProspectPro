@@ -1,4 +1,7 @@
-#!/usr/bin/env bash
+
+# Canonical agent/automation/server-side dotenv hydration script
+# Only generates dev-tools/agents/.env.agent.local (never .env.preview/.env.production)
+# See .env.example for canonical variable list and comments.
 # filepath: /workspaces/ProspectPro/dev-tools/agents/scripts/hydrate-local-env.sh
 
 set -euo pipefail
