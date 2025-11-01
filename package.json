@@ -4,11 +4,9 @@
   "type": "module",
   "description": "ProspectPro - Verified Business Intelligence Platform",
   "workspaces": [
-    "dev-tools/agents/mcp-servers/*",
-    "dev-tools/agents/client-service-layer",
-    "dev-tools/observability/highlight-node",
     "dev-tools-package/agents/mcp-servers/*",
-    "dev-tools-package/agents/client-service-layer"
+    "dev-tools-package/agents/client-service-layer",
+    "dev-tools-package/observability/highlight-node"
   ],
   "scripts": {
     "test:deno": "bash dev-tools-package/scripts/testing/run-deno-tests.sh",
