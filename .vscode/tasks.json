@@ -821,7 +821,9 @@
       "type": "shell",
       "command": "npm",
       "args": ["run", "mcp:start"],
-      "options": { "cwd": "${workspaceFolder}" },
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
       "problemMatcher": []
     },
     {
@@ -829,7 +831,9 @@
       "type": "shell",
       "command": "npm",
       "args": ["run", "mcp:stop"],
-      "options": { "cwd": "${workspaceFolder}" },
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
       "problemMatcher": []
     },
     {
@@ -837,7 +841,9 @@
       "type": "shell",
       "command": "npm",
       "args": ["run", "mcp:chat:validate"],
-      "options": { "cwd": "${workspaceFolder}" },
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
       "group": "test",
       "presentation": {
         "echo": true,
@@ -851,7 +857,9 @@
       "type": "shell",
       "command": "npm",
       "args": ["run", "mcp:chat:sync"],
-      "options": { "cwd": "${workspaceFolder}" },
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
       "group": "build",
       "presentation": {
         "echo": true,
@@ -923,7 +931,9 @@
       "type": "shell",
       "command": "npm",
       "args": ["run", "start:observability"],
-      "options": { "cwd": "${workspaceFolder}/dev-tools/agents/mcp-servers" },
+      "options": {
+        "cwd": "${workspaceFolder}/dev-tools/agents/mcp-servers"
+      },
       "isBackground": true,
       "group": "build",
       "presentation": {
@@ -1297,21 +1307,30 @@
       "label": "DevTools: Start React DevTools",
       "type": "shell",
       "command": "npm run devtools:react",
-      "presentation": { "reveal": "always", "panel": "dedicated" },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
+      },
       "problemMatcher": []
     },
     {
       "label": "MCP: Start Suite",
       "type": "shell",
       "command": "./tooling/scripts/shell/start-mcp.sh",
-      "presentation": { "reveal": "always", "panel": "dedicated" },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
+      },
       "problemMatcher": []
     },
     {
       "label": "MCP: Stop Suite",
       "type": "shell",
       "command": "./tooling/scripts/shell/stop-mcp.sh",
-      "presentation": { "reveal": "always", "panel": "dedicated" },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
+      },
       "problemMatcher": []
     },
     {
