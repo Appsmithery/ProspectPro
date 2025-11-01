@@ -1,0 +1,100 @@
+.vscode/settings.json:    "**/dev-tools/agents/mcp-servers/logs": true
+.vscode/tasks.json:        "cwd": "${workspaceFolder}/dev-tools/agents/mcp-servers"
+.vscode/tasks.json:      "detail": "cd dev-tools/agents/mcp-servers && npm run start:production",
+.vscode/launch.json:      "program": "${workspaceFolder}/dev-tools/agents/mcp-servers/observability-server.js",
+.vscode/launch.json:      "program": "${workspaceFolder}/dev-tools/agents/mcp-servers/observability-server.js",
+.vscode/launch.json:      "program": "${workspaceFolder}/dev-tools/agents/mcp-servers/observability-server.js",
+.vscode/launch.json:      "name": "Run Script: start:production (mcp-servers)",
+.vscode/launch.json:      "cwd": "${workspaceFolder}/dev-tools/agents/mcp-servers"
+.vscode/mcp_config.json:        "./dev-tools/agents/mcp-servers/utility/dist/index.js"
+.vscode/mcp_config.json:        "dev-tools/agents/mcp-servers/environments/development.js"
+.vscode/mcp_config.json:        "dev-tools/agents/mcp-servers/environments/production.js"
+.vscode/mcp_config.json:        "dev-tools/agents/mcp-servers/environments/production.js"
+.vscode/TASKS_REFERENCE.md:| **Observability: MCP Server**          | `npm run start:observability`                                                                   | `${workspaceFolder}/mcp-servers`                                                        | None                                                                                                     | No description available                                                                                                           |
+.vscode/validate-workspace-config.sh:  if [[ -d "mcp-servers" ]]; then
+.vscode/validate-workspace-config.sh:    log_success "mcp-servers directory detected"
+.vscode/validate-workspace-config.sh:      if [[ -f "mcp-servers/$server" ]]; then
+.vscode/validate-workspace-config.sh:    log_error "mcp-servers directory missing"
+dev-tools/scripts/setup/.codespaces-init.sh:MCP_DIR="$REPO_ROOT/mcp-servers"
+dev-tools/scripts/setup/.codespaces-init.sh:  tar -xzf "$MCP_ARCHIVE" -C "$REPO_ROOT" mcp-servers || echo "⚠️ MCP archive extraction failed"
+dev-tools/scripts/automation/finalize-client-service-layer-rename.sh:    # Remove deprecated mcp:debug, mcp:dev, mcp:prod scripts (these should use mcp-servers, not service layer)
+dev-tools/scripts/automation/audit-mcp-servers.sh:MCP_DIR="$REPO_ROOT/dev-tools/agents/mcp-servers"
+dev-tools/scripts/automation/deploy-highlight-integration.sh:for server in dev-tools/agents/mcp-servers/*/; do
+dev-tools/scripts/automation/highlight-integration-inventory.sh:find "$REPO_ROOT/dev-tools/agents/mcp-servers" -name "index.ts" -o -name "server.ts" | while read -r server; do
+dev-tools/testing/agents/mcp-servers/integration/mcp-servers.integration.ts:describe("mcp-servers integration tests", () => {
+dev-tools/testing/agents/mcp-servers/e2e/mcp-servers.spec.ts:test.describe("mcp-servers E2E", () => {
+dev-tools/testing/agents/mcp-servers/unit/mcp-servers.test.ts:describe("mcp-servers unit tests", () => {
+dev-tools/workspace/context/archive/mece-agent-mcp-integration-plan.md:   - Run `npm install && npm run build --prefix dev-tools/agents/mcp-servers/utility` to refresh dist and lockfiles.
+dev-tools/workspace/context/archive/mece-agent-mcp-integration-plan.md:- Observability MCP now includes the full Supabase diagnostics toolset with Jaeger tracing and Highlight.io error reporting. See `dev-tools/agents/mcp-servers/observability-server.js` for consolidated implementations.
+dev-tools/workspace/context/archive/phase-5-validation-log.md:- MCP tools built successfully (`npm run build:tools --prefix dev-tools/agents/mcp-servers`)
+dev-tools/workspace/context/archive/phase-5-validation-log.md:  - [ ] Build MCP tools: `npm run build:tools --prefix dev-tools/agents/mcp-servers`
+dev-tools/workspace/context/archive/# OTEL-Observability-MCP-Migration.md:  "name": "prospectpro-mcp-servers",
+dev-tools/workspace/context/archive/# OTEL-Observability-MCP-Migration.md:      "args": ["dev-tools/agents/mcp-servers/observability-server.js"],
+dev-tools/workspace/context/archive/# OTEL-Observability-MCP-Migration.md:      "args": ["dev-tools/agents/mcp-servers/utility/dist/index.js"],
+dev-tools/workspace/context/archive/# OTEL-Observability-MCP-Migration.md:ARCHIVE_DIR="dev-tools/workspace/archive/legacy-mcp-servers"
+dev-tools/workspace/context/archive/# OTEL-Observability-MCP-Migration.md:if [ -f "dev-tools/agents/mcp-servers/supabase-troubleshooting-server.js" ]; then
+dev-tools/workspace/context/archive/# OTEL-Observability-MCP-Migration.md:  mv "dev-tools/agents/mcp-servers/supabase-troubleshooting-server.js" \
+dev-tools/workspace/context/archive/# OTEL-Observability-MCP-Migration.md:node dev-tools/agents/mcp-servers/observability-server.js <<EOF || true
+dev-tools/workspace/context/archive/# OTEL-Observability-MCP-Migration.md:    "dev-tools/agents/mcp-servers/observability-server.js",
+dev-tools/workspace/context/archive/# OTEL-Observability-MCP-Migration.md:timeout 5s node dev-tools/agents/mcp-servers/observability-server.js <<EOF || {
+dev-tools/workspace/context/archive/# OTEL-Observability-MCP-Migration.md:const server = require('./dev-tools/agents/mcp-servers/observability-server.js');
+dev-tools/workspace/context/archive/# OTEL-Observability-MCP-Migration.md:if [ -f "dev-tools/agents/mcp-servers/supabase-troubleshooting-server.js" ]; then
+dev-tools/workspace/context/archive/# OTEL-Observability-MCP-Migration.md:# or from mcp-servers directory:
+dev-tools/workspace/context/archive/# OTEL-Observability-MCP-Migration.md:- Observability MCP now includes the full Supabase diagnostics toolset with Jaeger tracing and Highlight.io error reporting. See `dev-tools/agents/mcp-servers/observability-server.js` for consolidated implementations.
+dev-tools/workspace/context/archive/# OTEL-Observability-MCP-Migration.md:cd dev-tools/agents/mcp-servers
+dev-tools/workspace/context/archive/# OTEL-Observability-MCP-Migration.md:cd dev-tools/agents/mcp-servers && npm install
+dev-tools/workspace/context/archive/# OTEL-Observability-MCP-Migration.md:cd dev-tools/agents/mcp-servers && npm install
+dev-tools/workspace/context/session_store/MIGRATION_OPTIMIZATIONS.md:if grep -q '"dev-tools/agents/mcp-servers"' .vscode/mcp_config.json; then
+dev-tools/workspace/context/session_store/coverage.md:- Placeholder/boilerplate tests (e.g., mcp-servers) exist; some dev-tools and integration tests are not strictly required for application validation.
+dev-tools/workspace/context/session_store/coverage.md:- Corrected malformed `dev-tools/agents/mcp-servers/active-registry.json` capabilities array (missing commas/indentation) to restore valid JSON for MCP scanner.
+dev-tools/workspace/context/session_store/coverage.md:- Action: Migrated all Supabase troubleshooting tools (`test_edge_function`, `validate_database_permissions`, `run_rls_diagnostics`, `supabase_cli_healthcheck`, `check_production_deployment`, `vercel_status_check`, `generate_debugging_commands`, `collect_and_summarize_logs`, `validate_ci_cd_suite`) into `dev-tools/agents/mcp-servers/observability-server.js` with OpenTelemetry span instrumentation and Highlight.io error forwarding.
+dev-tools/workspace/context/session_store/coverage.md:- **Validation**: Installed dependencies for both packages and ran `npm run build --prefix dev-tools/agents/mcp-servers/mcp-tools/{sequential,memory}` to emit fresh `dist/` outputs.
+dev-tools/workspace/context/session_store/coverage.md:- **Action**: Created long-lived `archive-vault` branch and relocated `dev-tools/agents/mcp-servers/archive/` under `archives/dev-tools/agents/mcp-servers/` for historical retention.
+dev-tools/workspace/context/session_store/coverage.md:- **Action**: Deleted `dev-tools/agents/mcp-servers/postgresql-server.js` and removed its entry from `active-registry.json` and package metadata. Supabase MCP and Drizzle ORM now provide all required Postgres tooling and agent access.
+dev-tools/workspace/context/session_store/coverage.md:| |-- mcp-servers/
+dev-tools/workspace/context/session_store/coverage.md:  |-- mcp-servers/
+dev-tools/workspace/context/session_store/coverage.md:- **Action**: Collapsed `dev-tools/agent-orchestration/**` and `dev-tools/agents/servers/` into the unified `dev-tools/agents/{workflows,context,mcp,mcp-servers}` hierarchy. Renamed `servers` to `mcp-servers` and updated all VS Code configs (`settings.json`, `launch.json`, `tasks.json`, `mcp_config.json`) so every MCP hook now targets the new directory. Confirmed the new folder contains all server scripts (e.g., `observability-server.js`, `supabase-troubleshooting-server.js`, tool helpers). Adjustment logged in `docs/tooling/settings-staging.md` for audit. VS Code reload recommended to pick up new paths.
+dev-tools/workspace/context/session_store/coverage.md:- Created backup of dev-tools/agents/mcp-servers/ before cleanup
+dev-tools/workspace/context/session_store/REPO_RESTRUCTURE_PLAN.md:│   ├── mcp-servers/                 # MCP server implementations
+dev-tools/workspace/context/session_store/REPO_RESTRUCTURE_PLAN.md:      "args": ["${workspaceFolder}/dev-tools-package/agents/mcp-servers/utility/dist/index.js"]
+dev-tools/reports/testing/test-inventory.json:./dev-tools/testing/agents/mcp-servers/e2e/mcp-servers.spec.ts
+dev-tools/reports/testing/test-inventory.json:./dev-tools/testing/agents/mcp-servers/unit/mcp-servers.test.ts
+dev-tools/reports/validation/mcp-audit-20251029-114951.md:/workspaces/ProspectPro/dev-tools/agents/mcp-servers/environments/development.js
+dev-tools/reports/validation/mcp-audit-20251029-114951.md:/workspaces/ProspectPro/dev-tools/agents/mcp-servers/environments/production.js
+dev-tools/reports/validation/mcp-audit-20251029-114951.md:/workspaces/ProspectPro/dev-tools/agents/mcp-servers/environments/troubleshooting.js
+dev-tools/reports/validation/mcp-audit-20251029-114951.md:/workspaces/ProspectPro/dev-tools/agents/mcp-servers/observability-server.js
+dev-tools/reports/validation/mcp-audit-20251029-114951.md:/workspaces/ProspectPro/dev-tools/agents/mcp-servers/utility/dist/index.d.ts
+dev-tools/reports/validation/mcp-audit-20251029-114951.md:/workspaces/ProspectPro/dev-tools/agents/mcp-servers/utility/dist/index.js
+dev-tools/reports/validation/mcp-audit-20251029-114951.md:/workspaces/ProspectPro/dev-tools/agents/mcp-servers/utility/dist/memory.d.ts
+dev-tools/reports/validation/mcp-audit-20251029-114951.md:/workspaces/ProspectPro/dev-tools/agents/mcp-servers/utility/dist/memory.js
+dev-tools/reports/validation/mcp-audit-20251029-114951.md:/workspaces/ProspectPro/dev-tools/agents/mcp-servers/utility/dist/sequential.d.ts
+dev-tools/reports/validation/mcp-audit-20251029-114951.md:/workspaces/ProspectPro/dev-tools/agents/mcp-servers/utility/dist/sequential.js
+dev-tools/reports/validation/mcp-audit-20251029-114951.md:/workspaces/ProspectPro/dev-tools/agents/mcp-servers/utility/src/index.ts
+dev-tools/reports/validation/mcp-audit-20251029-114951.md:/workspaces/ProspectPro/dev-tools/agents/mcp-servers/utility/src/memory.ts
+dev-tools/reports/validation/mcp-audit-20251029-114951.md:/workspaces/ProspectPro/dev-tools/agents/mcp-servers/utility/src/sequential.ts
+dev-tools/README.md:- `mcp-servers/` – Production, development, and troubleshooting MCP servers (registry lives here).
+dev-tools/README.md:- MCP server registry resides in `/agents/mcp-servers/registry.json`; keep it in sync with `config/mcp-config.json`.
+dev-tools/agents/_production-ops/config.json:    "mcp_registry": "/dev-tools/agents/mcp-servers/active-registry.json",
+dev-tools/agents/mcp-servers/package-lock.json:  "name": "prospectpro-mcp-servers",
+dev-tools/agents/mcp-servers/package-lock.json:      "name": "prospectpro-mcp-servers",
+dev-tools/agents/mcp-servers/MCP-package.json:  "name": "prospectpro-mcp-servers",
+dev-tools/agents/mcp-servers/README.md:- Run `npm run build:tools` in `dev-tools/agents/mcp-servers/` after editing these packages so the registry (`active-registry.json`) can execute the latest `dist/` output.
+dev-tools/agents/mcp-servers/README.md:Original individual servers are preserved in `/archive/mcp-servers-individual/` for reference.
+dev-tools/agents/mcp-servers/package.json:  "name": "prospectpro-mcp-servers",
+dev-tools/agents/observability-cli.js:      const child = spawn("node", ["mcp-servers/observability-server.js"], {
+dev-tools/agents/scripts/remove-legacy-troubleshooting-server.sh:ARCHIVE_DIR="dev-tools/workspace/archive/legacy-mcp-servers"
+dev-tools/agents/scripts/remove-legacy-troubleshooting-server.sh:if [ -f "dev-tools/agents/mcp-servers/supabase-troubleshooting-server.js" ]; then
+dev-tools/agents/scripts/remove-legacy-troubleshooting-server.sh:  mv "dev-tools/agents/mcp-servers/supabase-troubleshooting-server.js" \
+dev-tools/agents/scripts/validate-observability-migration.sh:timeout 5s node ../mcp-servers/observability-server.js <<EOF
+dev-tools/agents/scripts/validate-agents.sh:cd "$ROOT_DIR/dev-tools/agents/mcp-servers/utility" && npm run build && cd -
+dev-tools/agents/scripts/validate-agents.sh:# Smoke test consolidated MCP (run from mcp-servers root for correct context)
+dev-tools/agents/scripts/validate-agents.sh:cd "$ROOT_DIR/dev-tools/agents/mcp-servers"
+dev-tools/agents/scripts/start-mcp.sh:MCP_DIR="$REPO_ROOT/mcp-servers"
+dev-tools/agents/scripts/start-mcp.sh:  echo "❌ mcp-servers directory missing. Run dev-tools/scripts/setup/.codespaces-init.sh to restore." >&2
+dev-tools/agents/context/TEST_RUN_EXPECTATIONS.md:- All MCP tool tests pass (no failures in `mcp-servers/reports/`)
+dev-tools/agents/_system-architect/config.json:    "mcp_registry": "/dev-tools/agents/mcp-servers/active-registry.json",
+dev-tools/agents/_system-architect/instructions.md:- **MCP Registry**: `/mcp-servers/registry.json`
+dev-tools/agents/_observability/config.json:    "mcp_registry": "/dev-tools/agents/mcp-servers/active-registry.json",
+dev-tools/agents/_observability/instructions.md:- **Observability MCP Reference**: `/dev-tools/agents/mcp-servers/observability-server.js`
+dev-tools/agents/_development-workflow/instructions.md:- **Jaeger UI** – open <http://localhost:16686>. Start via VS Code task “Observability: Start Stack” or `npm run start:observability` inside `dev-tools/agents/mcp-servers`.
+dev-tools/agents/_development-workflow/instructions.md:| Start observability MCP | `npm run mcp:start` (root) or `npm run start:production` in `dev-tools/agents/mcp-servers` |

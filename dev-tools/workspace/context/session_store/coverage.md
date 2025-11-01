@@ -835,3 +835,125 @@ Successfully migrated all Supabase assets from split locations into a consolidat
 - [ ] Run deployment scripts to confirm functionality
 - [ ] Update integration-filetree.txt if needed
 - [ ] Stage summary in docs/tooling/settings-staging.md
+
+## 2025-11-01: Phase 2 Preparation Complete
+
+### Dependency Analysis
+
+Successfully generated dependency map comparing dev-tools vs. app packages:
+
+- **Dev-tools dependencies**: 23 unique packages
+- **App dependencies**: 61 unique packages
+- **Shared dependencies**: 10 packages (indicating some coupling)
+- **Dev-tools specific**: 13 packages (will move to new repo)
+- **App specific**: 51 packages (remain in ProspectPro)
+
+Key shared dependencies identified:
+- `@highlight-run/node` - Telemetry integration
+- `@modelcontextprotocol/sdk` - MCP server implementation
+- `@opentelemetry/api` - Observability framework
+- `@supabase/supabase-js` - Database client
+- `typescript`, `eslint`, `vitest` - Development tooling
+
+**Implications**: Shared dependencies indicate some coupling that should be evaluated during extraction. Consider using peer dependencies for packages used by both domains.
+
+### Environment Audit
+
+Inventoried all ENV variables referenced in dev-tools codebase:
+
+**Total identified**: 16 unique environment variables
+
+Key variables by category:
+- **Highlight.io telemetry** (7): `HIGHLIGHT_PROJECT_ID`, `HIGHLIGHT_API_KEY`, `HIGHLIGHT_OTLP_ENDPOINT`, etc.
+- **MCP configuration** (2): `MCP_MEMORY_FILE_PATH`, `MEMORY_FILE_PATH`
+- **Testing** (1): `PLAYWRIGHT_BASE_URL`
+- **Development** (3): `NODE_ENV`, `REPO_ROOT`, `AGENT_TAG`
+- **Logging** (3): `DISABLE_THOUGHT_LOGGING`, `SEQUENTIAL_LOG_PATH`, `ALLOWED_PATH`
+
+**Action**: All variables documented in `env-variables-inventory.txt`. The `.env.example` file should be reviewed to ensure all dev-tools variables are documented with extraction requirements.
+
+### Configuration Validation
+
+Mapped all MCP server path references:
+
+- **References found**: 100 occurrences across `.vscode/` and `dev-tools/`
+- **Primary locations**: 
+  - `.vscode/mcp_config.json` (configuration root)
+  - `dev-tools/agents/mcp-servers/` (server implementations)
+  - Agent toolset configurations
+
+**Impact**: All MCP server path references will need updating when transitioning to submodule or workspace structure. The `mcp_config.json` paths must be adjusted to reflect new location.
+
+### CI Pipeline Review
+
+Identified GitHub Actions workflows requiring updates:
+
+- `.github/workflows/mcp-agent-validation.yml` - Validates MCP server configurations
+- `.github/workflows/docs-automation.yml` - Generates documentation using dev-tools scripts
+
+**Action**: Both workflows reference `dev-tools/` paths directly and will need updates to use submodule or workspace paths after extraction.
+
+### Extraction Manifest
+
+Created comprehensive `extraction-manifest.json` documenting:
+
+- **Total files**: 318 in dev-tools domain
+- **Portable components**: ~305 files (96%)
+- **App-specific exclusions**: ~13 files (4%)
+
+**Categories**:
+- Agents: 94 files (portable agent profiles)
+- Automation: 8 files (CI/CD scripts)
+- Testing: 47 files (configs, fixtures, utilities)
+- Scripts: 43 files (automation, operations, setup)
+- Workspace: 100 files (session stores, archives)
+- Observability: 15 files (NOT portable - ProspectPro-specific)
+- Reports: 11 files (telemetry artifacts)
+
+**App-specific exclusions identified**:
+1. `integrate-highlight-edge-functions.ts` - ProspectPro Highlight integration
+2. `vercel-validate.sh` - ProspectPro deployment validation
+3. `deploy-highlight-integration.sh` - ProspectPro Highlight deployment
+4. `highlight-integration-inventory.sh` - ProspectPro inventory script
+5. `observability/highlight-node/` - ProspectPro telemetry implementation
+6. Highlight integration reports
+
+**Legacy cleanup targets**:
+- `dev-tools/context/repo-GPS/` (duplicate - remove in Phase 5)
+- `dev-tools/context/session_store/` (duplicate - remove in Phase 5)
+- `dev-tools/workspace/context/archive/` (move to Dev-Tools/legacy/)
+
+### Circular Dependency Check
+
+**Analysis**: No circular dependencies detected between app and dev-tools domains.
+
+The dependency analysis shows:
+- Dev-tools can function independently with its 13 specific packages
+- Shared dependencies are standard tools (TypeScript, ESLint, Vitest)
+- App domain does not import from dev-tools; only uses via scripts
+- Dev-tools scripts reference app paths for operations (one-way dependency)
+
+**Conclusion**: Clean separation is feasible. Dev-tools can be extracted as an independent package with ProspectPro consuming it via submodule or workspace.
+
+### Phase 2 Validation Summary
+
+✅ **All preparation tasks complete**:
+1. ✅ Dependency analysis generated and reviewed
+2. ✅ Environment variables inventoried (16 unique vars)
+3. ✅ MCP configuration references mapped (100 occurrences)
+4. ✅ CI workflows identified (2 workflows require updates)
+5. ✅ Extraction manifest created with file-by-file categorization
+6. ✅ No circular dependencies found
+7. ✅ App-specific exclusions documented
+8. ✅ Legacy cleanup targets identified
+
+### Next: Ready for Dev-Tools Repository Creation (Phase 3)
+
+With Phase 2 complete, we have:
+- Clear extraction scope (305 portable files)
+- Documented integration points (.vscode, .github, package.json)
+- Identified app-specific code to retain (13 files)
+- No blocking circular dependencies
+- Complete dependency and environment analysis
+
+**Recommendation**: Proceed to Phase 3 (repository setup) with high confidence. All preparation audits are complete and documented.
