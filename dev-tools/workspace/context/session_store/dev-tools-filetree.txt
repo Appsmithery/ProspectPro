@@ -95,7 +95,6 @@ dev-tools/
 |   |   |-- test-results.json
 |   |   `-- tool-reference.md
 |   |-- scripts/
-|   |   |-- .env.agent.local
 |   |   |-- cache-session.js
 |   |   |-- context-snapshot.sh
 |   |   |-- deploy-client-service-layer.sh
@@ -181,9 +180,15 @@ dev-tools/
 |   |-- operations/
 |   |   |-- ensure-supabase-cli-session.sh
 |   |   |-- launch-react-devtools.sh
-|   |   `-- shared-functions.sh
+|   |   |-- shared-functions.sh
+|   |   `-- supabase_cli_helpers.sh
 |   |-- setup/
 |   |   `-- .codespaces-init.sh
+|   |-- testing/
+|   |   |-- export-deno-env.sh
+|   |   |-- README-deno-env.md
+|   |   |-- run-deno-tests.sh
+|   |   `-- scaffold-tests.mjs
 |   |-- tooling/
 |   |   |-- migrate-supabase-functions.sh
 |   |   `-- validate-ignore-config.cjs
@@ -198,6 +203,7 @@ dev-tools/
 |   |   |   |-- integration/
 |   |   |   |   `-- client-service-layer.integration.ts
 |   |   |   |-- unit/
+|   |   |   |   |-- cache-manager.test.ts
 |   |   |   |   `-- client-service-layer.test.ts
 |   |   |   `-- Taskfile.yml
 |   |   |-- context/

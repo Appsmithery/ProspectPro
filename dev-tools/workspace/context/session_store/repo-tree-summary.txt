@@ -38,12 +38,8 @@ ProspectPro/
 |   |-- platform/
 |   |-- symlinks/
 |   `-- templates/
+|-- playwright-report/
 |-- reports/
 |   `-- playwright/
-|-- supabase/
-|   |-- db/
-|   |-- functions/
-|   |-- migrations/
-|   `-- schema/
 |-- test-results/
 `-- tests/
