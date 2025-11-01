@@ -6,17 +6,17 @@
 - **Frontend**: React/Vite app under `app/frontend/`; deploy with `npm run build` and Vercel production push.
 - **Backend**: Supabase-first stack; Edge Functions live in `app/backend/functions/` (symlinked at root as `supabase/`) with schema tracked in `app/backend/schema/`.
 - **Data Layer**: Supabase Postgres enforcing Row Level Security, campaign ownership, and authenticated exports.
-- **Observability Toolchain**: MCP log forwarder, Supabase logs, and consolidated telemetry artifacts under `dev-tools/reports/`.
+- **Observability Toolchain**: MCP log forwarder, Supabase logs, and consolidated telemetry artifacts under `dev-tools-package/reports/`.
 - **Authentication**: Supabase Auth for anonymous + authenticated sessions via shared helpers.
 
 ## Target Repo Structure & Tool Suite
 
 - **Domain separation**
   - `app/` – production UI, backend functions, shared client utilities, and embedded Vite config.
-  - `dev-tools/` – automation, diagnostics, MCP servers, observability assets, and authoritative inventories.
+  - `dev-tools/` – retained for legacy compatibility during migration (being phased out).
   - `integration/` – partner connectors, infrastructure definitions, environment specs, and symlink management.
-- **Reports & Telemetry**: Long-lived diagnostics, monitoring outputs, and observability configs stay in `dev-tools/reports/`. Legacy `Reports/` folders are being merged here; do not recreate root-level `reports/`.
-- **Temporary & Working Files**: Use `dev-tools/workspace/context/session_store/` exclusively for scratch plans, coverage snapshots, logs-in-transit, and migration trackers. Clean up after shipping to keep it lightweight.
+- **Reports & Telemetry**: Long-lived diagnostics, monitoring outputs, and observability configs stay in `dev-tools-package/reports/`. Legacy `Reports/` folders are being merged here; do not recreate root-level `reports/`.
+- **Temporary & Working Files**: Use `dev-tools-package/workspace/context/session_store/` exclusively for scratch plans, coverage snapshots, logs-in-transit, and migration trackers. Clean up after shipping to keep it lightweight.
 - **Automation & Tasks**: Prefer the curated VS Code tasks (see `.vscode/TASKS_REFERENCE.md`) and npm scripts in `package.json` for deployment, validation, and diagnostics before adding new workflows.
 
 ## Agent Profiles & Testing Suite
@@ -24,22 +24,22 @@
 - **Portable agent profiles**: Canonical agents (`_development-workflow`, `_observability`, `_production-ops`, `_system-architect`, etc.) ship with coordinated `taskfile.yaml`, `toolset.jsonc`, `instructions.md`, and `config.json` assets. Treat the set as a portable package you can drop into other repos without app-specific rewrites.
 - **Automation lives in Taskfiles**: Each agent’s `taskfile.yaml` is the primary home for lint, unit, integration, and cross-browser E2E orchestration. `.vscode/tasks.json` exposes only thin shims so VS Code’s Run/Debug UI mirrors the Task CLI experience without duplicating logic.
 - **Unified tooling**: Tasks invoke Vitest, Playwright, and Deno pipelines, refresh documentation/inventories, and sync telemetry (Highlight/OpenTelemetry) through the agent’s defined MCP toolset. The suite should always be runnable via `task` or the VS Code Testing panel with no manual wiring.
-- **Workspace flow**: Developers install dependencies once, pick the agent profile that matches their role, and trigger the curated tasks. Automation cascades across app + dev-tools boundaries, captures artifacts under `dev-tools/reports/`, and writes provenance to session_store inventories so migrations stay auditable.
+- **Workspace flow**: Developers install dependencies once, pick the agent profile that matches their role, and trigger the curated tasks. Automation cascades across app + dev-tools boundaries, captures artifacts under `dev-tools-package/reports/`, and writes provenance to session_store inventories so migrations stay auditable.
 - **Separation of concerns**: Integration between `dev-tools` and `app` stays intentionally light—agents remain app-agnostic modules that validate the full stack yet remain portable for future projects.
 
 ## Data Integrity & Integrations
 
 - Production data only—no synthetic pipelines.
 - Core integrations: Google Place Details (authority data), Hunter.io + NeverBounce (email discovery/deliverability), Cobalt Intelligence + licensing directories (executive verification), chamber/trade association feeds (membership), Foursquare Places (category enrichment).
-- Record anomalies and verification notes in `dev-tools/workspace/context/session_store/coverage.md` or linked playbooks before release.
+- Record anomalies and verification notes in `dev-tools-package/workspace/context/session_store/coverage.md` or linked playbooks before release.
 
 ## Tooling & Automation Guardrails
 
 - **Chat modes**: `Development Workflow`, `Observability`, `Production Ops`, `System Architect` found under `.github/chatmodes/`.
 - **Mermaid diagrams**: Author in `docs/{app,dev-tools,integration}/diagrams/`; validate via `npm run docs:prepare` before publishing.
-- **MCP Servers**: `dev-tools/agents/mcp-servers/` hosts the sources; configuration is centralized in `.vscode/mcp_config.json` (referenced via `.vscode/settings.json`), and changes must be logged in `docs/tooling/settings-staging.md`. Rebuild the Utility MCP with `npm run build --prefix dev-tools/agents/mcp-servers/utility` after config updates. Start troubleshooting with `npm run mcp:troubleshoot` (root) or `npm run start:troubleshooting` (from `dev-tools/agents/mcp-servers/`).
-- **Supabase CLI**: Run from `/workspaces/ProspectPro/supabase` (symlinked to `app/backend/`) via `npx --yes supabase@latest`; keep auth fresh with `dev-tools/scripts/operations/ensure-supabase-cli-session.sh`.
-- **Automation scripts**: `dev-tools/scripts/automation/` and `dev-tools/automation/ci-cd/` handle log pulls, Vercel checks, and context snapshots; outputs captured in `dev-tools/reports/` once finalized.
+- **MCP Servers**: `dev-tools-package/agents/mcp-servers/` hosts the sources; configuration is centralized in `.vscode/mcp_config.json` (referenced via `.vscode/settings.json`), and changes must be logged in `docs/tooling/settings-staging.md`. Rebuild the Utility MCP with `npm run build --prefix dev-tools-package/agents/mcp-servers/utility` after config updates. Start troubleshooting with `npm run mcp:troubleshoot` (root) or `npm run start:troubleshooting` (from `dev-tools-package/agents/mcp-servers/`).
+- **Supabase CLI**: Run from `/workspaces/ProspectPro/supabase` (symlinked to `app/backend/`) via `npx --yes supabase@latest`; keep auth fresh with `dev-tools-package/scripts/operations/ensure-supabase-cli-session.sh`.
+- **Automation scripts**: `dev-tools-package/scripts/automation/` and `dev-tools-package/automation/ci-cd/` handle log pulls, Vercel checks, and context snapshots; outputs captured in `dev-tools-package/reports/` once finalized.
 
 ## Workspace & Editor Settings
 
@@ -60,23 +60,23 @@
 ## Workspace Practices
 
 - Stage `.vscode/` and `.github/` proposals in `docs/tooling/settings-staging.md` before editing live configs.
-- Follow relocation sequencing in `dev-tools/workspace/context/session_store/REPO_RESTRUCTURE_PLAN.md` (canonical migration roadmap).
-- Update inventories in `dev-tools/workspace/context/session_store/{app-filetree,dev-tools-filetree,integration-filetree}.txt` whenever files move; log provenance in `coverage.md`.
+- Follow relocation sequencing in `dev-tools-package/workspace/context/session_store/REPO_RESTRUCTURE_PLAN.md` (canonical migration roadmap).
+- Update inventories in `dev-tools-package/workspace/context/session_store/{app-filetree,dev-tools-filetree,integration-filetree}.txt` whenever files move; log provenance in `coverage.md`.
 - After migratory work, run `npm run docs:update` and refresh references in FAST README and platform playbooks.
 
 ### Environment & Secrets Management (Canonical Workflow)
 
-- **Primary agent env file:** `dev-tools/agents/.env.agent.local` is the single source of truth for agent secrets and environment variables in local dev and CI. It is gitignored and must never be committed with real secrets. Hydrate it using:
-  - `dev-tools/agents/scripts/hydrate-local-env.sh` (pulls from Vercel/Supabase, requires `VERCEL_TOKEN` and optionally `SUPABASE_PROJECT_REF`)
+- **Primary agent env file:** `dev-tools-package/agents/.env.agent.local` is the single source of truth for agent secrets and environment variables in local dev and CI. It is gitignored and must never be committed with real secrets. Hydrate it using:
+  - `dev-tools-package/agents/scripts/hydrate-local-env.sh` (pulls from Vercel/Supabase, requires `VERCEL_TOKEN` and optionally `SUPABASE_PROJECT_REF`)
   - Or manually add/override variables for local testing (never commit real secrets)
 - **Templates:** `.env.example` provides a reference for required keys and structure.
 - **Frontend/Edge/Other:** Frontend uses `.env.local`, `.env.production`, etc., hydrated via Vercel CLI or `npm run env:pull`. Edge functions and MCP servers read from `.env.agent.local` or injected secrets in CI/CD.
-- **Validation:** Run `dev-tools/agents/scripts/validate-agents.sh` to check all required secrets for each agent persona. Run `npm run validate:ignores` to ensure no secrets or sensitive files are accidentally committed.
+- **Validation:** Run `dev-tools-package/agents/scripts/validate-agents.sh` to check all required secrets for each agent persona. Run `npm run validate:ignores` to ensure no secrets or sensitive files are accidentally committed.
 - **Production/staging secrets:** Managed via Vercel and Supabase dashboards; never stored in the repo. Staging/production inherit Highlight and other credentials from Vercel environment groups.
 - **Troubleshooting:** If validation fails, ensure `.env.agent.local` exists and is hydrated. For new secrets, update `.env.example` and the hydration script as needed.
 
 **Deno/Supabase Edge Test Hydration:**
-For Deno-based Supabase Edge tests (see `app/tests/deno`), you must provide `SUPABASE_SESSION_JWT` in your `.env.local` (or export it manually) before running tests. See `dev-tools/scripts/testing/README-deno-env.md` for details and the export script. This is not hydrated by Vercel by default.
+For Deno-based Supabase Edge tests (see `app/tests/deno`), you must provide `SUPABASE_SESSION_JWT` in your `.env.local` (or export it manually) before running tests. See `dev-tools-package/scripts/testing/README-deno-env.md` for details and the export script. This is not hydrated by Vercel by default.
 
 ## Copilot Response Guidelines
 

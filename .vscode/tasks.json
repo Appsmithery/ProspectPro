@@ -6,7 +6,7 @@
       "label": "Env: Generate All Configs",
       "type": "shell",
       "command": "node",
-      "args": ["dev-tools/scripts/automation/generate-configs.mjs"],
+      "args": ["dev-tools-package/scripts/automation/generate-configs.mjs"],
       "group": "build",
       "presentation": {
         "echo": true,
@@ -20,7 +20,7 @@
       "type": "shell",
       "command": "node",
       "args": [
-        "dev-tools/agents/context/context-manager.ts",
+        "dev-tools-package/agents/context/context-manager.ts",
         "--env=development"
       ],
       "group": "build",
@@ -35,7 +35,7 @@
       "label": "Env: Switch to Staging",
       "type": "shell",
       "command": "node",
-      "args": ["dev-tools/agents/context/context-manager.ts", "--env=staging"],
+      "args": ["dev-tools-package/agents/context/context-manager.ts", "--env=staging"],
       "group": "build",
       "presentation": {
         "echo": true,
@@ -49,7 +49,7 @@
       "type": "shell",
       "command": "node",
       "args": [
-        "dev-tools/agents/context/context-manager.ts",
+        "dev-tools-package/agents/context/context-manager.ts",
         "--env=production"
       ],
       "group": "build",
@@ -65,7 +65,7 @@
       "type": "shell",
       "command": "node",
       "args": [
-        "dev-tools/scripts/automation/generate-configs.mjs",
+        "dev-tools-package/scripts/automation/generate-configs.mjs",
         "--validate"
       ],
       "group": "test",
@@ -80,7 +80,7 @@
       "label": "Agents: Lint",
       "type": "shell",
       "command": "task",
-      "args": ["-d", "dev-tools/testing", "agents:lint"],
+      "args": ["-d", "dev-tools-package/testing", "agents:lint"],
       "group": "test",
       "presentation": {
         "echo": true,
@@ -93,7 +93,7 @@
       "label": "Agents: Reports Sync",
       "type": "shell",
       "command": "task",
-      "args": ["-d", "dev-tools/testing", "reports_sync"],
+      "args": ["-d", "dev-tools-package/testing", "reports_sync"],
       "group": "build",
       "presentation": {
         "echo": true,
@@ -196,7 +196,7 @@
       "label": "Ollama: Start Service",
       "type": "shell",
       "command": "bash",
-      "args": ["dev-tools/scripts/automation/start-ollama.sh"],
+      "args": ["dev-tools-package/scripts/automation/start-ollama.sh"],
       "group": "build",
       "presentation": {
         "echo": true,
@@ -392,7 +392,7 @@
       "command": "bash",
       "args": [
         "-lc",
-        "cd app/backend && source ../../dev-tools/scripts/operations/ensure-supabase-cli-session.sh && npx --yes supabase@latest migration new ${input:migrationName}"
+        "cd app/backend && source ../../dev-tools-package/scripts/operations/ensure-supabase-cli-session.sh && npx --yes supabase@latest migration new ${input:migrationName}"
       ],
       "group": "build",
       "presentation": {
@@ -427,7 +427,7 @@
       "command": "bash",
       "args": [
         "-lc",
-        "cd app/backend && source ../../dev-tools/scripts/operations/ensure-supabase-cli-session.sh && npx --yes supabase@latest functions deploy ${input:functionName} --no-verify-jwt"
+        "cd app/backend && source ../../dev-tools-package/scripts/operations/ensure-supabase-cli-session.sh && npx --yes supabase@latest functions deploy ${input:functionName} --no-verify-jwt"
       ],
       "group": "build",
       "dependsOn": "Supabase: Ensure Session",
@@ -512,7 +512,7 @@
       "command": "bash",
       "args": [
         "-lc",
-        "cd app/backend && source ../../dev-tools/scripts/operations/ensure-supabase-cli-session.sh && npx --yes supabase@latest functions deploy test-google-places --no-verify-jwt && npx --yes supabase@latest functions deploy test-new-auth --no-verify-jwt && npx --yes supabase@latest functions deploy auth-diagnostics --no-verify-jwt"
+        "cd app/backend && source ../../dev-tools-package/scripts/operations/ensure-supabase-cli-session.sh && npx --yes supabase@latest functions deploy test-google-places --no-verify-jwt && npx --yes supabase@latest functions deploy test-new-auth --no-verify-jwt && npx --yes supabase@latest functions deploy auth-diagnostics --no-verify-jwt"
       ],
       "group": "build",
       "dependsOn": "Supabase: Ensure Session",
@@ -594,7 +594,7 @@
       "command": "bash",
       "args": [
         "-lc",
-        "cd app/backend && source ../../dev-tools/scripts/operations/ensure-supabase-cli-session.sh && npx --yes supabase@latest functions logs ${input:functionName} --follow"
+        "cd app/backend && source ../../dev-tools-package/scripts/operations/ensure-supabase-cli-session.sh && npx --yes supabase@latest functions logs ${input:functionName} --follow"
       ],
       "group": "build",
       "dependsOn": "Supabase: Ensure Session",
@@ -933,7 +933,7 @@
       "command": "npm",
       "args": ["run", "start:observability"],
       "options": {
-        "cwd": "${workspaceFolder}/dev-tools/agents/mcp-servers"
+        "cwd": "${workspaceFolder}/dev-tools-package/agents/mcp-servers"
       },
       "isBackground": true,
       "group": "build",
@@ -1276,7 +1276,7 @@
       "command": "bash",
       "args": [
         "-lc",
-        "mkdir -p dev-tools/workspace/context/session_store/logs && source scripts/operations/ensure-supabase-cli-session.sh && npx --yes supabase@latest functions logs ${input:functionName} --since=${input:sinceTime} > dev-tools/workspace/context/session_store/logs/supabase-logs-$(date +%Y%m%d-%H%M%S).log && echo 'Logs saved to dev-tools/workspace/context/session_store/logs/supabase-logs-$(date +%Y%m%d-%H%M%S).log'"
+        "mkdir -p dev-tools-package/workspace/context/session_store/logs && source scripts/operations/ensure-supabase-cli-session.sh && npx --yes supabase@latest functions logs ${input:functionName} --since=${input:sinceTime} > dev-tools-package/workspace/context/session_store/logs/supabase-logs-$(date +%Y%m%d-%H%M%S).log && echo 'Logs saved to dev-tools-package/workspace/context/session_store/logs/supabase-logs-$(date +%Y%m%d-%H%M%S).log'"
       ],
       "group": "build",
       "dependsOn": "Supabase: Ensure Session",
@@ -1338,7 +1338,7 @@
       "type": "npm",
       "script": "mcp:prod",
       "label": "npm: mcp:prod",
-      "detail": "cd dev-tools/agents/mcp-servers && npm run start:production",
+      "detail": "cd dev-tools-package/agents/mcp-servers && npm run start:production",
       "problemMatcher": []
     },
     {
@@ -1403,7 +1403,7 @@
     {
       "id": "logFile",
       "type": "promptString",
-      "description": "Path to log file to analyze (e.g., dev-tools/workspace/context/session_store/logs/supabase-logs-20251018-020000.log)"
+      "description": "Path to log file to analyze (e.g., dev-tools-package/workspace/context/session_store/logs/supabase-logs-20251018-020000.log)"
     }
   ]
 }

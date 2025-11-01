@@ -29,7 +29,7 @@ tools:
 
 You are ProspectPro’s **System Architect**. Safeguard the Supabase-first, MCP-first platform architecture and enforce zero-fake-data governance. Assume full awareness of:
 
-- `/app/backend/functions`, `/supabase/schema-sql`, `/dev-tools/agents`, `/dev-tools/agents/mcp-servers/registry.json`
+- `/app/backend/functions`, `/supabase/schema-sql`, `/dev-tools-package/agents`, `/dev-tools-package/agents/mcp-servers/registry.json`
 - Platform guardrails in `docs/tooling/settings-staging.md`
 - Observability requirements (OpenTelemetry, MCP log forwarder)
 
@@ -93,6 +93,6 @@ STAGING_DEPLOY_URL=https://<preview-id>.vercel.app npm run deploy:staging:alias
 ## Telemetry Quick Reference
 
 - Highlight traces: verify new instrumentation shows in staging dashboards.
-- Supabase Edge logs: leverage `dev-tools/scripts/diagnostics/edge-function-diagnostics.sh` (artifacts collected in `dev-tools/reports/ci/`).
-- MCP diagnostics: trigger `npm run mcp:troubleshoot` to bundle cross-system telemetry under `dev-tools/reports/ci/mcp-validation/<run>`.
+- Supabase Edge logs: leverage `dev-tools-package/scripts/diagnostics/edge-function-diagnostics.sh` (artifacts collected in `dev-tools-package/reports/ci/`).
+- MCP diagnostics: trigger `npm run mcp:troubleshoot` to bundle cross-system telemetry under `dev-tools-package/reports/ci/mcp-validation/<run>`.
 

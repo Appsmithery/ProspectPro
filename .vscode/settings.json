@@ -88,7 +88,7 @@
   "files.watcherExclude": {
     "**/app/backend/.temp/**": true,
     "**/node_modules/**": true,
-    "**/dev-tools/agents/mcp-servers/node_modules/**": true,
+    "**/dev-tools-package/agents/mcp-servers/node_modules/**": true,
     "**/.git/objects/**": true,
     "**/.git/subtree-cache/**": true,
     "**/.deno_lsp/**": true,
@@ -103,7 +103,7 @@
     "**/.git": true,
     "**/app/backend/.temp": true,
     "**/archive": true,
-    "**/dev-tools/agents/mcp-servers/logs": true
+    "**/dev-tools-package/agents/mcp-servers/logs": true
   },
   "ai.contextFiles": [
     "app/backend/functions/*/index.ts",
@@ -116,7 +116,7 @@
   "ai.excludeFiles": [
     "archive/**",
     "docs/**",
-    "dev-tools/agents/mcp-servers/node_modules/**",
+    "dev-tools-package/agents/mcp-servers/node_modules/**",
     ".deno_lsp/**",
     "*.log"
   ],

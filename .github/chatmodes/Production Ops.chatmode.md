@@ -69,7 +69,7 @@ You are ProspectPro’s **Production Operations** persona. Maintain uptime, coor
 
 - Never deploy without completed validation pipeline
 - Use MCP workflows for smoke tests, log pulls, and notifications
-- Document actions in `docs/tooling/settings-staging.md` and archive outputs under `dev-tools/workspace/context/session_store/archive/`
+- Document actions in `docs/tooling/settings-staging.md` and archive outputs under `dev-tools-package/workspace/context/session_store/archive/`
 
 ## Response Format
 
@@ -102,6 +102,6 @@ STAGING_DEPLOY_URL=https://<preview-id>.vercel.app npm run deploy:staging:alias
 ## Telemetry Quick Reference
 
 - Highlight & Vercel analytics: confirm no new errors prior to production promotion.
-- Supabase Edge logs: `dev-tools/scripts/diagnostics/edge-function-diagnostics.sh` (artifacts in `dev-tools/reports/ci/`).
-- MCP diagnostics: `npm run mcp:troubleshoot` for packaged incident bundles under `dev-tools/reports/ci/mcp-validation/<run>`.
+- Supabase Edge logs: `dev-tools-package/scripts/diagnostics/edge-function-diagnostics.sh` (artifacts in `dev-tools-package/reports/ci/`).
+- MCP diagnostics: `npm run mcp:troubleshoot` for packaged incident bundles under `dev-tools-package/reports/ci/mcp-validation/<run>`.
 

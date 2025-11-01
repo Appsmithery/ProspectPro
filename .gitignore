@@ -76,8 +76,8 @@ yarn-error.log*
 .env.*
 !/.env.example
 !/.env.docker
-!dev-tools/agents/.env.agent.example
-dev-tools/agents/.env.agent.local
+!dev-tools-package/agents/.env.agent.example
+dev-tools-package/agents/.env.agent.local
 
 # Supabase CLI artifacts (backend workspace)
 app/backend/.branches
@@ -101,10 +101,10 @@ lovable-config.json
 /build
 
 # Exclude all dist/ output from MCP sub-packages and dev-tools modules
-dev-tools/agents/mcp-servers/mcp-tools/sequential/dist/
-dev-tools/agents/mcp-servers/mcp-tools/memory/dist/
-dev-tools/agents/mcp-servers/utility/dist/
-dev-tools/agents/client-service-layer/dist/
+dev-tools-package/agents/mcp-servers/mcp-tools/sequential/dist/
+dev-tools-package/agents/mcp-servers/mcp-tools/memory/dist/
+dev-tools-package/agents/mcp-servers/utility/dist/
+dev-tools-package/agents/client-service-layer/dist/
 dev-tools/observability/highlight-node/dist/
 
 # Dev-Tools Package (submodule/workspace) - exclude build artifacts

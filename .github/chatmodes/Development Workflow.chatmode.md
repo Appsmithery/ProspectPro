@@ -91,6 +91,6 @@ STAGING_DEPLOY_URL=https://<preview-id>.vercel.app npm run deploy:staging:alias
 ## Telemetry Quick Reference
 
 - Highlight traces & errors: review preview telemetry through Vercel Analytics dashboards.
-- Supabase Edge logs: run `dev-tools/scripts/diagnostics/edge-function-diagnostics.sh` (artifacts land in `dev-tools/reports/ci/`).
-- MCP health bundles: `npm run mcp:troubleshoot` packages diagnostics to `dev-tools/reports/ci/mcp-validation/<run>`.
+- Supabase Edge logs: run `dev-tools-package/scripts/diagnostics/edge-function-diagnostics.sh` (artifacts land in `dev-tools-package/reports/ci/`).
+- MCP health bundles: `npm run mcp:troubleshoot` packages diagnostics to `dev-tools-package/reports/ci/mcp-validation/<run>`.
 

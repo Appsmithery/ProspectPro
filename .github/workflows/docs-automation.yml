@@ -24,7 +24,7 @@ jobs:
                   if ! git diff --quiet; then
                     git config --global user.email "github-actions[bot]@users.noreply.github.com"
                     git config --global user.name "github-actions[bot]"
-                    git add docs/app/diagrams docs/dev-tools/diagrams docs/integration/diagrams docs/shared/mermaid
+                    git add docs/app/diagrams docs/dev-tools-package/diagrams docs/integration/diagrams docs/shared/mermaid
                     git commit -m "docs: automated mermaid diagram update"
                     git push
                   fi
