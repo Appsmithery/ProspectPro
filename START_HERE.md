@@ -13,6 +13,7 @@ This PR implements **complete automation** for publishing the Dev-Tools package 
 ### The Problem
 
 Currently, dev-tools-package is a workspace directory in ProspectPro. We need to:
+
 1. Publish it to https://github.com/Alextorelli/Dev-Tools
 2. Replace the workspace with a git submodule
 3. Ensure zero downtime and full compatibility
@@ -20,6 +21,7 @@ Currently, dev-tools-package is a workspace directory in ProspectPro. We need to
 ### The Solution
 
 Two automated scripts that handle everything:
+
 - **publish-to-github.sh** - Publishes to external GitHub repository
 - **integrate-submodule.sh** - Replaces workspace with submodule
 
@@ -27,9 +29,15 @@ Two automated scripts that handle everything:
 
 ## 📋 Quick Start (30 seconds)
 
+````bash
+# Prerequisites: GitHub credentials configured
 ```bash
 # Prerequisites: GitHub credentials configured
 gh auth login  # or git credential helper
+
+# Step 1: Publish to GitHub
+cd /home/runner/work/ProspectPro/ProspectPro
+bash dev-tools-package/scripts/automation/publish-to-github.sh
 
 # Step 1: Publish to GitHub
 cd /home/runner/work/ProspectPro/ProspectPro
@@ -44,7 +52,7 @@ bash dev-tools-package/scripts/automation/integrate-submodule.sh
 
 # Step 4: Validate
 task submodule:validate
-```
+````
 
 **Time:** 8-22 minutes total (depends on npm install speed)
 
@@ -55,39 +63,50 @@ task submodule:validate
 Choose your path based on your needs:
 
 ### 🚀 I Want to Execute Now
+
 → **Start Here:** [EXECUTE_DEV_TOOLS_PUBLICATION.md](EXECUTE_DEV_TOOLS_PUBLICATION.md)
+
 - Quick command sequence
 - What to expect at each step
 - Time estimates
 
 ### 📖 I Want Complete Details
+
 → **Start Here:** [IMPLEMENTATION_COMPLETE.md](IMPLEMENTATION_COMPLETE.md)
+
 - What's been implemented
 - Step-by-step instructions
 - Troubleshooting guide
 - Success criteria
 
 ### 📊 I Want Visual Overview
+
 → **Start Here:** [WORKFLOW_DIAGRAM.md](WORKFLOW_DIAGRAM.md)
+
 - Mermaid flowchart of entire process
 - All decision points
 - Rollback procedures
 - Safety checkpoints
 
 ### 🔧 I Want Technical Details
+
 → **Start Here:** [dev-tools-package/scripts/automation/README-SUBMODULE-INTEGRATION.md](dev-tools-package/scripts/automation/README-SUBMODULE-INTEGRATION.md)
+
 - Complete script documentation
 - All configuration options
 - Advanced troubleshooting
 - Manual procedures
 
 ### 📕 I Want Reference Guides
+
 → **Start Here:** [DEV_TOOLS_MIGRATION_GUIDE.md](DEV_TOOLS_MIGRATION_GUIDE.md)
+
 - Original 33KB complete migration guide
 - All command sequences
 - Phase-by-phase plan
 
 → **Quick Reference:** [DEV_TOOLS_MIGRATION_QUICKREF.md](DEV_TOOLS_MIGRATION_QUICKREF.md)
+
 - 4.6KB condensed version
 - Quick links and commands
 
@@ -97,14 +116,14 @@ Choose your path based on your needs:
 
 This PR adds 6 new files (54KB total):
 
-| File | Size | Purpose |
-|------|------|---------|
-| **publish-to-github.sh** | 22KB | Automated publication script |
-| **integrate-submodule.sh** | 7.7KB | Automated integration script |
-| **README-SUBMODULE-INTEGRATION.md** | 12KB | Technical documentation |
-| **EXECUTE_DEV_TOOLS_PUBLICATION.md** | 4.7KB | Quick start guide |
-| **IMPLEMENTATION_COMPLETE.md** | 8.1KB | Complete summary |
-| **WORKFLOW_DIAGRAM.md** | 5.5KB | Visual flowchart |
+| File                                 | Size  | Purpose                      |
+| ------------------------------------ | ----- | ---------------------------- |
+| **publish-to-github.sh**             | 22KB  | Automated publication script |
+| **integrate-submodule.sh**           | 7.7KB | Automated integration script |
+| **README-SUBMODULE-INTEGRATION.md**  | 12KB  | Technical documentation      |
+| **EXECUTE_DEV_TOOLS_PUBLICATION.md** | 4.7KB | Quick start guide            |
+| **IMPLEMENTATION_COMPLETE.md**       | 8.1KB | Complete summary             |
+| **WORKFLOW_DIAGRAM.md**              | 5.5KB | Visual flowchart             |
 
 ---
 
@@ -126,12 +145,14 @@ Every script includes multiple safety measures:
 To https://github.com/Alextorelli/Dev-Tools (prospect-pro-tools branch):
 
 ### Configuration
+
 - `package.json` - npm package with workspaces
 - `tsconfig.json` - TypeScript config
 - `LICENSE` - MIT License
 - `.gitignore` - Standard exclusions
 
 ### Documentation
+
 - `EXTRACTION_MANIFEST.md` - Extraction details
 - `REPO_RESTRUCTURE_PLAN.md` - Migration roadmap
 - `CHANGELOG.md` - Version history
@@ -139,9 +160,11 @@ To https://github.com/Alextorelli/Dev-Tools (prospect-pro-tools branch):
 - `README.md` - Integration guide
 
 ### Automation
+
 - `.github/workflows/ci.yml` - GitHub Actions CI + CodeQL security
 
 ### Dev-Tools Content
+
 - `agents/` - 4 agent profiles + 3 MCP servers
 - `automation/` - CI/CD scripts
 - `testing/` - Test infrastructure
@@ -161,6 +184,7 @@ bash dev-tools-package/scripts/automation/publish-to-github.sh
 ```
 
 **What happens:**
+
 1. Clones Dev-Tools repo to `/tmp/Dev-Tools`
 2. Checks out `prospect-pro-tools` branch
 3. Copies all dev-tools-package files
@@ -179,6 +203,7 @@ bash dev-tools-package/scripts/automation/publish-to-github.sh
 ### Phase 2: Verification
 
 Visit https://github.com/Alextorelli/Dev-Tools and confirm:
+
 - ✅ `prospect-pro-tools` branch exists
 - ✅ `v1.0.0` tag exists
 - ✅ Files are present
@@ -192,6 +217,7 @@ bash dev-tools-package/scripts/automation/integrate-submodule.sh
 ```
 
 **What happens:**
+
 1. Creates backup: `/tmp/dev-tools-package-backup-*.tar.gz`
 2. Asks: "Continue?" (y/n)
 3. Removes workspace directory
@@ -216,6 +242,7 @@ task submodule:validate
 ```
 
 **What happens:**
+
 - Checks submodule status
 - Verifies .gitmodules
 - Validates directory structure
@@ -231,6 +258,7 @@ task submodule:validate
 ### Issue: Git asks for credentials
 
 **Solution:**
+
 ```bash
 # Option A: Use GitHub CLI
 gh auth login
@@ -242,6 +270,7 @@ git config --global credential.helper store
 ### Issue: Script fails midway
 
 **Solution:**
+
 - Review error message carefully
 - Check [IMPLEMENTATION_COMPLETE.md](IMPLEMENTATION_COMPLETE.md) troubleshooting section
 - Use rollback procedures if needed
@@ -250,6 +279,7 @@ git config --global credential.helper store
 ### Issue: npm install fails
 
 **Solution:**
+
 ```bash
 cd dev-tools-package
 npm install
@@ -260,6 +290,7 @@ PUPPETEER_SKIP_DOWNLOAD=true npm install
 ### Issue: Submodule shows as modified
 
 **Solution:**
+
 ```bash
 cd dev-tools-package
 git checkout prospect-pro-tools
@@ -274,6 +305,7 @@ git commit -m "chore: Sync submodule"
 ## ⏭️ After Successful Execution
 
 1. **Verify Integration**
+
    ```bash
    git submodule status
    cat .gitmodules
@@ -281,11 +313,13 @@ git commit -m "chore: Sync submodule"
    ```
 
 2. **Update Documentation**
+
    - Update `docs/tooling/settings-staging.md`
    - Log completion in coverage.md
    - Update REPO_RESTRUCTURE_PLAN.md
 
 3. **Manage Submodule**
+
    ```bash
    task submodule:check    # Check if up to date
    task submodule:update   # Update to latest
@@ -325,6 +359,7 @@ Both scripts are designed to be:
 - **Documented** - Extensive inline comments
 
 You can review the scripts before executing:
+
 - `cat dev-tools-package/scripts/automation/publish-to-github.sh`
 - `cat dev-tools-package/scripts/automation/integrate-submodule.sh`
 
@@ -335,14 +370,17 @@ You can review the scripts before executing:
 If you need assistance:
 
 1. **Read the Docs**
+
    - Start with [IMPLEMENTATION_COMPLETE.md](IMPLEMENTATION_COMPLETE.md)
    - Check [README-SUBMODULE-INTEGRATION.md](dev-tools-package/scripts/automation/README-SUBMODULE-INTEGRATION.md)
 
 2. **Review Error Messages**
+
    - Scripts provide detailed error output
    - Error messages include suggested solutions
 
 3. **Check Troubleshooting**
+
    - [IMPLEMENTATION_COMPLETE.md](IMPLEMENTATION_COMPLETE.md) has a troubleshooting section
    - [README-SUBMODULE-INTEGRATION.md](dev-tools-package/scripts/automation/README-SUBMODULE-INTEGRATION.md) has advanced troubleshooting
 
