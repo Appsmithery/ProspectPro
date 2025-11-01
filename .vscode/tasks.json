@@ -1153,8 +1153,8 @@
     {
       "label": "Context: Fetch Repo Snapshot",
       "type": "shell",
-      "command": "node",
-      "args": ["scripts/context/fetch-repo-context.js"],
+      "command": "bash",
+      "args": ["docs/scripts/repo_scan.sh"],
       "options": {
         "cwd": "${workspaceFolder}"
       },

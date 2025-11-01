@@ -173,23 +173,29 @@
 ## 2025-11-01: Supabase Directory Restructuring
 
 ### Summary
+
 Consolidated all Supabase assets under `app/backend/` to eliminate the root-level symlink and maintain clear separation between production app code and development tools.
 
 ### Changes to Automation & References
 
 #### package.json
+
 Updated 30+ npm scripts to reference `cd app/backend` instead of `cd supabase`:
+
 - All `supabase:*` scripts
 - All `deploy:*` scripts
 - All `edge:*` scripts
 - All `functions:*` and `logs:*` scripts
 
 Path updates:
+
 - `../scripts/operations` → `../../dev-tools/scripts/operations`
 - `../app/frontend/types` → `../../app/frontend/types`
 
 #### .vscode/tasks.json
+
 Updated 5 tasks:
+
 - Supabase: New Migration
 - Supabase: Deploy Single Function
 - Supabase: Deploy Diagnostic Functions
@@ -198,7 +204,9 @@ Updated 5 tasks:
 All now use `cd app/backend && source ../../dev-tools/scripts/operations/ensure-supabase-cli-session.sh`
 
 #### Shell Scripts
+
 Updated paths in:
+
 - `integration/monitoring/observability/supabase-pull-logs.sh`
 - `integration/monitoring/diagnostics/diagnose-campaign-failure.sh`
 - `integration/monitoring/diagnostics/deployment-validation-workflow.sh`
@@ -209,6 +217,7 @@ Updated paths in:
 ### Directory Structure Changes
 
 #### Before
+
 ```
 /
 ├── supabase/ (symlink → app/backend)
@@ -217,6 +226,7 @@ Updated paths in:
 ```
 
 #### After
+
 ```
 /
 └── app/backend/
@@ -233,6 +243,7 @@ Updated paths in:
 ```
 
 ### Validation Required
+
 - [ ] Test Supabase CLI commands from new location
 - [ ] Verify deployment workflows
 - [ ] Confirm CI/CD compatibility
@@ -240,6 +251,7 @@ Updated paths in:
 - [ ] Validate VS Code tasks
 
 ### Rationale
+
 1. Eliminates symlink confusion
 2. Maintains app/dev-tools separation
 3. Consolidates all Supabase assets
@@ -247,7 +259,12 @@ Updated paths in:
 5. Improves repository maintainability
 
 ### Related Documentation
+
 - `SUPABASE_MIGRATION.md` (repo root)
 - `dev-tools/workspace/context/session_store/coverage.md`
 - `dev-tools/workspace/context/session_store/app-filetree.txt`
 
+# 2025-11-01: Repo Snapshot Task Wrapper Update
+
+- Updated `.vscode/tasks.json` 'Context: Fetch Repo Snapshot' task to use the maintained bash wrapper (`docs/scripts/repo_scan.sh`) instead of the legacy node script. This ensures compatibility with the current repo context automation and prevents errors related to missing 'shell' keys in the context descriptor.
+- Please validate the new task and update documentation inventories after merging.
