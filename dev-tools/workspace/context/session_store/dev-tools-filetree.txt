@@ -47,7 +47,8 @@ dev-tools/
 |   |   |-- package-lock.json
 |   |   |-- package.json
 |   |   |-- README.md
-|   |   `-- tsconfig.json
+|   |   |-- tsconfig.json
+|   |   `-- tsconfig.tsbuildinfo
 |   |-- context/
 |   |   |-- schemas/
 |   |   |   |-- agent-context.schema.json
@@ -84,7 +85,8 @@ dev-tools/
 |   |   |   |   `-- sequential.ts
 |   |   |   |-- package-lock.json
 |   |   |   |-- package.json
-|   |   |   `-- tsconfig.json
+|   |   |   |-- tsconfig.json
+|   |   |   `-- tsconfig.tsbuildinfo
 |   |   |-- active-registry.json
 |   |   |-- MCP-package.json
 |   |   |-- mcp.json
@@ -128,11 +130,13 @@ dev-tools/
 |   |   |-- app-filetree.txt
 |   |   |-- dev-tools-filetree.txt
 |   |   |-- integration-filetree.txt
+|   |   |-- live-tooling-list.txt
 |   |   `-- repo-tree-summary.txt
 |   `-- session_store/
 |       |-- app-filetree.txt
 |       |-- dev-tools-filetree.txt
 |       |-- integration-filetree.txt
+|       |-- live-tooling-list.txt
 |       `-- repo-tree-summary.txt
 |-- observability/
 |   `-- highlight-node/
@@ -149,11 +153,20 @@ dev-tools/
 |   |-- validation/
 |   |   |-- mcp-audit-20251029-114951.md
 |   |   `-- mcp-servers-backup-20251029-115254.tar.gz
+|   |-- ci-workflows-to-update.txt
+|   |-- dependency-analysis.txt
+|   |-- env-variables-inventory.txt
+|   |-- extraction-manifest.json
 |   |-- highlight-integration-inventory.md
 |   |-- highlight-integration-rollout.md
-|   `-- highlight-integration-validation.md
+|   |-- highlight-integration-validation.md
+|   |-- mcp-references.txt
+|   |-- phase-2-validation-summary.md
+|   |-- phase-3-readiness-summary.md
+|   `-- README-phase-2-reports.md
 |-- scripts/
 |   |-- automation/
+|   |   |-- analyze-dependencies.sh
 |   |   |-- audit-mcp-servers.sh
 |   |   |-- deploy-highlight-integration.sh
 |   |   |-- enhance-production-ops-context.sh
@@ -163,7 +176,9 @@ dev-tools/
 |   |   |-- inject-playwright-tasks.sh
 |   |   |-- install-task-cli.sh
 |   |   |-- integrate-highlight-edge-functions.ts
+|   |   |-- migration-dry-run.sh
 |   |   |-- patch-staging-environment.sh
+|   |   |-- post-migration-sync.sh
 |   |   |-- promote-e2e-docs.sh
 |   |   |-- README.md
 |   |   |-- remove-legacy-paths.sh
@@ -278,6 +293,7 @@ dev-tools/
 |       |   |   |-- Optimized Audit & Refactor Plan.md
 |       |   |   `-- workflow-enhancements.md
 |       |   |-- # OTEL-Observability-MCP-Migration.md
+|       |   |-- Agent Testing Refactor Playbook (2025-.md
 |       |   |-- agent-MCP-map.mmd
 |       |   |-- agent-workflows-sequence.mmd
 |       |   |-- app-filetree.txt
@@ -294,6 +310,7 @@ dev-tools/
 |       |   |-- ex3.mmd
 |       |   |-- mcp-integration-plan.md
 |       |   |-- mece-agent-mcp-integration-plan.md
+|       |   |-- Optimized Agents Config Patch Plan.md
 |       |   |-- patch-execution.sh
 |       |   |-- patch-implementation.sh
 |       |   |-- phase-5-validation-log.md
@@ -305,14 +322,14 @@ dev-tools/
 |       |   |-- compile.sh
 |       |   `-- ollama-helper.sh
 |       |-- session_store/
-|       |   |-- Agent Testing Refactor Playbook (2025-.md
 |       |   |-- app-filetree.txt
 |       |   |-- automated-agent-refactor.sh
 |       |   |-- coverage.md
 |       |   |-- dev-tools-filetree.txt
 |       |   |-- integration-filetree.txt
 |       |   |-- live-tooling-list.txt
-|       |   |-- Optimized Agents Config Patch Plan.md
-|       |   `-- repo-tree-summary.txt
+|       |   |-- MIGRATION_OPTIMIZATIONS.md
+|       |   |-- repo-tree-summary.txt
+|       |   `-- REPO_RESTRUCTURE_PLAN.md
 |       `-- event-bus.ts
 `-- README.md
