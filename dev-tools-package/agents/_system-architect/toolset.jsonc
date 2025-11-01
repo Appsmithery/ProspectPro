@@ -1,0 +1,56 @@
+{
+  "system-architect-mcp": {
+    "tools": [
+      "supabase.execute_query",
+      "supabase.explain_query",
+      "supabase.validate_migration",
+      "supabase.check_pool_health",
+      "supabase.analyze_slow_queries",
+      "supabase_troubleshooting.correlate_errors",
+      "supabase_troubleshooting.generate_incident_timeline",
+      "utility.fetch",
+      "utility.fs_read",
+      "utility.fs_write",
+      "utility.git_status",
+      "utility.time_now",
+      "utility.time_convert"
+    ],
+    "description": "Canonical system architecture tools for schema design, migration validation, and performance analysis.",
+    "icon": "architecture"
+  },
+  "playwright": {
+    "runTests": "npx playwright test",
+    "runTestsHeaded": "npx playwright test --headed",
+    "runTestsUI": "npx playwright test --ui",
+    "generateTest": "npx playwright codegen",
+    "showReport": "npx playwright show-report"
+  },
+  "observability": {
+    "highlight": {
+      "projectId": "kgr09vng",
+      "enabled": true,
+      "environment": "development",
+      "features": {
+        "errorTracking": true,
+        "sessionReplay": false,
+        "performanceMonitoring": true
+      }
+    },
+    "opentelemetry": {
+      "endpoint": "http://localhost:4318/v1/traces",
+      "serviceName": "system-architect-agent"
+    }
+  },
+  "context7_rules": [
+    {
+      "when": [
+        "code generation",
+        "setup",
+        "configuration",
+        "library docs",
+        "API docs"
+      ],
+      "then": "use context7"
+    }
+  ]
+}

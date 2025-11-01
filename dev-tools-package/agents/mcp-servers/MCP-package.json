@@ -1,0 +1,40 @@
+{
+  "name": "prospectpro-mcp-servers",
+  "version": "2.1.0",
+  "private": true,
+  "description": "Canonical MCP servers for ProspectPro: supabase, github, playwright, context7, utility (unified)",
+  "type": "module",
+  "main": "utility/dist/index.js",
+  "scripts": {
+    "start:utility": "node utility/dist/index.js",
+    "build:tools": "npm run build --prefix utility",
+    "test": "node utility/dist/index.js --test",
+    "validate": "npm run test && echo '✅ All canonical MCP servers validated successfully'",
+    "install:deps": "npm install"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.18.2",
+    "@supabase/supabase-js": "^2.58.0"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai",
+    "prospectpro",
+    "supabase",
+    "github",
+    "playwright",
+    "context7",
+    "utility",
+    "unified"
+  ],
+  "author": "Alex Torelli",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "_note": "This file mirrors package.json for clarity in code reviews; npm continues to use package.json."
+}

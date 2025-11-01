@@ -1,0 +1,28 @@
+{
+  "agentId": "development-workflow",
+  "scratchpad": {
+    "currentTask": null,
+    "notes": [],
+    "lastUpdated": "2025-10-20T06:40:39.969Z",
+    "summary": null
+  },
+  "longTermMemory": [
+    {
+      "id": "obs-endpoints-1761603344268",
+      "topic": "observabilityEndpoints",
+      "payload": {},
+      "createdAt": "2025-10-27T22:15:44.268Z",
+      "lastAccessed": "2025-10-27T22:15:44.269Z",
+      "environment": "development",
+      "tags": [
+        "observability"
+      ]
+    }
+  ],
+  "metadata": {
+    "environment": "development",
+    "version": "1.0.0",
+    "lastCheckpoint": "2025-10-20T06:40:39.982Z",
+    "checksum": "815348bc746b77a6d18f8fac2688c01529970cad1cf6358c173116343437eb48"
+  }
+}

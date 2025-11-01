@@ -1,10 +1,10 @@
 version: "3"
 
 vars:
-  DEV_WORKFLOW_DIR: dev-tools/agents/_development-workflow
-  OBSERVABILITY_DIR: dev-tools/agents/_observability
-  PRODUCTION_OPS_DIR: dev-tools/agents/_production-ops
-  SYSTEM_ARCH_DIR: dev-tools/agents/_system-architect
+  DEV_WORKFLOW_DIR: dev-tools-package/agents/_development-workflow
+  OBSERVABILITY_DIR: dev-tools-package/agents/_observability
+  PRODUCTION_OPS_DIR: dev-tools-package/agents/_production-ops
+  SYSTEM_ARCH_DIR: dev-tools-package/agents/_system-architect
 
 tasks:
   tests:unit:

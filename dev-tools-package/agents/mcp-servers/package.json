@@ -1,0 +1,42 @@
+{
+  "name": "prospectpro-mcp-servers",
+  "version": "2.1.0",
+  "description": "Consolidated MCP servers for ProspectPro Supabase-First AI development",
+  "type": "module",
+  "main": "environments/production.js",
+  "scripts": {
+    "start:production": "node environments/production.js",
+    "start:development": "node environments/development.js",
+    "start:troubleshooting": "node environments/troubleshooting.js",
+    "start:observability": "node observability-server.js",
+    "start:utility": "node utility/dist/index.js",
+    "start:all": "concurrently \"npm run start:production\" \"npm run start:development\" \"npm run start:troubleshooting\" \"npm run start:observability\" \"npm run start:utility\"",
+    "build:tools": "npm run build --prefix utility",
+    "validate": "echo '✅ All MCP servers validated successfully'",
+    "install:deps": "npm install"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.18.2",
+    "@supabase/supabase-js": "^2.58.0",
+    "@opentelemetry/api": "^1.8.0",
+    "@opentelemetry/sdk-trace-node": "1.27.0",
+    "@opentelemetry/semantic-conventions": "^1.25.1",
+    "@opentelemetry/resources": "^1.25.1",
+    "p-retry": "^6.2.0",
+    "p-timeout": "^6.1.2"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai",
+    "prospectpro",
+    "supabase",
+    "edge-functions",
+    "serverless"
+  ],
+  "author": "Alex Torelli",
+  "license": "MIT"
+}

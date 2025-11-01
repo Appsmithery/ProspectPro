@@ -1,0 +1,11 @@
+{
+  "name": "development-workflow",
+  "version": "2.1.0",
+  "environment": "development",
+  "mcp_servers": [
+    "supabase",
+    "github/github-mcp-server",
+    "microsoft/playwright-mcp",
+    "utility"
+  ]
+}
