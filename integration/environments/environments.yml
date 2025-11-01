@@ -1,7 +1,7 @@
 ---
 # ProspectPro Environment Configurations
 # Source of truth for all environment settings
-# Generate via: node dev-tools/scripts/automation/generate-configs.mjs
+# Generate via: node dev-tools-package/scripts/automation/generate-configs.mjs
 
 environments:
   development:
@@ -35,7 +35,7 @@ environments:
       VITE_SUPABASE_ANON_KEY: "${VITE_SUPABASE_ANON_KEY}"
     mcpServers:
       command: "node"
-      args: ["dev-tools/agents/mcp-servers/environments/development.js"]
+      args: ["dev-tools-package/agents/mcp-servers/environments/development.js"]
       env:
         ENVIRONMENT: "development"
 
@@ -75,7 +75,7 @@ environments:
       VITE_SUPABASE_ANON_KEY: "${VITE_SUPABASE_ANON_KEY}"
     mcpServers:
       command: "node"
-      args: ["dev-tools/agents/mcp-servers/environments/production.js"]
+      args: ["dev-tools-package/agents/mcp-servers/environments/production.js"]
       env:
         ENVIRONMENT: "staging"
 
@@ -113,6 +113,6 @@ environments:
       VITE_SUPABASE_ANON_KEY: "${VITE_SUPABASE_ANON_KEY}"
     mcpServers:
       command: "node"
-      args: ["dev-tools/agents/mcp-servers/environments/production.js"]
+      args: ["dev-tools-package/agents/mcp-servers/environments/production.js"]
       env:
         ENVIRONMENT: "production"

@@ -1,6 +1,6 @@
 {
   "app": "docs/app/diagrams/",
-  "dev-tools": "docs/dev-tools/diagrams/",
+  "dev-tools": "docs/dev-tools-package/diagrams/",
   "integration": "docs/integration/diagrams/",
   "shared": "docs/shared/mermaid/"
 }

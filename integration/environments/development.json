@@ -35,7 +35,7 @@
   "mcpServers": {
     "command": "node",
     "args": [
-      "dev-tools/agents/mcp-servers/environments/development.js"
+      "dev-tools-package/agents/mcp-servers/environments/development.js"
     ],
     "env": {
       "ENVIRONMENT": "development"

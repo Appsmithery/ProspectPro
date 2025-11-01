@@ -32,7 +32,8 @@ export default defineConfig({
   test: {
     projects: [
       "./app/frontend/vitest.config.ts",
-      "./dev-tools/testing/configs/vitest.agents.config.ts",
+      // Note: dev-tools agent tests moved to dev-tools-package submodule
+      // "./dev-tools-package/testing/configs/vitest.agents.config.ts",
     ],
   },
 });
