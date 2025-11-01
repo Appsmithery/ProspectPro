@@ -139,7 +139,8 @@
     "supabase:test:db": "bash -lc 'cd app/backend && source ../../dev-tools/scripts/operations/ensure-supabase-cli-session.sh && npx --yes supabase@latest test db'",
     "thunder:test": "echo 'Run Thunder Client tests via VS Code extension (Thunder: Run Full Test Suite task)'",
     "template:init": "bash integration/templates/init-template.sh",
-    "platform:validate": "bash integration/symlinks/validate-symlinks.sh"
+    "platform:validate": "bash integration/symlinks/validate-symlinks.sh",
+    "validate:submodule": "bash dev-tools-package/scripts/automation/validate-submodule-migration.sh"
   },
   "keywords": [
     "verified-business-intelligence",

@@ -58,3 +58,59 @@ tasks:
     cmds:
       - npm run docs:update
       - task: agents:reports:sync
+
+  submodule:check:
+    desc: "Verify dev-tools-package submodule is current and properly initialized"
+    cmds:
+      - |
+        if [ -f .gitmodules ]; then
+          echo "✓ Checking submodule status..."
+          git submodule status dev-tools-package
+          if git submodule status dev-tools-package | grep -q '^+'; then
+            echo "⚠️  Dev-Tools submodule is out of sync with committed version"
+            echo "Run: task submodule:update"
+            exit 1
+          elif git submodule status dev-tools-package | grep -q '^-'; then
+            echo "⚠️  Dev-Tools submodule is not initialized"
+            echo "Run: git submodule update --init --recursive"
+            exit 1
+          else
+            echo "✓ Dev-Tools submodule is current"
+          fi
+        else
+          echo "ℹ️  No submodules configured (using workspace copy)"
+          if [ ! -d dev-tools-package ]; then
+            echo "❌ dev-tools-package directory not found"
+            exit 1
+          fi
+          echo "✓ dev-tools-package workspace directory exists"
+        fi
+    silent: false
+
+  submodule:update:
+    desc: "Update dev-tools-package submodule to latest from remote"
+    cmds:
+      - |
+        if [ ! -f .gitmodules ]; then
+          echo "❌ No submodules configured. Cannot update."
+          echo "This command is only available after submodule migration."
+          exit 1
+        fi
+        echo "Updating dev-tools-package submodule..."
+        git submodule update --remote dev-tools-package
+        git add dev-tools-package
+        echo "✓ Submodule updated. Commit the change to lock the new version."
+    silent: false
+
+  submodule:init:
+    desc: "Initialize dev-tools-package submodule (for new clones)"
+    cmds:
+      - |
+        if [ ! -f .gitmodules ]; then
+          echo "❌ No submodules configured."
+          exit 1
+        fi
+        echo "Initializing submodules..."
+        git submodule update --init --recursive
+        echo "✓ Submodules initialized"
+    silent: false

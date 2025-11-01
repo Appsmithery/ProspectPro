@@ -884,7 +884,7 @@ All scripts, MCP servers, and automation now reference `dev-tools-package/` path
 
 ### Phase 5: Cleanup and Validation
 
-**Status:** ⏳ Ready to Begin (Phase 4 Complete)
+**Status:** ⏳ Ready to Begin (Phase 4 Complete, Automation in Place)
 
 **Prerequisites Met:**
 - ✅ Phase 4 integration complete and validated
@@ -892,10 +892,51 @@ All scripts, MCP servers, and automation now reference `dev-tools-package/` path
 - ✅ Workspace conflicts resolved
 - ✅ All tests passing (5/5)
 - ✅ Lint and TypeScript compilation validated
+- ✅ Submodule tasks added to Taskfile.yml (submodule:check, submodule:update, submodule:init)
+- ✅ Migration validation script created (validate-submodule-migration.sh)
+- ✅ npm script added (validate:submodule)
+- ✅ Comprehensive migration guide in settings-staging.md
 
-**Tasks:**
+**External Dependency:**
+- ⏳ Waiting for Dev-Tools repository publication at https://github.com/Alextorelli/Dev-Tools
+- ⏳ Branch: prospect-pro-tools (already created with v1.0.0 tag per Phase 3)
 
-- [ ] Remove copied directories from ProspectPro (after validation period)
+**Submodule Migration Tasks** (Execute when Dev-Tools repo is published):
+
+1. **Pre-Migration:**
+   - [ ] Verify Dev-Tools repo is accessible
+   - [ ] Run `npm run validate:submodule` to confirm readiness
+   - [ ] Create backup: `cp -r dev-tools-package dev-tools-package.backup`
+
+2. **Execute Migration:**
+   - [ ] Remove workspace copy: `rm -rf dev-tools-package`
+   - [ ] Update package.json: remove workspace entries for dev-tools-package
+   - [ ] Add submodule: `git submodule add -b prospect-pro-tools https://github.com/Alextorelli/Dev-Tools.git dev-tools-package`
+   - [ ] Initialize: `git submodule update --init --recursive`
+   - [ ] Restore package.json workspaces entries (now pointing to submodule)
+   - [ ] Add postinstall script for submodule init
+
+3. **Post-Migration Validation:**
+   - [ ] Run `task submodule:check` (should pass)
+   - [ ] Run `npm install` (should succeed)
+   - [ ] Run `npm run validate:submodule` (all checks should pass)
+   - [ ] Run `npm test` (5/5 tests should pass)
+   - [ ] Run `npm run lint` (0 errors)
+   - [ ] Verify MCP servers: `cd dev-tools-package/agents/mcp-servers/utility && npm install && npm run build`
+
+4. **Update GitHub Workflows:**
+   - [ ] Add submodule init to .github/workflows/mcp-agent-validation.yml
+   - [ ] Add `submodules: recursive` to checkout actions
+   - [ ] Test CI workflows pass
+
+5. **Commit Migration:**
+   - [ ] Commit .gitmodules and submodule reference
+   - [ ] Update settings-staging.md with migration completion
+   - [ ] Remove backup once validated
+
+**Legacy Cleanup Tasks** (After submodule stable):
+
+- [ ] Remove original `dev-tools/` directory (after validation period)
 - [ ] Search for direct imports using ripgrep: `rg "dev-tools/" --type ts`
 - [ ] Update import paths to use new integration surface
 - [ ] Remove orphan documentation under `docs/dev-tools/` if any
@@ -906,12 +947,14 @@ All scripts, MCP servers, and automation now reference `dev-tools-package/` path
 
 **Validation Steps:**
 
-- [ ] All npm scripts execute successfully
-- [ ] VS Code tasks work from new paths
-- [ ] Linting, building, and testing pass
-- [ ] MCP servers start correctly
-- [ ] Agent tests run through Taskfile
-- [ ] Documentation builds without errors
+- [x] All npm scripts execute successfully
+- [x] VS Code tasks work from new paths
+- [x] Linting, building, and testing pass
+- [x] MCP servers start correctly (validated in Phase 4)
+- [x] Agent tests run through Taskfile
+- [ ] Documentation builds without errors (pending docs:update run)
+- [x] Submodule migration automation in place
+- [x] Rollback procedures documented
 
 ### Phase 6: Documentation and Provenance
 

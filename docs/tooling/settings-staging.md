@@ -99,11 +99,231 @@ Using workspace approach (copy) until GitHub repository becomes available:
    - Remove workspace copy: `rm -rf dev-tools-package`
    - Add as submodule: `git submodule add -b prospect-pro-tools https://github.com/Alextorelli/Dev-Tools.git dev-tools-package`
    - Initialize: `git submodule update --init --recursive`
+   - Verify: `task submodule:check`
 
 2. **Cleanup Tasks:**
    - Remove original `dev-tools/` directory after validation period
    - Update remaining GitHub workflows with submodule init steps
    - Consolidate duplicate documentation
+
+## Submodule Migration Plan (Phase 5 Entry)
+
+### Prerequisites for Migration
+- [x] Phase 4 complete and validated
+- [x] Dev-Tools repository exists at https://github.com/Alextorelli/Dev-Tools
+- [x] prospect-pro-tools branch created and tagged v1.0.0
+- [x] EXTRACTION_MANIFEST.md committed to Dev-Tools repo
+- [ ] Dev-Tools repo is accessible (wait for external publication)
+
+### Migration Steps
+
+#### Step 1: Backup Current State
+```bash
+# Create backup of current workspace configuration
+cp -r dev-tools-package dev-tools-package.backup
+git add dev-tools-package.backup
+git commit -m "backup: Save dev-tools-package workspace before submodule migration"
+```
+
+#### Step 2: Remove Workspace Copy
+```bash
+# Remove workspace reference from package.json
+# Edit package.json and remove dev-tools-package workspaces entries
+# (Keep the workspace packages themselves in the external repo)
+
+# Remove the directory
+rm -rf dev-tools-package
+
+# Commit removal
+git add package.json dev-tools-package
+git commit -m "refactor: Remove dev-tools-package workspace copy for submodule"
+```
+
+#### Step 3: Add Git Submodule
+```bash
+# Add Dev-Tools as git submodule
+git submodule add \
+  -b prospect-pro-tools \
+  https://github.com/Alextorelli/Dev-Tools.git \
+  dev-tools-package
+
+# Initialize and update submodule
+git submodule update --init --recursive
+
+# Verify submodule
+git submodule status
+task submodule:check
+```
+
+#### Step 4: Update .gitmodules Configuration
+The submodule add command creates `.gitmodules` automatically. Verify it contains:
+```
+[submodule "dev-tools-package"]
+  path = dev-tools-package
+  url = https://github.com/Alextorelli/Dev-Tools.git
+  branch = prospect-pro-tools
+```
+
+#### Step 5: Update package.json for Submodule
+```json
+{
+  "workspaces": [
+    "dev-tools-package/agents/mcp-servers/*",
+    "dev-tools-package/agents/client-service-layer",
+    "dev-tools-package/observability/highlight-node"
+  ],
+  "scripts": {
+    "postinstall": "git submodule update --init --recursive && cd dev-tools-package && npm install"
+  }
+}
+```
+
+#### Step 6: Update .gitignore for Submodule
+```bash
+# .gitignore should already exclude these, but verify:
+dev-tools-package/node_modules/
+dev-tools-package/dist/
+dev-tools-package/.env.local
+dev-tools-package/**/*.log
+```
+
+#### Step 7: Update GitHub Workflows
+Add submodule initialization to all workflows that use dev-tools-package:
+
+```yaml
+# .github/workflows/mcp-agent-validation.yml
+steps:
+  - uses: actions/checkout@v4
+    with:
+      submodules: recursive  # Automatically init submodules
+
+  # OR explicit initialization:
+  - name: Initialize submodules
+    run: git submodule update --init --recursive
+
+  - name: Install dependencies
+    run: npm install
+```
+
+#### Step 8: Validation
+```bash
+# Run full validation suite
+npm install
+npm run lint
+npm test
+task submodule:check
+
+# Validate MCP servers
+cd dev-tools-package/agents/mcp-servers/utility
+npm install
+npm run build
+cd -
+
+# Run migration dry-run
+bash dev-tools-package/scripts/automation/migration-dry-run.sh
+```
+
+#### Step 9: Commit Submodule Integration
+```bash
+git add .gitmodules dev-tools-package package.json
+git commit -m "feat: Integrate dev-tools-package as git submodule
+
+- Added submodule pointing to https://github.com/Alextorelli/Dev-Tools
+- Branch: prospect-pro-tools
+- Updated package.json postinstall script
+- Added submodule:check, submodule:update, submodule:init tasks
+
+Phase 5 entry: Convert from workspace copy to git submodule"
+```
+
+### Rollback Procedures
+
+If issues arise after submodule migration:
+
+#### Quick Rollback (Use Backup)
+```bash
+# Remove submodule
+git submodule deinit -f dev-tools-package
+git rm -f dev-tools-package
+rm -rf .git/modules/dev-tools-package
+
+# Restore backup
+git checkout HEAD^ -- dev-tools-package.backup
+mv dev-tools-package.backup dev-tools-package
+
+# Restore package.json
+git checkout HEAD^ -- package.json
+
+# Reinstall
+npm install
+```
+
+#### Full Rollback (Revert Commit)
+```bash
+# Revert the submodule integration commit
+git revert <commit-hash>
+
+# Restore workspace copy from backup
+git checkout HEAD~1 -- dev-tools-package
+
+# Reinstall dependencies
+npm install
+```
+
+### Post-Migration Validation Checklist
+- [ ] `git submodule status` shows correct commit
+- [ ] `task submodule:check` passes
+- [ ] `npm install` succeeds
+- [ ] `npm run lint` passes (0 errors)
+- [ ] `npm test` passes (5/5 tests)
+- [ ] MCP servers build successfully
+- [ ] VS Code MCP connection works
+- [ ] Agent profiles load correctly
+- [ ] CI/CD workflows pass
+- [ ] `bash dev-tools-package/scripts/automation/migration-dry-run.sh` passes
+
+### Team Onboarding After Migration
+
+**For New Clones:**
+```bash
+git clone https://github.com/Appsmithery/ProspectPro.git
+cd ProspectPro
+git submodule update --init --recursive
+npm install
+```
+
+**For Existing Clones:**
+```bash
+git pull
+git submodule update --init --recursive
+npm install
+```
+
+**Updating Submodule:**
+```bash
+# Check if submodule needs updating
+task submodule:check
+
+# Update to latest
+task submodule:update
+
+# Commit the update
+git add dev-tools-package
+git commit -m "chore: Update dev-tools-package submodule to latest"
+```
+
+### Monitoring Submodule Health
+
+Add to CI workflow:
+```yaml
+- name: Check submodule health
+  run: task submodule:check
+
+- name: Verify submodule version
+  run: |
+    cd dev-tools-package
+    git log -1 --pretty=format:"%H %s"
+```
 
 ---
 
