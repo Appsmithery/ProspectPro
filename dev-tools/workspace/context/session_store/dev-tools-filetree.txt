@@ -162,6 +162,7 @@ dev-tools/
 |   |-- highlight-integration-validation.md
 |   |-- mcp-references.txt
 |   |-- phase-2-validation-summary.md
+|   |-- phase-3-readiness-summary.md
 |   `-- README-phase-2-reports.md
 |-- scripts/
 |   |-- automation/
@@ -177,6 +178,7 @@ dev-tools/
 |   |   |-- integrate-highlight-edge-functions.ts
 |   |   |-- migration-dry-run.sh
 |   |   |-- patch-staging-environment.sh
+|   |   |-- post-migration-sync.sh
 |   |   |-- promote-e2e-docs.sh
 |   |   |-- README.md
 |   |   |-- remove-legacy-paths.sh
