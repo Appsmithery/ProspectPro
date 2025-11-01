@@ -1,5 +1,14 @@
 # ProspectPro
 
+## 🔄 Migration Status
+
+**Dev-Tools Extraction:** Phase 4 Complete, Phase 5 Pending
+
+For detailed migration status, see:
+- **[Migration Status Validation](MIGRATION_STATUS_VALIDATION.md)** - Current authoritative status
+- **[Migration Guide](DEV_TOOLS_MIGRATION_GUIDE.md)** - Complete guide
+- **[Quick Reference](DEV_TOOLS_MIGRATION_QUICKREF.md)** - Quick commands
+
 ## Prerequisites
 
 - Node.js 18+
