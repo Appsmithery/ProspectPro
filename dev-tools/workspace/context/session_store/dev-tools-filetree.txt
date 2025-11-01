@@ -168,9 +168,16 @@ dev-tools/
 |   |   |-- audit-mcp-servers.sh
 |   |   |-- deploy-highlight-integration.sh
 |   |   |-- enhance-production-ops-context.sh
+|   |   |-- extract-agents.sh
+|   |   |-- extract-automation.sh
+|   |   |-- extract-scripts.sh
+|   |   |-- extract-testing.sh
+|   |   |-- extract-workspace.sh
 |   |   |-- finalize-client-service-layer-rename.sh
 |   |   |-- generate-configs.mjs
+|   |   |-- generate-extraction-manifest.sh
 |   |   |-- highlight-integration-inventory.sh
+|   |   |-- init-devtools-repo.sh
 |   |   |-- inject-playwright-tasks.sh
 |   |   |-- install-task-cli.sh
 |   |   |-- integrate-highlight-edge-functions.ts
@@ -178,8 +185,10 @@ dev-tools/
 |   |   |-- patch-staging-environment.sh
 |   |   |-- post-migration-sync.sh
 |   |   |-- promote-e2e-docs.sh
+|   |   |-- README-extraction-scripts.md
 |   |   |-- README.md
 |   |   |-- remove-legacy-paths.sh
+|   |   |-- run-full-extraction.sh
 |   |   |-- sample-automation.sh
 |   |   |-- scaffold-highlight-node.sh
 |   |   |-- start-ollama.sh
@@ -327,6 +336,8 @@ dev-tools/
 |       |   |-- integration-filetree.txt
 |       |   |-- live-tooling-list.txt
 |       |   |-- MIGRATION_OPTIMIZATIONS.md
+|       |   |-- PHASE_3_EXECUTION_GUIDE.md
+|       |   |-- PHASE_4_INTEGRATION_CHECKLIST.md
 |       |   |-- repo-tree-summary.txt
 |       |   `-- REPO_RESTRUCTURE_PLAN.md
 |       `-- event-bus.ts
