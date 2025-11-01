@@ -3,6 +3,11 @@
   "version": "4.1.0",
   "type": "module",
   "description": "ProspectPro - Verified Business Intelligence Platform",
+  "workspaces": [
+    "dev-tools/agents/mcp-servers/*",
+    "dev-tools/agents/client-service-layer",
+    "dev-tools/observability/highlight-node"
+  ],
   "scripts": {
     "test:deno": "bash dev-tools/scripts/testing/run-deno-tests.sh",
     "test:scaffold": "node dev-tools/scripts/testing/scaffold-tests.mjs",
@@ -128,6 +133,9 @@
     "test:agents:integration": "task agents:test:integration",
     "test:agents:e2e": "task agents:test:e2e",
     "type-check": "tsc -p config/tsconfig.json --noEmit",
+    "build:mcp-servers": "npm run build --prefix dev-tools/agents/mcp-servers/utility",
+    "build:dev-tools": "npm run build:mcp-servers",
+    "build:all": "npm run build && npm run build:dev-tools",
     "supabase:test:db": "bash -lc 'cd app/backend && source ../../dev-tools/scripts/operations/ensure-supabase-cli-session.sh && npx --yes supabase@latest test db'",
     "thunder:test": "echo 'Run Thunder Client tests via VS Code extension (Thunder: Run Full Test Suite task)'",
     "template:init": "bash integration/templates/init-template.sh",

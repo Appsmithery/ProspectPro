@@ -100,9 +100,16 @@ lovable-config.json
 # Production builds
 /build
 
-# Exclude all dist/ output from MCP sub-packages
+# Exclude all dist/ output from MCP sub-packages and dev-tools modules
 dev-tools/agents/mcp-servers/mcp-tools/sequential/dist/
 dev-tools/agents/mcp-servers/mcp-tools/memory/dist/
+dev-tools/agents/mcp-servers/utility/dist/
+dev-tools/agents/client-service-layer/dist/
+dev-tools/observability/highlight-node/dist/
+
+# TypeScript build info (incremental build cache)
+*.tsbuildinfo
+tsconfig.tsbuildinfo
 
 # === RUNTIME DATA (NEVER COMMIT) ===
 
