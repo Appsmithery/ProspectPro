@@ -58,3 +58,37 @@ tasks:
     cmds:
       - npm run docs:update
       - task: agents:reports:sync
+
+  submodule:check:
+    desc: Check dev-tools-package submodule status and ensure it's up to date
+    cmds:
+      - git submodule status
+      - |
+        echo "Checking dev-tools-package submodule..."
+        cd dev-tools-package && git fetch origin prospect-pro-tools 2>/dev/null || true
+        LOCAL=$(git rev-parse HEAD 2>/dev/null || echo "unknown")
+        REMOTE=$(git rev-parse origin/prospect-pro-tools 2>/dev/null || echo "unknown")
+        if [ "$LOCAL" != "$REMOTE" ] && [ "$REMOTE" != "unknown" ]; then
+          echo "⚠️  Submodule is behind remote. Run: task submodule:update"
+        else
+          echo "✅ Submodule is up to date"
+        fi
+
+  submodule:update:
+    desc: Update dev-tools-package submodule to latest commit on prospect-pro-tools branch
+    cmds:
+      - git submodule update --remote --merge dev-tools-package
+      - |
+        echo "✅ Submodule updated. Review changes with: cd dev-tools-package && git log -1"
+        echo "If satisfied, commit with: git add dev-tools-package && git commit -m 'chore: Update dev-tools-package submodule'"
+
+  submodule:init:
+    desc: Initialize and update dev-tools-package submodule (run after clone)
+    cmds:
+      - git submodule update --init --recursive dev-tools-package
+      - echo "✅ Submodule initialized"
+
+  submodule:validate:
+    desc: Run comprehensive validation of dev-tools-package submodule integration
+    cmds:
+      - bash dev-tools-package/scripts/automation/validate-submodule-integration.sh
