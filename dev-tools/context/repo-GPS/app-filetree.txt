@@ -1,14 +1,5 @@
 app/
 |-- backend/
-|   |-- .temp/
-|   |   |-- cli-latest
-|   |   |-- gotrue-version
-|   |   |-- pooler-url
-|   |   |-- postgres-version
-|   |   |-- project-ref
-|   |   |-- rest-version
-|   |   `-- storage-version
-|   |-- backend
 |   |-- db/
 |   |   |-- schema/
 |   |   |   `-- users.ts
@@ -22,6 +13,8 @@ app/
 |   |   |   |-- cobalt-cache.ts
 |   |   |   |-- edge-auth-simplified.ts
 |   |   |   |-- edge-auth.ts
+|   |   |   |-- highlight-context.ts
+|   |   |   |-- highlight-node.ts
 |   |   |   `-- vault-client.ts
 |   |   |-- auth-diagnostics/
 |   |   |   |-- function.toml
@@ -41,9 +34,6 @@ app/
 |   |   |-- campaign-export-user-aware/
 |   |   |   |-- function.toml
 |   |   |   `-- index.ts
-|   |   |-- enrichment-business-license/
-|   |   |   |-- function.toml
-|   |   |   `-- index.ts
 |   |   |-- enrichment-cobalt/
 |   |   |   |-- function.toml
 |   |   |   `-- index.ts
@@ -54,9 +44,6 @@ app/
 |   |   |   |-- function.toml
 |   |   |   `-- index.ts
 |   |   |-- enrichment-orchestrator/
-|   |   |   |-- function.toml
-|   |   |   `-- index.ts
-|   |   |-- enrichment-pdl/
 |   |   |   |-- function.toml
 |   |   |   `-- index.ts
 |   |   |-- example-function/
@@ -72,7 +59,8 @@ app/
 |   |       |-- test-user-deduplication/
 |   |       |   |-- function.toml
 |   |       |   `-- index.ts
-|   |       `-- business-discovery.test.ts
+|   |       |-- business-discovery.test.ts
+|   |       `-- cache-manager.test.ts
 |   |-- migrations/
 |   |   |-- 20251017175251_remote_schema.sql
 |   |   |-- 20251017180924_install_pgtap.sql
@@ -88,8 +76,22 @@ app/
 |   |   |-- 003_deduplication.sql
 |   |   |-- 004_enrichment_cache.sql
 |   |   `-- README.md
-|   |-- .gitignore
-|   `-- config.toml
+|   |-- scripts/
+|   |   |-- deploy-background-tasks.sh
+|   |   |-- ensure-supabase-cli-session.sh
+|   |   |-- supabase_cli_helpers.sh
+|   |   `-- update-edge-secrets.sh
+|   |-- tests/
+|   |   `-- database/
+|   |       |-- campaigns.test.sql
+|   |       |-- core_schema.test.sql
+|   |       |-- edge-functions.test.ts
+|   |       |-- leads.test.sql
+|   |       `-- placeholder.test.ts
+|   |-- config.toml
+|   |-- package-supabase.json
+|   |-- supabase-ca-2021.crt
+|   `-- supabase.js
 |-- frontend/
 |   |-- public/
 |   |   |-- favicon-yellow-arrow.svg
@@ -128,6 +130,7 @@ app/
 |   |   |   |-- useJobProgress.tsx
 |   |   |   `-- useLeadEnrichment.ts
 |   |   |-- lib/
+|   |   |   |-- highlight.ts
 |   |   |   |-- supabase.ts
 |   |   |   `-- utils.ts
 |   |   |-- pages/
@@ -159,8 +162,23 @@ app/
 |   |   |-- index.css
 |   |   `-- main.tsx
 |   |-- index.html
+|   |-- package-lock.json
+|   |-- package.json
 |   |-- tsconfig.node.json
 |   |-- vite-env.d.ts
-|   `-- vite.config.devtools.ts
-|-- shared/
+|   |-- vite.config.devtools.ts
+|   `-- vitest.config.ts
+|-- tests/
+|   |-- deno/
+|   |   `-- business-discovery.test.ts
+|   |-- e2e/
+|   |   |-- client-service-layer.spec.ts
+|   |   |-- context.spec.ts
+|   |   `-- mcp-servers.spec.ts
+|   |-- integration/
+|   |   `-- integration-placeholder.test.ts
+|   `-- unit/
+|       |-- client-service-layer.test.ts
+|       |-- context.test.ts
+|       `-- mcp-servers.test.ts
 `-- app.json
