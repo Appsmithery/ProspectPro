@@ -19,12 +19,12 @@ if [[ -z "${_PP_SUPABASE_CLI_PREV_OPTS_CAPTURED:-}" ]]; then
   _PP_SUPABASE_CLI_PREV_OPTS=$(set +o)
   _PP_SUPABASE_PREV_SUPPRESS="${PROSPECTPRO_SUPABASE_SUPPRESS_SETUP-}"
   trap '
-    eval "$__PP_SUPABASE_CLI_PREV_OPTS"
+    eval "$_PP_SUPABASE_CLI_PREV_OPTS"
     if [[ -n "${_PP_SUPABASE_PREV_SUPPRESS+x}" ]]; then
-      if [[ -z "$__PP_SUPABASE_PREV_SUPPRESS" ]]; then
+      if [[ -z "$_PP_SUPABASE_PREV_SUPPRESS" ]]; then
         unset PROSPECTPRO_SUPABASE_SUPPRESS_SETUP
       else
-        export PROSPECTPRO_SUPABASE_SUPPRESS_SETUP="$__PP_SUPABASE_PREV_SUPPRESS"
+        export PROSPECTPRO_SUPABASE_SUPPRESS_SETUP="$_PP_SUPABASE_PREV_SUPPRESS"
       fi
     fi
     trap - RETURN
@@ -71,7 +71,14 @@ if [[ -z "${PROSPECTPRO_SUPABASE_FORCE_REAUTH:-}" && -f "${_PP_CACHE_MARKER}" ]]
   return 0 2>/dev/null || exit 0
 fi
 
-EXPECTED_REPO_ROOT=${EXPECTED_REPO_ROOT:-/workspaces/ProspectPro}
+# Determine expected repo root dynamically
+if [[ -z "${EXPECTED_REPO_ROOT:-}" ]]; then
+  if DETECTED_ROOT=$(git rev-parse --show-toplevel 2>/dev/null); then
+    EXPECTED_REPO_ROOT="$DETECTED_ROOT"
+  else
+    EXPECTED_REPO_ROOT=/workspaces/ProspectPro
+  fi
+fi
 
 SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 # shellcheck source=/workspaces/ProspectPro/integration/platform/supabase/scripts/operations/supabase_cli_helpers.sh
