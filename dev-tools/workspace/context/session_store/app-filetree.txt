@@ -83,6 +83,16 @@ app/
 |   |   |-- ensure-supabase-cli-session.sh
 |   |   |-- supabase_cli_helpers.sh
 |   |   `-- update-edge-secrets.sh
+|   |-- supabase/
+|   |   `-- .temp/
+|   |       |-- cli-latest
+|   |       |-- gotrue-version
+|   |       |-- pooler-url
+|   |       |-- postgres-version
+|   |       |-- project-ref
+|   |       |-- rest-version
+|   |       |-- storage-migration
+|   |       `-- storage-version
 |   |-- tests/
 |   |   `-- database/
 |   |       |-- campaigns.test.sql

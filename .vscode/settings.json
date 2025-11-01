@@ -69,7 +69,7 @@
   "files.associations": {
     "**/app/backend/functions/**/*.ts": "typescript",
     "**/app/backend/functions/**/index.ts": "typescript",
-    "supabase/migrations/*.sql": "sql",
+    "app/backend/migrations/*.sql": "sql",
     "*.sql": "sql",
     "*.mdx": "markdown",
     ".env*": "dotenv",
@@ -86,7 +86,7 @@
     ".env": ".env.*, .env.local, .env.example, .env.vercel"
   },
   "files.watcherExclude": {
-    "**/supabase/.temp/**": true,
+    "**/app/backend/.temp/**": true,
     "**/node_modules/**": true,
     "**/dev-tools/agents/mcp-servers/node_modules/**": true,
     "**/.git/objects/**": true,
@@ -101,7 +101,7 @@
     "**/node_modules": true,
     "**/dist": true,
     "**/.git": true,
-    "**/supabase/.temp": true,
+    "**/app/backend/.temp": true,
     "**/archive": true,
     "**/dev-tools/agents/mcp-servers/logs": true
   },

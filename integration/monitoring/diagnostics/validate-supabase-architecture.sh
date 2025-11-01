@@ -29,8 +29,8 @@ if [ ! -f "cloudbuild.yaml" ]; then
     exit 1
 fi
 
-if [ ! -f "supabase/config.toml" ]; then
-    echo "❌ supabase/config.toml not found - Supabase configuration missing"
+if [ ! -f "app/backend/config.toml" ]; then
+    echo "❌ app/backend/config.toml not found - Supabase configuration missing"
     exit 1
 fi
 

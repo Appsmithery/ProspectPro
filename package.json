@@ -32,7 +32,7 @@
     "build:static": "npm run build",
     "clean": "rm -rf dist/ node_modules/ && echo 'Cleaned build artifacts'",
     "cost:analyze": "echo 'Check GitHub billing dashboard for usage trends'",
-    "db:setup": "echo 'Apply /supabase/schema-sql/001_core_schema.sql through 004_enrichment_cache.sql in Supabase dashboard'",
+    "db:setup": "echo 'Apply /app/backend/schema/001_core_schema.sql through 004_enrichment_cache.sql in Supabase dashboard'",
     "docs:update": "bash docs/mmd-shared/scripts/run-mermaid-automation.sh && node docs/scripts/update-docs.js",
     "codebase:index": "npm run docs:update",
     "docs:update:legacy": "npm run codebase:index && npm run system:reference",

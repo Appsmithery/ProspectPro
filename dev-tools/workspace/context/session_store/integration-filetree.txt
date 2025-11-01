@@ -55,23 +55,6 @@ integration/
 |   |   |   `-- sync-github-projects.js
 |   |   |-- webhook-handler.js
 |   |   `-- webhook-validator.js
-|   |-- supabase/
-|   |   |-- scripts/
-|   |   |   |-- deploy-background-tasks.sh
-|   |   |   |-- ensure-supabase-cli-session.sh
-|   |   |   |-- supabase_cli_helpers.sh
-|   |   |   `-- update-edge-secrets.sh
-|   |   |-- tests/
-|   |   |   `-- database/
-|   |   |       |-- campaigns.test.sql
-|   |   |       |-- core_schema.test.sql
-|   |   |       |-- edge-functions.test.ts
-|   |   |       |-- leads.test.sql
-|   |   |       `-- placeholder.test.ts
-|   |   |-- package-supabase.json
-|   |   |-- README-MIGRATION.md
-|   |   |-- supabase-ca-2021.crt
-|   |   `-- supabase.js
 |   |-- vercel/
 |   |   |-- vercel-status-check.sh
 |   |   |-- vercel-validate.sh
