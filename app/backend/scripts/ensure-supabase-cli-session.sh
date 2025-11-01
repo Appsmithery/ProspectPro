@@ -74,7 +74,7 @@ fi
 EXPECTED_REPO_ROOT=${EXPECTED_REPO_ROOT:-/workspaces/ProspectPro}
 
 SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
-# shellcheck source=/workspaces/ProspectPro/integration/platform/supabase/scripts/operations/supabase_cli_helpers.sh
+# shellcheck source=/workspaces/ProspectPro/app/backend/scripts/supabase_cli_helpers.sh
 source "$SCRIPT_DIR/supabase_cli_helpers.sh"
 
 export PROSPECTPRO_SUPABASE_SUPPRESS_SETUP=1
