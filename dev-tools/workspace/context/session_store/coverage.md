@@ -1,5 +1,15 @@
 # 2025-11-01: Supabase Directory Migration Completion
 
+## 2025-11-01: Domain Tree Inventory Refresh
+
+Ran `dev-tools/automation/ci-cd/repo_scan.sh` to regenerate authoritative inventories:
+
+- `app-filetree.txt`
+- `dev-tools-filetree.txt`
+- `integration-filetree.txt`
+
+All inventories are now current and reflect the latest repo structure. These will be used as the gold standard for the next pruning and migration steps. Any deltas or anomalies will be logged here as the process continues.
+
 ## Migration Summary
 
 Successfully completed the consolidation of Supabase assets from the root symlink and scattered integration files into `/app/backend/`:
