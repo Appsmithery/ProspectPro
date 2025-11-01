@@ -111,6 +111,7 @@ dev-tools/
 |   |   |-- validate-agents.sh
 |   |   |-- validate-highlight-integration.sh
 |   |   `-- validate-observability-migration.sh
+|   |-- .env.agent.local
 |   |-- observability-cli.js
 |   `-- Taskfile.base.yml
 |-- automation/
@@ -215,6 +216,8 @@ dev-tools/
 |   |   `-- validate-ignore-config.cjs
 |   `-- README.md
 |-- testing/
+|   |-- .task/
+|   |   `-- checksum/
 |   |-- agents/
 |   |   |-- client-service-layer/
 |   |   |   |-- e2e/

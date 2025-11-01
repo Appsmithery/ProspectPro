@@ -2,7 +2,7 @@
 
 **Version:** 1.0  
 **Date:** 2025-11-01  
-**Status:** Phase 3 Complete - Ready for Phase 4 Integration
+**Status:** Phase 4 In Progress – Integration Staging
 
 ## Executive Summary
 
@@ -45,6 +45,7 @@ Based on the latest inventory scan, the repository consists of three primary dom
 - [x] Create canonical roadmap (this document)
 
 **Results:**
+
 - All inventory files are current and reflect latest repo structure
 - Temporary and build artifacts properly excluded from tracking
 - 572 total tracked files across three domains
@@ -111,6 +112,7 @@ scripts/                             # (if app-specific)
 ```
 
 **Completed Deliverables:**
+
 - ✅ Dependency analysis report (23 dev-tools deps, 61 app deps, 10 shared)
 - ✅ Environment variables inventory (16 unique variables identified)
 - ✅ MCP configuration reference map (100 occurrences documented)
@@ -121,6 +123,7 @@ scripts/                             # (if app-specific)
 - ✅ Legacy cleanup targets identified (3 locations)
 
 **Key Findings:**
+
 - **Portable components:** ~305 files (96% of dev-tools)
 - **App-specific exclusions:** ~13 files (4% - Highlight integration, Vercel validation)
 - **Shared dependencies:** Standard tooling only (TypeScript, ESLint, Vitest)
@@ -128,6 +131,7 @@ scripts/                             # (if app-specific)
 - **Integration points:** `.vscode/mcp_config.json`, GitHub workflows, package.json
 
 **Reports Generated:**
+
 - `dev-tools/reports/dependency-analysis.txt`
 - `dev-tools/reports/env-variables-inventory.txt`
 - `dev-tools/reports/mcp-references.txt`
@@ -147,6 +151,7 @@ See `coverage.md` for detailed Phase 2 completion summary.
 Phase 3 extraction completed successfully on 2025-11-01. All portable development tooling has been extracted from ProspectPro into the Dev-Tools repository.
 
 **Completed Tasks:**
+
 - [x] Initialized Dev-Tools repository on prospect-pro-tools branch
 - [x] Created skeleton structure (package.json, tsconfig.json, .gitignore, README.md, LICENSE)
 - [x] Extracted all agent profiles and infrastructure
@@ -159,6 +164,7 @@ Phase 3 extraction completed successfully on 2025-11-01. All portable developmen
 - [x] Tagged release as v1.0.0
 
 **Extraction Results:**
+
 - Total files extracted: 197
 - Agent profiles: 4 (development-workflow, observability, production-ops, system-architect)
 - Test files: 7
@@ -166,6 +172,7 @@ Phase 3 extraction completed successfully on 2025-11-01. All portable developmen
 - Directory structure: 29 directories
 
 **App-Specific Exclusions (Correctly Retained in ProspectPro):**
+
 - integrate-highlight-edge-functions.ts
 - vercel-validate.sh
 - deploy-highlight-integration.sh
@@ -174,12 +181,14 @@ Phase 3 extraction completed successfully on 2025-11-01. All portable developmen
 - Session store working files
 
 **Validation:**
+
 - Pre-extraction dry-run: ✓ Passed
 - Post-extraction dry-run: ✓ Core structure validated
 - TypeScript compilation: ✓ Passed
 - All Phase 2 reports: ✓ Confirmed
 
 **Git State:**
+
 - Branch: prospect-pro-tools
 - Commits: 2 (skeleton + extraction)
 - Tag: v1.0.0
@@ -191,6 +200,7 @@ This phase extracts portable development tooling from ProspectPro and establishe
 #### 3.1: Repository Initialization
 
 **Tasks:**
+
 - [ ] Clone/initialize the Dev-Tools repository on the `prospect-pro-tools` branch
 - [ ] Set up initial `.gitignore` for Node.js, Deno, and build artifacts
 - [ ] Create base `package.json` with npm workspace and build configuration
@@ -198,6 +208,7 @@ This phase extracts portable development tooling from ProspectPro and establishe
 - [ ] Set up LICENSE file (match ProspectPro's license)
 
 **Commands:**
+
 ```bash
 # Clone or initialize the repository
 git clone https://github.com/Alextorelli/Dev-Tools.git
@@ -218,6 +229,7 @@ npm pkg set repository.url="https://github.com/Alextorelli/Dev-Tools.git"
 ```
 
 **Initial Files:**
+
 ```
 Dev-Tools/
 ├── .gitignore                       # Node/Deno/build artifacts
@@ -229,6 +241,7 @@ Dev-Tools/
 #### 3.2: Core Directory Structure Setup
 
 **Tasks:**
+
 - [ ] Create portable agent profiles directory structure
 - [ ] Create automation and testing infrastructure directories
 - [ ] Create scripts and workspace directories
@@ -236,6 +249,7 @@ Dev-Tools/
 - [ ] Create docs directory for tooling documentation
 
 **Commands:**
+
 ```bash
 # Create directory structure
 mkdir -p agents/{_development-workflow,_observability,_production-ops,_system-architect}
@@ -249,6 +263,7 @@ mkdir -p docs/{agents,automation,testing,mcp}
 ```
 
 **Structure:**
+
 ```
 Dev-Tools/
 ├── agents/                          # Portable agent profiles
@@ -286,6 +301,7 @@ Dev-Tools/
 #### 3.3: Extract Portable Agent Profiles
 
 **Tasks:**
+
 - [ ] Copy agent profile directories from ProspectPro
 - [ ] Preserve `config.json`, `instructions.md`, `toolset.jsonc`, and `taskfile.yaml` for each agent
 - [ ] Remove ProspectPro-specific references and environment variables
@@ -293,6 +309,7 @@ Dev-Tools/
 - [ ] Copy `Taskfile.base.yml` for agent task orchestration
 
 **Extraction Script:**
+
 ```bash
 #!/usr/bin/env bash
 # scripts/extract-agents.sh
@@ -341,6 +358,7 @@ echo "=== Agent extraction complete ==="
 ```
 
 **Validation:**
+
 ```bash
 # Verify all agent profiles have required files
 for agent in _development-workflow _observability _production-ops _system-architect; do
@@ -355,6 +373,7 @@ done
 #### 3.4: Extract Automation Infrastructure
 
 **Tasks:**
+
 - [ ] Copy CI/CD automation scripts (repo_scan.sh, etc.)
 - [ ] Copy generic automation utilities
 - [ ] Copy setup and bootstrap scripts
@@ -362,6 +381,7 @@ done
 - [ ] Update script paths to be repository-agnostic
 
 **Extraction Script:**
+
 ```bash
 #!/usr/bin/env bash
 # scripts/extract-automation.sh
@@ -401,6 +421,7 @@ echo "=== Automation extraction complete ==="
 #### 3.5: Extract Testing Infrastructure
 
 **Tasks:**
+
 - [ ] Copy test configurations (Vitest, Playwright)
 - [ ] Copy agent test suites
 - [ ] Copy test utilities and fixtures
@@ -408,6 +429,7 @@ echo "=== Automation extraction complete ==="
 - [ ] Create test README with usage examples
 
 **Extraction Script:**
+
 ```bash
 #!/usr/bin/env bash
 # scripts/extract-testing.sh
@@ -445,12 +467,14 @@ echo "=== Testing extraction complete ==="
 #### 3.6: Archive Historical Artifacts
 
 **Tasks:**
+
 - [ ] Copy archive directory from ProspectPro
 - [ ] Organize by date and category
 - [ ] Create archive manifest with provenance
 - [ ] Document what each archive contains
 
 **Commands:**
+
 ```bash
 # Copy archives
 rsync -av --progress \
@@ -486,6 +510,7 @@ EOF
 #### 3.7: Create npm Package Configuration
 
 **Tasks:**
+
 - [ ] Configure package.json with proper metadata
 - [ ] Set up workspace structure for multi-package support
 - [ ] Configure build scripts for TypeScript compilation
@@ -493,28 +518,20 @@ EOF
 - [ ] Configure exports for agent profiles and utilities
 
 **Package Configuration:**
+
 ```json
 {
   "name": "@prospectpro/dev-tools",
   "version": "1.0.0",
   "description": "Portable development tooling, agent workflows, and test infrastructure",
   "type": "module",
-  "keywords": [
-    "development-tools",
-    "agents",
-    "mcp",
-    "testing",
-    "automation"
-  ],
+  "keywords": ["development-tools", "agents", "mcp", "testing", "automation"],
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/Alextorelli/Dev-Tools.git"
   },
-  "workspaces": [
-    "agents/client-service-layer",
-    "agents/mcp-servers/utility"
-  ],
+  "workspaces": ["agents/client-service-layer", "agents/mcp-servers/utility"],
   "exports": {
     "./agents/*": "./agents/*/config.json",
     "./testing/*": "./testing/*",
@@ -541,6 +558,7 @@ EOF
 #### 3.8: Create Integration Documentation
 
 **Tasks:**
+
 - [ ] Write comprehensive README with quick start guide
 - [ ] Document how to integrate Dev-Tools into projects
 - [ ] Create agent profile usage guide
@@ -548,7 +566,8 @@ EOF
 - [ ] Add troubleshooting section
 
 **README Template:**
-```markdown
+
+````markdown
 # ProspectPro Dev-Tools
 
 Portable development tooling, agent workflows, and test infrastructure extracted from ProspectPro.
@@ -581,12 +600,14 @@ git submodule update --init --recursive
 ### Using Agent Profiles
 
 Agent profiles are located in \`agents/\` and include:
-- \`_development-workflow\`: Development workflow automation
-- \`_observability\`: System monitoring and telemetry
-- \`_production-ops\`: Deployment and operations
-- \`_system-architect\`: Architecture and design
+
+- \`\_development-workflow\`: Development workflow automation
+- \`\_observability\`: System monitoring and telemetry
+- \`\_production-ops\`: Deployment and operations
+- \`\_system-architect\`: Architecture and design
 
 Each agent has:
+
 - \`config.json\`: Agent configuration
 - \`instructions.md\`: Agent instructions and context
 - \`toolset.jsonc\`: Available tools and MCP servers
@@ -595,23 +616,30 @@ Each agent has:
 ### Running Tests
 
 \`\`\`bash
+
 # Run all tests
+
 npm test
 
 # Run agent tests
+
 npm run test:agents
 
 # Watch mode
+
 npm run test:watch
 \`\`\`
 
 ### Building MCP Servers
 
 \`\`\`bash
+
 # Build all workspaces
+
 npm run build
 
 # Build specific MCP server
+
 npm run build --workspace agents/mcp-servers/utility
 \`\`\`
 
@@ -628,10 +656,11 @@ npm run build --workspace agents/mcp-servers/utility
 ### Example Integration
 
 \`\`\`yaml
+
 # Taskfile.yml
+
 agents:test:
-  cmds:
-    - task: -d dev-tools-package/ agents:test:full
+cmds: - task: -d dev-tools-package/ agents:test:full
 \`\`\`
 
 ## Documentation
@@ -649,6 +678,7 @@ MIT
 #### 3.9: Validation and Testing
 
 **Tasks:**
+
 - [ ] Run extraction scripts and verify directory structure
 - [ ] Build all TypeScript packages
 - [ ] Run test suites to ensure portability
@@ -657,6 +687,7 @@ MIT
 - [ ] Run lint and type checks
 
 **Validation Script:**
+
 ```bash
 #!/usr/bin/env bash
 # scripts/validate-extraction.sh
@@ -706,16 +737,19 @@ echo "✅ Tests executed"
 
 echo "=== Validation complete ==="
 ```
+````
 
 #### 3.10: Commit and Push to prospect-pro-tools Branch
 
 **Tasks:**
+
 - [ ] Stage all extracted files
 - [ ] Create initial commit with extraction metadata
 - [ ] Push to prospect-pro-tools branch
 - [ ] Create GitHub release with v1.0.0 tag
 
 **Commands:**
+
 ```bash
 # Stage all files
 git add .
@@ -744,6 +778,7 @@ git push origin v1.0.0
 #### 3.11: Post-Extraction Cleanup Tasks
 
 **Tasks:**
+
 - [ ] Update extraction manifest with file counts and checksums
 - [ ] Generate dependency report for npm packages
 - [ ] Create migration checklist for ProspectPro integration (Phase 4)
@@ -751,6 +786,7 @@ git push origin v1.0.0
 - [ ] Update Dev-Tools README with actual file counts and structure
 
 **Manifest Generation:**
+
 ```bash
 # Generate extraction manifest
 cat > EXTRACTION_MANIFEST.md << EOF
@@ -800,9 +836,17 @@ Once Phase 3 is complete, proceed to **Phase 4: ProspectPro Integration** to add
 
 ### Phase 4: ProspectPro Integration
 
-**Status:** ⏳ Pending
+**Status:** 🔄 In Progress (staging)
 
-**Tasks:**
+**Preparation Completed (2025-11-01):**
+
+- ✅ Refreshed repository inventories via `dev-tools/automation/ci-cd/repo_scan.sh`
+- ✅ Confirmed Dev-Tools repository (`prospect-pro-tools` @ v1.0.0) hosts portable assets
+- ✅ Updated `PHASE_4_INTEGRATION_CHECKLIST.md` with success criteria, risks, and Phase 5 preview
+- ✅ Logged Phase 4 staging status in `coverage.md`
+
+**Execution Tasks:**
+
 - [ ] Add Dev-Tools as git submodule OR npm workspace entry
 - [ ] Update `Taskfile.yml` to reference submodule paths
 - [ ] Rewrite npm scripts to use Dev-Tools package
@@ -812,6 +856,7 @@ Once Phase 3 is complete, proceed to **Phase 4: ProspectPro Integration** to add
 **Example Changes:**
 
 **Before:**
+
 ```yaml
 # Taskfile.yml
 agents:test:
@@ -820,6 +865,7 @@ agents:test:
 ```
 
 **After:**
+
 ```yaml
 # Taskfile.yml
 agents:test:
@@ -832,6 +878,7 @@ agents:test:
 **Status:** ⏳ Pending
 
 **Tasks:**
+
 - [ ] Remove copied directories from ProspectPro
 - [ ] Search for direct imports using ripgrep: `rg "dev-tools/" --type ts`
 - [ ] Update import paths to use new integration surface
@@ -842,6 +889,7 @@ agents:test:
 - [ ] Update any scripts referencing legacy inventory paths
 
 **Validation Steps:**
+
 - [ ] All npm scripts execute successfully
 - [ ] VS Code tasks work from new paths
 - [ ] Linting, building, and testing pass
@@ -854,6 +902,7 @@ agents:test:
 **Status:** ⏳ Pending
 
 **Tasks:**
+
 - [ ] Add migration summary to `settings-staging.md`
 - [ ] Refresh `SYSTEM_REFERENCE.md` via `npm run docs:update`
 - [ ] Document new directory structure in README
@@ -912,6 +961,7 @@ git submodule update --init --recursive
 ```
 
 **Guard Task:**
+
 ```yaml
 # Taskfile.yml
 check:submodule:
@@ -927,10 +977,7 @@ check:submodule:
 ```json
 // package.json
 {
-  "workspaces": [
-    "app/frontend",
-    "dev-tools-package"
-  ]
+  "workspaces": ["app/frontend", "dev-tools-package"]
 }
 ```
 
@@ -993,7 +1040,9 @@ Update `.vscode/mcp_config.json`:
   "mcpServers": {
     "utility": {
       "command": "node",
-      "args": ["${workspaceFolder}/dev-tools-package/agents/mcp-servers/utility/dist/index.js"]
+      "args": [
+        "${workspaceFolder}/dev-tools-package/agents/mcp-servers/utility/dist/index.js"
+      ]
     }
   }
 }
@@ -1049,13 +1098,13 @@ Migration is complete when:
 
 ## Risk Assessment
 
-| Risk | Impact | Mitigation |
-|------|--------|------------|
-| Broken imports | High | Comprehensive search/replace, automated tests |
-| CI/CD failures | High | Dry-run validation, rollback plan |
-| Path resolution issues | Medium | Update all configs before removing files |
-| Lost git history | Medium | Keep archive branch, document provenance |
-| Team confusion | Low | Clear documentation, staged rollout |
+| Risk                   | Impact | Mitigation                                    |
+| ---------------------- | ------ | --------------------------------------------- |
+| Broken imports         | High   | Comprehensive search/replace, automated tests |
+| CI/CD failures         | High   | Dry-run validation, rollback plan             |
+| Path resolution issues | Medium | Update all configs before removing files      |
+| Lost git history       | Medium | Keep archive branch, document provenance      |
+| Team confusion         | Low    | Clear documentation, staged rollout           |
 
 ## Open Questions
 
@@ -1075,6 +1124,6 @@ Migration is complete when:
 
 ## Revision History
 
-| Date | Version | Author | Changes |
-|------|---------|--------|---------|
-| 2025-11-01 | 1.0 | Copilot Agent | Initial plan created |
+| Date       | Version | Author        | Changes              |
+| ---------- | ------- | ------------- | -------------------- |
+| 2025-11-01 | 1.0     | Copilot Agent | Initial plan created |

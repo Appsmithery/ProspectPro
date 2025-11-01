@@ -8,6 +8,14 @@
 
 This checklist guides the integration of the extracted Dev-Tools repository back into ProspectPro as a git submodule or npm workspace dependency.
 
+## Status Snapshot (2025-11-01)
+
+- ✅ Dev-Tools repository (`prospect-pro-tools` branch, tag `v1.0.0`) validated as portable baseline
+- ✅ Inventory refresh executed (`dev-tools/automation/ci-cd/repo_scan.sh`)
+- ✅ Integration documentation refreshed (`REPO_RESTRUCTURE_PLAN.md`, `coverage.md`)
+- ⚠️ Pending: Execute integration commands (submodule/workspace wiring, task rewrites, CI updates)
+- ⚠️ Pending: Post-integration validation (`migration-dry-run.sh`, CI suites, MCP smoke tests)
+
 ## Pre-Integration Verification
 
 Before beginning integration, verify:
@@ -26,12 +34,14 @@ Choose ONE of the following integration methods:
 ### Option A: Git Submodule (Recommended)
 
 **Benefits:**
+
 - Tight version control coupling
 - Clear dependency relationship
 - Easy to track which version is integrated
 - Standard git workflow for updates
 
 **Drawbacks:**
+
 - Team must understand submodule commands
 - Requires explicit submodule initialization
 - Can be confusing for new contributors
@@ -39,15 +49,27 @@ Choose ONE of the following integration methods:
 ### Option B: NPM Workspace
 
 **Benefits:**
+
 - Familiar npm workflow
 - Easier for JavaScript developers
 - Automatic dependency resolution
 - Simpler CI/CD integration
 
 **Drawbacks:**
+
 - Less explicit version tracking
 - Can accidentally use local changes
 - May complicate monorepo tooling
+
+## Key Risks & Mitigations
+
+| Risk                                                    | Impact                     | Mitigation                                                                                      |
+| ------------------------------------------------------- | -------------------------- | ----------------------------------------------------------------------------------------------- |
+| Submodule not initialised by CI                         | Build/test jobs fail       | Add `git submodule update --init --recursive` step to every workflow (already listed below)     |
+| MCP paths not updated                                   | Agents fail to boot        | Grep for `"dev-tools/agents/mcp-servers"` and ensure replacements point to `dev-tools-package/` |
+| Import paths left pointing to old tree                  | Runtime errors in app code | Run `rg "dev-tools/" --type ts --type tsx` and apply `migrate-import-paths.sh`                  |
+| Highlight integration scripts relocated unintentionally | Production telemetry gap   | Keep ProspectPro-specific scripts in place; wrap them to call submodule entry points            |
+| Teams forget to pull submodule updates                  | Divergent tooling versions | Add `task submodule:check` guard (see Taskfile update section)                                  |
 
 ## Git Submodule Integration (Option A)
 
@@ -67,6 +89,7 @@ git submodule update --init --recursive
 ```
 
 **Verification:**
+
 ```bash
 # Check submodule status
 git submodule status
@@ -103,10 +126,7 @@ Add reference to submodule for npm scripts:
 
 ```json
 {
-  "workspaces": [
-    "app/frontend",
-    "dev-tools-package"
-  ]
+  "workspaces": ["app/frontend", "dev-tools-package"]
 }
 ```
 
@@ -115,30 +135,37 @@ Add reference to submodule for npm scripts:
 Update all MCP server paths to reference submodule:
 
 **Before:**
+
 ```json
 {
   "mcpServers": {
     "utility": {
       "command": "node",
-      "args": ["${workspaceFolder}/dev-tools/agents/mcp-servers/utility/dist/index.js"]
+      "args": [
+        "${workspaceFolder}/dev-tools/agents/mcp-servers/utility/dist/index.js"
+      ]
     }
   }
 }
 ```
 
 **After:**
+
 ```json
 {
   "mcpServers": {
     "utility": {
       "command": "node",
-      "args": ["${workspaceFolder}/dev-tools-package/agents/mcp-servers/utility/dist/index.js"]
+      "args": [
+        "${workspaceFolder}/dev-tools-package/agents/mcp-servers/utility/dist/index.js"
+      ]
     }
   }
 }
 ```
 
 **Checklist:**
+
 - [ ] Update all `dev-tools/agents/mcp-servers/` paths
 - [ ] Verify MCP servers start correctly
 - [ ] Test MCP tools from VS Code
@@ -148,6 +175,7 @@ Update all MCP server paths to reference submodule:
 Update `.github/workflows/mcp-agent-validation.yml`:
 
 **Before:**
+
 ```yaml
 - name: Validate MCP servers
   run: |
@@ -157,6 +185,7 @@ Update `.github/workflows/mcp-agent-validation.yml`:
 ```
 
 **After:**
+
 ```yaml
 - name: Initialize submodule
   run: git submodule update --init --recursive
@@ -171,6 +200,7 @@ Update `.github/workflows/mcp-agent-validation.yml`:
 Update `.github/workflows/docs-automation.yml`:
 
 **Before:**
+
 ```yaml
 - name: Run documentation scripts
   run: |
@@ -178,6 +208,7 @@ Update `.github/workflows/docs-automation.yml`:
 ```
 
 **After:**
+
 ```yaml
 - name: Initialize submodule
   run: git submodule update --init --recursive
@@ -188,6 +219,7 @@ Update `.github/workflows/docs-automation.yml`:
 ```
 
 **Checklist:**
+
 - [ ] Update mcp-agent-validation.yml
 - [ ] Update docs-automation.yml
 - [ ] Add submodule initialization to all workflows
@@ -196,6 +228,7 @@ Update `.github/workflows/docs-automation.yml`:
 ### 6. Update Taskfile.yml
 
 **Before:**
+
 ```yaml
 agents:test:
   cmds:
@@ -203,6 +236,7 @@ agents:test:
 ```
 
 **After:**
+
 ```yaml
 agents:test:
   cmds:
@@ -210,6 +244,7 @@ agents:test:
 ```
 
 **Checklist:**
+
 - [ ] Update all task paths referencing dev-tools
 - [ ] Test tasks with `task --list`
 - [ ] Verify task execution
@@ -219,6 +254,7 @@ agents:test:
 Update `.vscode/tasks.json`:
 
 **Before:**
+
 ```json
 {
   "label": "Validate MCP Servers",
@@ -228,6 +264,7 @@ Update `.vscode/tasks.json`:
 ```
 
 **After:**
+
 ```json
 {
   "label": "Validate MCP Servers",
@@ -237,6 +274,7 @@ Update `.vscode/tasks.json`:
 ```
 
 **Checklist:**
+
 - [ ] Update all task paths
 - [ ] Test tasks from VS Code
 - [ ] Verify task runner integration
@@ -252,22 +290,25 @@ rg "from ['\"].*dev-tools/" --type ts --type tsx
 Update to use package name (if configured):
 
 **Before:**
+
 ```typescript
-import { something } from '../../../dev-tools/agents/utils'
+import { something } from "../../../dev-tools/agents/utils";
 ```
 
 **After:**
+
 ```typescript
-import { something } from '@prospectpro/dev-tools/agents/utils'
+import { something } from "@prospectpro/dev-tools/agents/utils";
 ```
 
 **Or** use relative path to submodule:
 
 ```typescript
-import { something } from '../../../dev-tools-package/agents/utils'
+import { something } from "../../../dev-tools-package/agents/utils";
 ```
 
 **Checklist:**
+
 - [ ] Search for dev-tools imports
 - [ ] Update import paths
 - [ ] Run TypeScript compiler
@@ -299,6 +340,7 @@ submodule:update:
 ```
 
 **Checklist:**
+
 - [ ] Add submodule guard task
 - [ ] Test with `task submodule:check`
 - [ ] Add to CI workflow
@@ -311,10 +353,7 @@ Update `package.json`:
 
 ```json
 {
-  "workspaces": [
-    "app/frontend",
-    "dev-tools-package"
-  ]
+  "workspaces": ["app/frontend", "dev-tools-package"]
 }
 ```
 
@@ -441,6 +480,7 @@ Document all configuration changes:
 ## 2025-11-01: Dev-Tools Submodule Integration
 
 ### Changes:
+
 - Added dev-tools-package as git submodule
 - Updated .vscode/mcp_config.json paths
 - Updated GitHub workflow paths
@@ -448,6 +488,7 @@ Document all configuration changes:
 - Updated VS Code task paths
 
 ### Validation:
+
 - ✅ All builds passing
 - ✅ MCP servers operational
 - ✅ Tests passing
@@ -485,7 +526,9 @@ To update to the latest version:
 
 \`\`\`bash
 task submodule:update
+
 # or
+
 git submodule update --remote dev-tools-package
 \`\`\`
 ```
@@ -537,6 +580,7 @@ npm install
 **Symptom:** `dev-tools-package/` directory is empty
 
 **Solution:**
+
 ```bash
 git submodule update --init --recursive
 ```
@@ -546,6 +590,7 @@ git submodule update --init --recursive
 **Symptom:** VS Code cannot connect to MCP servers
 
 **Solution:**
+
 ```bash
 # Build MCP servers
 cd dev-tools-package/agents/mcp-servers
@@ -561,6 +606,7 @@ npm run build
 
 **Solution:**
 Add submodule initialization to workflow:
+
 ```yaml
 - name: Initialize submodule
   run: git submodule update --init --recursive
@@ -571,6 +617,7 @@ Add submodule initialization to workflow:
 **Symptom:** TypeScript can't resolve imports
 
 **Solution:**
+
 ```bash
 # Update tsconfig paths
 # Add to tsconfig.json:
@@ -607,6 +654,19 @@ Estimated: 0.5 - 1 day
 - [ ] Testing and validation: 2-3 hours
 - [ ] Documentation: 1 hour
 - [ ] CI/CD verification: 1 hour
+
+## Phase 5 & 6 Outlook
+
+- **Phase 5 – Cleanup & Validation (Estimated 1-2 days):**
+
+  - Remove legacy `dev-tools/` directories after integration proves stable
+  - Update remaining import paths and prune duplicate inventories
+  - Run full automation suite (`npm run docs:update`, `task agents:test:full`, Playwright, Supabase tests)
+
+- **Phase 6 – Documentation & Provenance (Estimated 0.5 day):**
+  - Finalise entries in `docs/tooling/settings-staging.md`, `coverage.md`, and `SYSTEM_REFERENCE.md`
+  - Update onboarding docs and Copilot instructions with new integration surface
+  - Record final migration sign-off and rollback artefacts
 
 ## Next Phase
 

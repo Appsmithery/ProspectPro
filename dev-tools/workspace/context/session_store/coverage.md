@@ -1,3 +1,39 @@
+# Repository Restructure - Phase 4 Preparation - 2025-11-01
+
+## Phase 4 Integration Preparation (In Progress)
+
+**Date:** 2025-11-01  
+**Status:** Integration staging ready; awaiting execution  
+**Scope:** ProspectPro → Dev-Tools reintegration planning
+
+### Latest Actions
+
+1. **Inventory Refresh**
+
+   - ✅ Ran `dev-tools/automation/ci-cd/repo_scan.sh`
+   - ✅ Regenerated `repo-tree-summary.txt`, `app-filetree.txt`, `dev-tools-filetree.txt`, `integration-filetree.txt`
+   - ✅ Verified inventories exclude build artifacts and session-store scratch files
+
+2. **Integration Readiness Review**
+
+   - ✅ Confirmed Dev-Tools repo (`prospect-pro-tools` @ v1.0.0) hosts all portable assets
+   - ✅ Validated `PHASE_3_EXECUTION_GUIDE.md` and `PHASE_4_INTEGRATION_CHECKLIST.md` are current
+   - ⚠ Pending: Execute `migration-dry-run.sh` post-submodule to validate end-to-end wiring
+
+3. **Documentation Updates**
+   - ✅ Logged Phase 4 prep in `REPO_RESTRUCTURE_PLAN.md` (status set to "In Progress")
+   - ✅ Expanded `PHASE_4_INTEGRATION_CHECKLIST.md` with success criteria, risks, and Phase 5 preview
+   - 📝 Next: Capture integration completion details once submodule/npm integration lands
+
+### Immediate Next Steps
+
+1. Add Dev-Tools as `dev-tools-package/` git submodule (or workspace) in ProspectPro
+2. Update `.vscode/mcp_config.json`, `.github/workflows/*`, `Taskfile.yml`, and npm scripts to use submodule paths
+3. Re-run `migration-dry-run.sh` and full CI suite from ProspectPro root
+4. Append final integration summary to this log and `docs/tooling/settings-staging.md`
+
+---
+
 # Repository Restructure - Phase 3 Complete - 2025-11-01
 
 ## Phase 3 Extraction Complete ✅
@@ -14,12 +50,14 @@ Phase 3 extraction completed successfully using automated scripts. All portable 
 ### Completed Tasks
 
 1. **Pre-Extraction Validation**
+
    - ✅ Ran migration-dry-run.sh - all core checks passed
    - ✅ Validated Phase 2 reports present and complete
    - ✅ TypeScript compilation validated
    - ✅ Inventory regenerated to current state
 
 2. **Repository Initialization**
+
    - ✅ Created Dev-Tools repository structure
    - ✅ Initialized git repository on prospect-pro-tools branch
    - ✅ Created skeleton files (package.json, tsconfig.json, .gitignore, README.md, LICENSE)
@@ -27,8 +65,9 @@ Phase 3 extraction completed successfully using automated scripts. All portable 
    - ✅ Committed skeleton with provenance
 
 3. **Module-by-Module Extraction**
+
    - ✅ Extracted Agents domain (4 profiles + infrastructure)
-     - _development-workflow, _observability, _production-ops, _system-architect
+     - \_development-workflow, \_observability, \_production-ops, \_system-architect
      - client-service-layer, context, mcp-servers, scripts
    - ✅ Extracted Automation domain (CI/CD scripts)
    - ✅ Extracted Scripts domain (portable automation, setup, tooling)
@@ -39,12 +78,14 @@ Phase 3 extraction completed successfully using automated scripts. All portable 
      - Excluded session store working files
 
 4. **Documentation & Manifest**
+
    - ✅ Generated EXTRACTION_MANIFEST.md with complete details
    - ✅ Documented 197 extracted files
    - ✅ Listed all exclusions and rationale
    - ✅ Provided integration guidance
 
 5. **Version Control**
+
    - ✅ Committed all extracted files with detailed commit message
    - ✅ Tagged release as v1.0.0
    - ✅ Verified git history preserved
@@ -66,12 +107,13 @@ Phase 3 extraction completed successfully using automated scripts. All portable 
 ### App-Specific Exclusions (Correctly Retained)
 
 These files remain in ProspectPro as they are app-specific:
+
 - `integrate-highlight-edge-functions.ts` - ProspectPro Highlight.io integration
 - `vercel-validate.sh` - ProspectPro deployment validation
 - `deploy-highlight-integration.sh` - ProspectPro telemetry deployment
 - `highlight-integration-inventory.sh` - ProspectPro inventory script
 - `observability/highlight-node/` - ProspectPro-specific telemetry
-- Session store working files (*.md, *.txt, *.log in session_store/)
+- Session store working files (_.md, _.txt, \*.log in session_store/)
 
 ### Dev-Tools Repository State
 
@@ -79,12 +121,14 @@ These files remain in ProspectPro as they are app-specific:
 **Target:** `https://github.com/Alextorelli/Dev-Tools` on `prospect-pro-tools` branch  
 **Version:** v1.0.0  
 **Commits:**
+
 1. `bfa52f1` - Initialize Dev-Tools repository skeleton
 2. `2bc0b35` - Extract portable dev-tools from ProspectPro (v1.0.0)
 
 ### Next Steps - Phase 4 Integration
 
 Ready to begin Phase 4 (ProspectPro Integration):
+
 1. Add Dev-Tools as git submodule or npm workspace to ProspectPro
 2. Update .vscode/mcp_config.json paths
 3. Update .github/workflows/ paths
@@ -109,6 +153,7 @@ The migration-dry-run.sh shows expected warnings about linting/tests requiring n
 ## Phase 2 Completion Confirmed
 
 ### Status Update
+
 **Date:** 2025-11-01  
 **Phase:** Phase 2 - Extraction Scope Definition  
 **Status:** ✅ Complete
@@ -118,19 +163,23 @@ The migration-dry-run.sh shows expected warnings about linting/tests requiring n
 All Phase 2 deliverables have been verified as complete:
 
 1. ✅ **Dependency Analysis** (`dev-tools/reports/dependency-analysis.txt`)
+
    - 114 lines documenting 23 dev-tools deps, 61 app deps, 10 shared
    - Categorized portable vs. app-specific packages
    - No blocking circular dependencies identified
 
 2. ✅ **Environment Variables Inventory** (`dev-tools/reports/env-variables-inventory.txt`)
+
    - 16 unique environment variables documented
    - Categorized by purpose (Highlight, MCP, Testing, Development, Logging)
 
 3. ✅ **MCP References Map** (`dev-tools/reports/mcp-references.txt`)
+
    - 100 occurrences documented across `.vscode/` and `dev-tools/`
    - All path references identified for migration coordination
 
 4. ✅ **CI Workflows Analysis** (`dev-tools/reports/ci-workflows-to-update.txt`)
+
    - 2 workflows identified requiring updates post-extraction
    - `.github/workflows/mcp-agent-validation.yml`
    - `.github/workflows/docs-automation.yml`
@@ -152,22 +201,26 @@ All Phase 2 deliverables have been verified as complete:
 **Date:** 2025-11-01
 
 1. **Root TypeScript Configuration Added**
+
    - Created `/tsconfig.json` with workspace path mappings
    - Supports `@frontend/*`, `@backend/*`, `@shared/*`, `@dev-tools/*` aliases
    - Foundation for multi-package TypeScript project structure
 
 2. **Package.json Workspace Configuration**
+
    - Added `workspaces` field for dev-tools sub-packages
    - Added build scripts: `build:mcp-servers`, `build:dev-tools`, `build:all`
    - Enables independent building of portable modules
 
 3. **Migration Validation Script Created**
+
    - `dev-tools/scripts/automation/migration-dry-run.sh` (executable)
    - Validates structure, Phase 2 reports, linting, tests, MCP, agents, inventories, TypeScript
    - Designed for repeated execution during Phase 3
    - Provides detailed feedback for manual review
 
 4. **Updated .gitignore**
+
    - Added `*.tsbuildinfo` entries to exclude TypeScript incremental build cache
    - Added dist/ patterns for dev-tools modules
    - Prevents build artifacts from polluting repository
@@ -186,6 +239,7 @@ All Phase 2 deliverables have been verified as complete:
 ### Next Steps
 
 With Phase 2 fully validated and documented, the repository is ready for:
+
 - Phase 3: Dev-Tools Repository Setup and Extraction
 - Root `tsconfig.json` creation for workspace structure
 - Build configuration enhancements for portable modules
@@ -196,6 +250,7 @@ With Phase 2 fully validated and documented, the repository is ready for:
 ## Phase 3 Extraction Automation Complete - 2025-11-01
 
 ### Overview
+
 **Date:** 2025-11-01  
 **Phase:** Phase 3 - Extraction Script Development  
 **Status:** ✅ Complete
@@ -205,23 +260,27 @@ Created comprehensive automation for extracting portable dev-tools from Prospect
 ### Extraction Scripts Created
 
 1. **`init-devtools-repo.sh`** - Repository skeleton initialization
+
    - Creates .gitignore, package.json, tsconfig.json, README.md, LICENSE
    - Sets up directory structure for all domains
    - Initializes git repository on prospect-pro-tools branch
    - Supports dry-run mode for safety
 
 2. **`extract-agents.sh`** - Agent domain extraction
-   - Extracts 4 agent profiles (_development-workflow, _observability, _production-ops, _system-architect)
+
+   - Extracts 4 agent profiles (\_development-workflow, \_observability, \_production-ops, \_system-architect)
    - Extracts client-service-layer, context, mcp-servers, scripts
    - Excludes node_modules, dist, build artifacts
-   - Excludes session store working files (*.md, *.txt, *.log)
+   - Excludes session store working files (_.md, _.txt, \*.log)
 
 3. **`extract-automation.sh`** - Automation infrastructure extraction
+
    - Extracts CI/CD scripts (repo_scan.sh, etc.)
    - Copies automation utilities
    - Excludes log files
 
 4. **`extract-scripts.sh`** - Portable scripts extraction
+
    - Extracts automation, setup, and tooling scripts
    - **Excludes app-specific scripts:**
      - integrate-highlight-edge-functions.ts
@@ -230,18 +289,21 @@ Created comprehensive automation for extracting portable dev-tools from Prospect
      - highlight-integration-inventory.sh
 
 5. **`extract-testing.sh`** - Testing infrastructure extraction
+
    - Extracts test configurations (Vitest, Playwright)
    - Extracts agent test suites
    - Extracts test utilities and fixtures
    - Excludes node_modules, coverage, build artifacts
 
 6. **`extract-workspace.sh`** - Workspace context extraction
+
    - Extracts workspace context (excluding transient files)
    - Moves archives to legacy/ directory
    - Excludes session store working files
    - Excludes diagnostics directories
 
 7. **`run-full-extraction.sh`** - Master orchestration script
+
    - Runs all extraction scripts in sequence
    - Validates source and target repositories
    - Provides comprehensive summary
@@ -264,6 +326,7 @@ Created comprehensive automation for extracting portable dev-tools from Prospect
 ### Validation
 
 1. **Dry-Run Testing**
+
    - All scripts tested in dry-run mode
    - Successfully simulated full extraction process
    - Verified proper file selection and exclusions
@@ -279,18 +342,21 @@ Created comprehensive automation for extracting portable dev-tools from Prospect
 ### Key Features
 
 1. **Safety First**
+
    - All scripts support dry-run mode (third parameter: true/false)
    - Automatic exclusions for build artifacts and transient files
    - Validates source directories before extraction
    - Preserves git history in both repositories
 
 2. **Modular Design**
+
    - Each domain has dedicated extraction script
    - Master orchestrator for full extraction
    - Scripts can be run independently or as suite
    - Idempotent - safe to run multiple times
 
 3. **App-Specific Exclusions**
+
    - Automatically excludes ProspectPro-specific integrations
    - Documented in scripts and README
    - Maintains clear separation of concerns
@@ -334,6 +400,7 @@ Phase 3 automation is complete and ready for execution:
 ### Provenance
 
 All scripts follow established patterns from:
+
 - `MIGRATION_OPTIMIZATIONS.md` - Automation strategies
 - `REPO_RESTRUCTURE_PLAN.md` - Phase 3 specifications
 - `dev-tools/reports/extraction-manifest.json` - File categorization
@@ -362,17 +429,20 @@ Executed `dev-tools/automation/ci-cd/repo_scan.sh` to regenerate all authoritati
 The inventory refresh successfully removed temporary and build artifacts that should not be tracked:
 
 **app domain changes:**
+
 - ❌ Removed `app/backend/.temp/` directory (CLI cache files)
 - ❌ Removed `app/backend/supabase/.temp/` directory (gotrue-version, pooler-url, postgres-version, etc.)
 - ❌ Removed empty `app/tests/fixtures/` directory
 - ✅ Cleaner `app/tests/unit/` structure (3 test files)
 
 **dev-tools domain changes:**
+
 - ❌ Removed `.env.agent.local` from tracking (gitignored secrets file)
 - ❌ Removed `.task/checksum/` directory (Task CLI cache)
 - ✅ All agent profiles properly tracked with taskfile.yaml
 
 **repo root changes:**
+
 - ❌ Removed `.deno_lsp/` directory (Deno language server cache)
 - ❌ Removed `playwright-report/` directory (build artifact)
 - ❌ Removed `test-results/` directory (build artifact)
@@ -381,6 +451,7 @@ The inventory refresh successfully removed temporary and build artifacts that sh
 ### Rationale
 
 The exclusions align with the production operations guide:
+
 1. **Temporary files** (`.temp/`, `.task/`, `.deno_lsp/`) should never be tracked
 2. **Build artifacts** (`playwright-report/`, `test-results/`) are regenerated by CI
 3. **Secrets** (`.env.agent.local`) must remain gitignored
@@ -393,6 +464,7 @@ All remaining files are legitimate source code, documentation, or configuration 
 Created `REPO_RESTRUCTURE_PLAN.md` documenting the complete migration roadmap for extracting portable dev tooling into a separate repository. The plan includes:
 
 **Six migration phases:**
+
 1. ✅ **Phase 1:** Authoritative inventories (COMPLETE)
 2. **Phase 2:** Extraction scope definition
 3. **Phase 3:** Dev-Tools repository setup
@@ -401,6 +473,7 @@ Created `REPO_RESTRUCTURE_PLAN.md` documenting the complete migration roadmap fo
 6. **Phase 6:** Documentation and provenance
 
 **Key decisions documented:**
+
 - Portable components to extract (agents, automation, testing, scripts)
 - App-specific wiring to retain (Highlight integration, Vercel validation)
 - Integration strategy (git submodule vs npm workspace)
@@ -408,6 +481,7 @@ Created `REPO_RESTRUCTURE_PLAN.md` documenting the complete migration roadmap fo
 - Success criteria and validation steps
 
 **Additional optimizations identified:**
+
 - Dry-run script pattern from `migration-phase.sh` can automate validation
 - MCP manifest generator (`mcp-chat-sync.js`) will rebuild manifests automatically
 - Highlight integration checklist ensures telemetry continuity
@@ -1193,6 +1267,7 @@ Successfully generated dependency map comparing dev-tools vs. app packages:
 - **App specific**: 51 packages (remain in ProspectPro)
 
 Key shared dependencies identified:
+
 - `@highlight-run/node` - Telemetry integration
 - `@modelcontextprotocol/sdk` - MCP server implementation
 - `@opentelemetry/api` - Observability framework
@@ -1208,6 +1283,7 @@ Inventoried all ENV variables referenced in dev-tools codebase:
 **Total identified**: 16 unique environment variables
 
 Key variables by category:
+
 - **Highlight.io telemetry** (7): `HIGHLIGHT_PROJECT_ID`, `HIGHLIGHT_API_KEY`, `HIGHLIGHT_OTLP_ENDPOINT`, etc.
 - **MCP configuration** (2): `MCP_MEMORY_FILE_PATH`, `MEMORY_FILE_PATH`
 - **Testing** (1): `PLAYWRIGHT_BASE_URL`
@@ -1221,7 +1297,7 @@ Key variables by category:
 Mapped all MCP server path references:
 
 - **References found**: 100 occurrences across `.vscode/` and `dev-tools/`
-- **Primary locations**: 
+- **Primary locations**:
   - `.vscode/mcp_config.json` (configuration root)
   - `dev-tools/agents/mcp-servers/` (server implementations)
   - Agent toolset configurations
@@ -1246,6 +1322,7 @@ Created comprehensive `extraction-manifest.json` documenting:
 - **App-specific exclusions**: ~13 files (4%)
 
 **Categories**:
+
 - Agents: 94 files (portable agent profiles)
 - Automation: 8 files (CI/CD scripts)
 - Testing: 47 files (configs, fixtures, utilities)
@@ -1255,6 +1332,7 @@ Created comprehensive `extraction-manifest.json` documenting:
 - Reports: 11 files (telemetry artifacts)
 
 **App-specific exclusions identified**:
+
 1. `integrate-highlight-edge-functions.ts` - ProspectPro Highlight integration
 2. `vercel-validate.sh` - ProspectPro deployment validation
 3. `deploy-highlight-integration.sh` - ProspectPro Highlight deployment
@@ -1263,6 +1341,7 @@ Created comprehensive `extraction-manifest.json` documenting:
 6. Highlight integration reports
 
 **Legacy cleanup targets**:
+
 - `dev-tools/context/repo-GPS/` (duplicate - remove in Phase 5)
 - `dev-tools/context/session_store/` (duplicate - remove in Phase 5)
 - `dev-tools/workspace/context/archive/` (move to Dev-Tools/legacy/)
@@ -1272,6 +1351,7 @@ Created comprehensive `extraction-manifest.json` documenting:
 **Analysis**: No circular dependencies detected between app and dev-tools domains.
 
 The dependency analysis shows:
+
 - Dev-tools can function independently with its 13 specific packages
 - Shared dependencies are standard tools (TypeScript, ESLint, Vitest)
 - App domain does not import from dev-tools; only uses via scripts
@@ -1282,6 +1362,7 @@ The dependency analysis shows:
 ### Phase 2 Validation Summary
 
 ✅ **All preparation tasks complete**:
+
 1. ✅ Dependency analysis generated and reviewed
 2. ✅ Environment variables inventoried (16 unique vars)
 3. ✅ MCP configuration references mapped (100 occurrences)
@@ -1294,6 +1375,7 @@ The dependency analysis shows:
 ### Next: Ready for Dev-Tools Repository Creation (Phase 3)
 
 With Phase 2 complete, we have:
+
 - Clear extraction scope (305 portable files)
 - Documented integration points (.vscode, .github, package.json)
 - Identified app-specific code to retain (13 files)
