@@ -18,7 +18,7 @@
       "type": "node",
       "request": "launch",
       "program": "${workspaceFolder}/app/backend/functions/business-discovery-optimized/index.ts",
-      "envFile": "${workspaceFolder}/dev-tools/agents/.env.development",
+      "envFile": "${workspaceFolder}/dev-tools-package/agents/.env.development",
       "console": "integratedTerminal",
       "skipFiles": ["<node_internals>/**"]
     },
@@ -27,7 +27,7 @@
       "type": "node",
       "request": "launch",
       "program": "${workspaceFolder}/app/backend/functions/business-discovery-optimized/index.ts",
-      "envFile": "${workspaceFolder}/dev-tools/agents/.env.staging",
+      "envFile": "${workspaceFolder}/dev-tools-package/agents/.env.staging",
       "console": "integratedTerminal",
       "skipFiles": ["<node_internals>/**"]
     },
@@ -36,7 +36,7 @@
       "type": "node",
       "request": "launch",
       "program": "${workspaceFolder}/app/backend/functions/business-discovery-optimized/index.ts",
-      "envFile": "${workspaceFolder}/dev-tools/agents/.env.production",
+      "envFile": "${workspaceFolder}/dev-tools-package/agents/.env.production",
       "console": "integratedTerminal",
       "skipFiles": ["<node_internals>/**"]
     },
@@ -45,7 +45,7 @@
       "type": "node",
       "request": "launch",
       "program": "${workspaceFolder}/app/backend/functions/campaign-export/index.ts",
-      "envFile": "${workspaceFolder}/dev-tools/agents/.env.development",
+      "envFile": "${workspaceFolder}/dev-tools-package/agents/.env.development",
       "console": "integratedTerminal",
       "skipFiles": ["<node_internals>/**"]
     },
@@ -54,7 +54,7 @@
       "type": "node",
       "request": "launch",
       "program": "${workspaceFolder}/app/backend/functions/campaign-export/index.ts",
-      "envFile": "${workspaceFolder}/dev-tools/agents/.env.staging",
+      "envFile": "${workspaceFolder}/dev-tools-package/agents/.env.staging",
       "console": "integratedTerminal",
       "skipFiles": ["<node_internals>/**"]
     },
@@ -63,7 +63,7 @@
       "type": "node",
       "request": "launch",
       "program": "${workspaceFolder}/app/backend/functions/campaign-export/index.ts",
-      "envFile": "${workspaceFolder}/dev-tools/agents/.env.production",
+      "envFile": "${workspaceFolder}/dev-tools-package/agents/.env.production",
       "console": "integratedTerminal",
       "skipFiles": ["<node_internals>/**"]
     },
@@ -72,8 +72,8 @@
       "name": "Debug MCP Server (dev)",
       "type": "node",
       "request": "launch",
-      "program": "${workspaceFolder}/dev-tools/agents/mcp-servers/observability-server.js",
-      "envFile": "${workspaceFolder}/dev-tools/agents/.env.development",
+      "program": "${workspaceFolder}/dev-tools-package/agents/mcp-servers/observability-server.js",
+      "envFile": "${workspaceFolder}/dev-tools-package/agents/.env.development",
       "console": "integratedTerminal",
       "skipFiles": ["<node_internals>/**", "**/node_modules/**"],
       "outFiles": ["${workspaceFolder}/**/*.js"],
@@ -86,8 +86,8 @@
       "name": "Debug MCP Server (staging)",
       "type": "node",
       "request": "launch",
-      "program": "${workspaceFolder}/dev-tools/agents/mcp-servers/observability-server.js",
-      "envFile": "${workspaceFolder}/dev-tools/agents/.env.staging",
+      "program": "${workspaceFolder}/dev-tools-package/agents/mcp-servers/observability-server.js",
+      "envFile": "${workspaceFolder}/dev-tools-package/agents/.env.staging",
       "console": "integratedTerminal",
       "skipFiles": ["<node_internals>/**", "**/node_modules/**"],
       "outFiles": ["${workspaceFolder}/**/*.js"],
@@ -100,8 +100,8 @@
       "name": "Debug MCP Server (prod)",
       "type": "node",
       "request": "launch",
-      "program": "${workspaceFolder}/dev-tools/agents/mcp-servers/observability-server.js",
-      "envFile": "${workspaceFolder}/dev-tools/agents/.env.production",
+      "program": "${workspaceFolder}/dev-tools-package/agents/mcp-servers/observability-server.js",
+      "envFile": "${workspaceFolder}/dev-tools-package/agents/.env.production",
       "console": "integratedTerminal",
       "skipFiles": ["<node_internals>/**", "**/node_modules/**"],
       "outFiles": ["${workspaceFolder}/**/*.js"],
@@ -143,7 +143,7 @@
       "name": "Run Script: start:production (mcp-servers)",
       "request": "launch",
       "command": "npm run start:production",
-      "cwd": "${workspaceFolder}/dev-tools/agents/mcp-servers"
+      "cwd": "${workspaceFolder}/dev-tools-package/agents/mcp-servers"
     },
     {
       "name": "Debug Vercel Preview (React DevTools)",

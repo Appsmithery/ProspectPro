@@ -41,7 +41,7 @@
   "mcpServers": {
     "command": "node",
     "args": [
-      "dev-tools/agents/mcp-servers/environments/production.js"
+      "dev-tools-package/agents/mcp-servers/environments/production.js"
     ],
     "env": {
       "ENVIRONMENT": "staging"
