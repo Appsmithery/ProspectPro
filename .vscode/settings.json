@@ -1,5 +1,5 @@
 {
-  "deno.enable": true,
+  "deno.enable": false,
   "deno.enablePaths": ["./app/backend/functions"],
   "deno.lint": false,
   "deno.unstable": ["bare-node-builtins", "byonm", "sloppy-imports"],
