@@ -391,7 +391,7 @@
       "command": "bash",
       "args": [
         "-lc",
-        "cd supabase && source ../scripts/operations/ensure-supabase-cli-session.sh && npx --yes supabase@latest migration new ${input:migrationName}"
+        "cd app/backend && source ../../dev-tools/scripts/operations/ensure-supabase-cli-session.sh && npx --yes supabase@latest migration new ${input:migrationName}"
       ],
       "group": "build",
       "presentation": {
@@ -426,7 +426,7 @@
       "command": "bash",
       "args": [
         "-lc",
-        "cd supabase && source ../scripts/operations/ensure-supabase-cli-session.sh && npx --yes supabase@latest functions deploy ${input:functionName} --no-verify-jwt"
+        "cd app/backend && source ../../dev-tools/scripts/operations/ensure-supabase-cli-session.sh && npx --yes supabase@latest functions deploy ${input:functionName} --no-verify-jwt"
       ],
       "group": "build",
       "dependsOn": "Supabase: Ensure Session",
@@ -511,7 +511,7 @@
       "command": "bash",
       "args": [
         "-lc",
-        "cd supabase && source ../scripts/operations/ensure-supabase-cli-session.sh && npx --yes supabase@latest functions deploy test-google-places --no-verify-jwt && npx --yes supabase@latest functions deploy test-new-auth --no-verify-jwt && npx --yes supabase@latest functions deploy auth-diagnostics --no-verify-jwt"
+        "cd app/backend && source ../../dev-tools/scripts/operations/ensure-supabase-cli-session.sh && npx --yes supabase@latest functions deploy test-google-places --no-verify-jwt && npx --yes supabase@latest functions deploy test-new-auth --no-verify-jwt && npx --yes supabase@latest functions deploy auth-diagnostics --no-verify-jwt"
       ],
       "group": "build",
       "dependsOn": "Supabase: Ensure Session",
@@ -593,7 +593,7 @@
       "command": "bash",
       "args": [
         "-lc",
-        "cd supabase && source ../scripts/operations/ensure-supabase-cli-session.sh && npx --yes supabase@latest functions logs ${input:functionName} --follow"
+        "cd app/backend && source ../../dev-tools/scripts/operations/ensure-supabase-cli-session.sh && npx --yes supabase@latest functions logs ${input:functionName} --follow"
       ],
       "group": "build",
       "dependsOn": "Supabase: Ensure Session",

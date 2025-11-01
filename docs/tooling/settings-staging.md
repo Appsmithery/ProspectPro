@@ -169,3 +169,85 @@
 - Vitest/Playwright config wrappers updated for agent-centric runs
 - setup.ts expanded for deterministic seeding and Highlight node bootstrapping
 - Documentation and inventories refreshed
+
+## 2025-11-01: Supabase Directory Restructuring
+
+### Summary
+Consolidated all Supabase assets under `app/backend/` to eliminate the root-level symlink and maintain clear separation between production app code and development tools.
+
+### Changes to Automation & References
+
+#### package.json
+Updated 30+ npm scripts to reference `cd app/backend` instead of `cd supabase`:
+- All `supabase:*` scripts
+- All `deploy:*` scripts
+- All `edge:*` scripts
+- All `functions:*` and `logs:*` scripts
+
+Path updates:
+- `../scripts/operations` → `../../dev-tools/scripts/operations`
+- `../app/frontend/types` → `../../app/frontend/types`
+
+#### .vscode/tasks.json
+Updated 5 tasks:
+- Supabase: New Migration
+- Supabase: Deploy Single Function
+- Supabase: Deploy Diagnostic Functions
+- Supabase: Function Logs
+
+All now use `cd app/backend && source ../../dev-tools/scripts/operations/ensure-supabase-cli-session.sh`
+
+#### Shell Scripts
+Updated paths in:
+- `integration/monitoring/observability/supabase-pull-logs.sh`
+- `integration/monitoring/diagnostics/diagnose-campaign-failure.sh`
+- `integration/monitoring/diagnostics/deployment-validation-workflow.sh`
+- `integration/monitoring/diagnostics/edge-function-diagnostics.sh`
+- `integration/infrastructure/scripts/inject-api-keys.sh`
+- `dev-tools/scripts/setup/.codespaces-init.sh`
+
+### Directory Structure Changes
+
+#### Before
+```
+/
+├── supabase/ (symlink → app/backend)
+├── app/backend/ (actual Supabase files)
+└── integration/platform/supabase/ (additional scripts/tests)
+```
+
+#### After
+```
+/
+└── app/backend/
+    ├── config.toml
+    ├── functions/
+    ├── migrations/
+    ├── schema/
+    ├── db/
+    ├── scripts/
+    ├── tests/
+    ├── supabase.js
+    ├── supabase-ca-2021.crt
+    └── package-supabase.json
+```
+
+### Validation Required
+- [ ] Test Supabase CLI commands from new location
+- [ ] Verify deployment workflows
+- [ ] Confirm CI/CD compatibility
+- [ ] Test all updated npm scripts
+- [ ] Validate VS Code tasks
+
+### Rationale
+1. Eliminates symlink confusion
+2. Maintains app/dev-tools separation
+3. Consolidates all Supabase assets
+4. Matches Supabase best practices
+5. Improves repository maintainability
+
+### Related Documentation
+- `SUPABASE_MIGRATION.md` (repo root)
+- `dev-tools/workspace/context/session_store/coverage.md`
+- `dev-tools/workspace/context/session_store/app-filetree.txt`
+

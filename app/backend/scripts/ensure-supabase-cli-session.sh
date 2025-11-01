@@ -71,17 +71,10 @@ if [[ -z "${PROSPECTPRO_SUPABASE_FORCE_REAUTH:-}" && -f "${_PP_CACHE_MARKER}" ]]
   return 0 2>/dev/null || exit 0
 fi
 
-# Determine expected repo root dynamically
-if [[ -z "${EXPECTED_REPO_ROOT:-}" ]]; then
-  if DETECTED_ROOT=$(git rev-parse --show-toplevel 2>/dev/null); then
-    EXPECTED_REPO_ROOT="$DETECTED_ROOT"
-  else
-    EXPECTED_REPO_ROOT=/workspaces/ProspectPro
-  fi
-fi
+EXPECTED_REPO_ROOT=${EXPECTED_REPO_ROOT:-/workspaces/ProspectPro}
 
 SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
-# shellcheck source=/workspaces/ProspectPro/integration/platform/supabase/scripts/operations/supabase_cli_helpers.sh
+# shellcheck source=/workspaces/ProspectPro/app/backend/scripts/supabase_cli_helpers.sh
 source "$SCRIPT_DIR/supabase_cli_helpers.sh"
 
 export PROSPECTPRO_SUPABASE_SUPPRESS_SETUP=1

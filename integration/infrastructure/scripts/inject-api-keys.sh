@@ -8,11 +8,11 @@ set -euo pipefail
 EXPECTED_REPO_ROOT=${EXPECTED_REPO_ROOT:-/workspaces/ProspectPro}
 
 SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
-# shellcheck source=/workspaces/ProspectPro/integration/platform/supabase/scripts/operations/supabase_cli_helpers.sh
+# shellcheck source=/workspaces/ProspectPro/app/backend/scripts/supabase_cli_helpers.sh
 if ! REPO_ROOT=$(git rev-parse --show-toplevel 2>/dev/null); then
     REPO_ROOT=$(cd "$SCRIPT_DIR/../../.." && pwd)
 fi
-source "$REPO_ROOT/integration/platform/supabase/scripts/operations/supabase_cli_helpers.sh"
+source "$REPO_ROOT/app/backend/scripts/supabase_cli_helpers.sh"
 
 require_repo_root() {
     local repo_root
