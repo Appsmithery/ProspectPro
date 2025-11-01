@@ -266,5 +266,7 @@ Updated paths in:
 
 # 2025-11-01: Repo Snapshot Task Wrapper Update
 
-- Updated `.vscode/tasks.json` 'Context: Fetch Repo Snapshot' task to use the maintained bash wrapper (`docs/scripts/repo_scan.sh`) instead of the legacy node script. This ensures compatibility with the current repo context automation and prevents errors related to missing 'shell' keys in the context descriptor.
+- Updated `.vscode/tasks.json` 'Context: Fetch Repo Snapshot' task to use the maintained bash wrapper (`docs/scripts/repo_scan.sh`) instead of the legacy node script.
+- Updated `.vscode/TASKS_REFERENCE.md` to reflect the correct command and script path for the repo snapshot task.
+- This ensures compatibility with the current repo context automation and prevents errors related to missing 'shell' keys in the context descriptor.
 - Please validate the new task and update documentation inventories after merging.
