@@ -9,13 +9,16 @@ trap 'rm -f "$tmp"' EXIT
 
 
 
+
 # Argument parsing for --token
 VERCEL_TOKEN_ENV=""
+TOKEN_SOURCE=""
 while [[ $# -gt 0 ]]; do
   case $1 in
     --token)
       shift
       VERCEL_TOKEN_ENV="$1"
+      TOKEN_SOURCE="--token argument"
       ;;
     *)
       # ignore unknown args
@@ -28,13 +31,23 @@ done
 if [[ -z "$VERCEL_TOKEN_ENV" ]]; then
   if [[ -n "${VERCEL_TOKEN:-}" ]]; then
     VERCEL_TOKEN_ENV="$VERCEL_TOKEN"
+    TOKEN_SOURCE="VERCEL_TOKEN env var"
   elif [[ -n "${CI_VERCEL_TOKEN:-}" ]]; then
     VERCEL_TOKEN_ENV="$CI_VERCEL_TOKEN"
+    TOKEN_SOURCE="CI_VERCEL_TOKEN env var"
   fi
 fi
 
-if [[ -z "$VERCEL_TOKEN_ENV" ]]; then
-  echo "❌ VERCEL_TOKEN, CI_VERCEL_TOKEN, or --token is not set. Export or pass it before running." >&2
+# Fallback to .vercel_token file if still not set
+if [[ -z "$VERCEL_TOKEN_ENV" && -f .vercel_token ]]; then
+  VERCEL_TOKEN_ENV="$(cat .vercel_token | tr -d '\n')"
+  TOKEN_SOURCE=".vercel_token file"
+fi
+
+if [[ -n "$VERCEL_TOKEN_ENV" ]]; then
+  echo "ℹ️  Using Vercel token from: $TOKEN_SOURCE"
+else
+  echo "❌ VERCEL_TOKEN not found. Searched: --token argument, VERCEL_TOKEN env var, CI_VERCEL_TOKEN env var, .vercel_token file." >&2
   exit 1
 fi
 if [[ -z "${SUPABASE_ACCESS_TOKEN:-}" ]]; then
