@@ -32,7 +32,7 @@ export default defineConfig({
   test: {
     projects: [
       "./app/frontend/vitest.config.ts",
-      "./dev-tools/testing/configs/vitest.agents.config.ts",
+      "./dev-tools-package/testing/configs/vitest.agents.config.ts",
     ],
   },
 });
