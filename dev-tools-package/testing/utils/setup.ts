@@ -14,7 +14,6 @@ export function seedRandom(seed: number) {
 let highlightInit = () => {};
 try {
   // Dynamically import highlight-node if present
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
   const { initHighlightNode } = require("../../observability/highlight-node");
   highlightInit = () => {
     if (process.env.HIGHLIGHT_PROJECT_ID) {

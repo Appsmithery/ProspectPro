@@ -1,8 +1,4 @@
 ProspectPro/
-|-- .deno_lsp/
-|   |-- npm/
-|   |-- registries/
-|   `-- remote/
 |-- .devcontainer/
 |-- app/
 |   |-- backend/
@@ -10,6 +6,15 @@ ProspectPro/
 |   `-- tests/
 |-- config/
 |-- dev-tools/
+|   |-- agents/
+|   |-- automation/
+|   |-- context/
+|   |-- observability/
+|   |-- reports/
+|   |-- scripts/
+|   |-- testing/
+|   `-- workspace/
+|-- dev-tools-package/
 |   |-- agents/
 |   |-- automation/
 |   |-- context/
@@ -38,8 +43,6 @@ ProspectPro/
 |   |-- platform/
 |   |-- symlinks/
 |   `-- templates/
-|-- playwright-report/
 |-- reports/
 |   `-- playwright/
-|-- test-results/
 `-- tests/

@@ -14,7 +14,6 @@ export function initHighlightNode() {
   }
   try {
     // Dynamically require to avoid breaking edge builds if not installed
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
     const { H } = require("@highlight-run/node");
     highlight = H.init({
       projectID: projectId,
@@ -51,7 +50,7 @@ export function highlightRequestMiddleware() {
 }
 
 // Utility for edge function handlers (Supabase, etc.)
-export function withHighlightEdge(handler: Function) {
+export function withHighlightEdge(handler: (...args: any[]) => Promise<any>) {
   const h = initHighlightNode();
   return async (...args: any[]) => {
     try {
