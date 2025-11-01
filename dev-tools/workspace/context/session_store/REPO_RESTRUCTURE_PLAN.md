@@ -112,28 +112,622 @@ scripts/                             # (if app-specific)
 
 ### Phase 3: Dev-Tools Repository Setup
 
-**Status:** ⏳ Pending
+**Status:** ⏳ Ready for Implementation
+
+**Target Repository:** https://github.com/Alextorelli/Dev-Tools/tree/prospect-pro-tools
+
+**Overview:**
+This phase extracts portable development tooling from ProspectPro and establishes it as a standalone, reusable repository. The Dev-Tools package will be distributed via npm and integrated back into ProspectPro (and future projects) as a git submodule or workspace dependency.
+
+#### 3.1: Repository Initialization
 
 **Tasks:**
-- [ ] Create new `Dev-Tools` repository
-- [ ] Initialize with portable agent profiles
-- [ ] Copy portable automation scripts preserving directory structure
-- [ ] Move legacy archives to `legacy/` bucket
-- [ ] Create README with integration instructions
-- [ ] Set up npm package for distribution
+- [ ] Clone/initialize the Dev-Tools repository on the `prospect-pro-tools` branch
+- [ ] Set up initial `.gitignore` for Node.js, Deno, and build artifacts
+- [ ] Create base `package.json` with npm workspace and build configuration
+- [ ] Initialize `README.md` with project overview and integration guide
+- [ ] Set up LICENSE file (match ProspectPro's license)
+
+**Commands:**
+```bash
+# Clone or initialize the repository
+git clone https://github.com/Alextorelli/Dev-Tools.git
+cd Dev-Tools
+git checkout -b prospect-pro-tools || git checkout prospect-pro-tools
+
+# Initialize npm package
+npm init -y
+
+# Configure package metadata
+npm pkg set name="@prospectpro/dev-tools"
+npm pkg set version="1.0.0"
+npm pkg set description="Portable development tooling, agent workflows, and test infrastructure extracted from ProspectPro"
+npm pkg set keywords='["development-tools", "agents", "mcp", "testing", "automation"]'
+npm pkg set license="MIT"
+npm pkg set repository.type="git"
+npm pkg set repository.url="https://github.com/Alextorelli/Dev-Tools.git"
+```
+
+**Initial Files:**
+```
+Dev-Tools/
+├── .gitignore                       # Node/Deno/build artifacts
+├── package.json                     # npm package config
+├── LICENSE                          # License file
+└── README.md                        # Integration guide
+```
+
+#### 3.2: Core Directory Structure Setup
+
+**Tasks:**
+- [ ] Create portable agent profiles directory structure
+- [ ] Create automation and testing infrastructure directories
+- [ ] Create scripts and workspace directories
+- [ ] Create legacy archive directory for historical artifacts
+- [ ] Create docs directory for tooling documentation
+
+**Commands:**
+```bash
+# Create directory structure
+mkdir -p agents/{_development-workflow,_observability,_production-ops,_system-architect}
+mkdir -p agents/{client-service-layer,context,mcp-servers,scripts}
+mkdir -p automation/ci-cd
+mkdir -p testing/{agents,configs,utils}
+mkdir -p scripts/{automation,setup,tooling}
+mkdir -p workspace/context
+mkdir -p legacy
+mkdir -p docs/{agents,automation,testing,mcp}
+```
 
 **Structure:**
 ```
 Dev-Tools/
 ├── agents/                          # Portable agent profiles
-├── automation/                      # CI/CD scripts
-├── testing/                         # Test infrastructure
-├── scripts/                         # Automation utilities
+│   ├── _development-workflow/       # Development workflow agent
+│   ├── _observability/              # Observability agent
+│   ├── _production-ops/             # Production operations agent
+│   ├── _system-architect/           # System architect agent
+│   ├── client-service-layer/        # MCP service infrastructure
+│   ├── context/                     # Agent context management
+│   ├── mcp-servers/                 # MCP server implementations
+│   └── scripts/                     # Agent automation scripts
+├── automation/
+│   └── ci-cd/                       # CI/CD automation scripts
+├── testing/
+│   ├── agents/                      # Agent test suites
+│   ├── configs/                     # Vitest/Playwright configs
+│   └── utils/                       # Test utilities and fixtures
+├── scripts/
+│   ├── automation/                  # Generic automation scripts
+│   ├── setup/                       # Bootstrap scripts
+│   └── tooling/                     # Validation and config scripts
+├── workspace/
+│   └── context/                     # Session store and inventories
 ├── legacy/                          # Historical artifacts
 ├── docs/                            # Tooling documentation
+│   ├── agents/                      # Agent documentation
+│   ├── automation/                  # Automation guides
+│   ├── testing/                     # Testing playbooks
+│   └── mcp/                         # MCP server documentation
 ├── package.json                     # npm package config
+├── LICENSE                          # License file
 └── README.md                        # Integration guide
 ```
+
+#### 3.3: Extract Portable Agent Profiles
+
+**Tasks:**
+- [ ] Copy agent profile directories from ProspectPro
+- [ ] Preserve `config.json`, `instructions.md`, `toolset.jsonc`, and `taskfile.yaml` for each agent
+- [ ] Remove ProspectPro-specific references and environment variables
+- [ ] Update agent contexts to use relative paths
+- [ ] Copy `Taskfile.base.yml` for agent task orchestration
+
+**Extraction Script:**
+```bash
+#!/usr/bin/env bash
+# scripts/extract-agents.sh
+set -euo pipefail
+
+PROSPECT_PRO_ROOT="${1:?Please provide ProspectPro repository path}"
+DEV_TOOLS_ROOT="$(pwd)"
+
+echo "=== Extracting Agent Profiles from ProspectPro ==="
+
+# Copy agent profiles
+for agent in _development-workflow _observability _production-ops _system-architect; do
+  echo "Copying $agent..."
+  rsync -av --progress \
+    "$PROSPECT_PRO_ROOT/dev-tools/agents/$agent/" \
+    "$DEV_TOOLS_ROOT/agents/$agent/"
+done
+
+# Copy shared agent infrastructure
+echo "Copying agent infrastructure..."
+rsync -av --progress \
+  "$PROSPECT_PRO_ROOT/dev-tools/agents/client-service-layer/" \
+  "$DEV_TOOLS_ROOT/agents/client-service-layer/"
+
+rsync -av --progress \
+  "$PROSPECT_PRO_ROOT/dev-tools/agents/context/" \
+  "$DEV_TOOLS_ROOT/agents/context/" \
+  --exclude="session_store/*.md" \
+  --exclude="session_store/*.txt"
+
+rsync -av --progress \
+  "$PROSPECT_PRO_ROOT/dev-tools/agents/mcp-servers/" \
+  "$DEV_TOOLS_ROOT/agents/mcp-servers/" \
+  --exclude="node_modules" \
+  --exclude="dist"
+
+rsync -av --progress \
+  "$PROSPECT_PRO_ROOT/dev-tools/agents/scripts/" \
+  "$DEV_TOOLS_ROOT/agents/scripts/"
+
+# Copy base Taskfile
+cp "$PROSPECT_PRO_ROOT/dev-tools/agents/Taskfile.base.yml" \
+   "$DEV_TOOLS_ROOT/agents/"
+
+echo "=== Agent extraction complete ==="
+```
+
+**Validation:**
+```bash
+# Verify all agent profiles have required files
+for agent in _development-workflow _observability _production-ops _system-architect; do
+  echo "Checking $agent..."
+  test -f "agents/$agent/config.json" || echo "  ❌ Missing config.json"
+  test -f "agents/$agent/instructions.md" || echo "  ❌ Missing instructions.md"
+  test -f "agents/$agent/toolset.jsonc" || echo "  ❌ Missing toolset.jsonc"
+  test -f "agents/$agent/taskfile.yaml" || echo "  ❌ Missing taskfile.yaml"
+done
+```
+
+#### 3.4: Extract Automation Infrastructure
+
+**Tasks:**
+- [ ] Copy CI/CD automation scripts (repo_scan.sh, etc.)
+- [ ] Copy generic automation utilities
+- [ ] Copy setup and bootstrap scripts
+- [ ] Remove ProspectPro-specific deployment scripts
+- [ ] Update script paths to be repository-agnostic
+
+**Extraction Script:**
+```bash
+#!/usr/bin/env bash
+# scripts/extract-automation.sh
+set -euo pipefail
+
+PROSPECT_PRO_ROOT="${1:?Please provide ProspectPro repository path}"
+DEV_TOOLS_ROOT="$(pwd)"
+
+echo "=== Extracting Automation Infrastructure ==="
+
+# Copy CI/CD scripts
+rsync -av --progress \
+  "$PROSPECT_PRO_ROOT/dev-tools/automation/ci-cd/" \
+  "$DEV_TOOLS_ROOT/automation/ci-cd/" \
+  --exclude="*.log"
+
+# Copy generic automation scripts
+rsync -av --progress \
+  "$PROSPECT_PRO_ROOT/dev-tools/scripts/automation/" \
+  "$DEV_TOOLS_ROOT/scripts/automation/" \
+  --exclude="integrate-highlight-edge-functions.ts" \
+  --exclude="vercel-validate.sh"
+
+# Copy setup scripts
+rsync -av --progress \
+  "$PROSPECT_PRO_ROOT/dev-tools/scripts/setup/" \
+  "$DEV_TOOLS_ROOT/scripts/setup/"
+
+# Copy tooling scripts
+rsync -av --progress \
+  "$PROSPECT_PRO_ROOT/dev-tools/scripts/tooling/" \
+  "$DEV_TOOLS_ROOT/scripts/tooling/"
+
+echo "=== Automation extraction complete ==="
+```
+
+#### 3.5: Extract Testing Infrastructure
+
+**Tasks:**
+- [ ] Copy test configurations (Vitest, Playwright)
+- [ ] Copy agent test suites
+- [ ] Copy test utilities and fixtures
+- [ ] Update import paths to be package-relative
+- [ ] Create test README with usage examples
+
+**Extraction Script:**
+```bash
+#!/usr/bin/env bash
+# scripts/extract-testing.sh
+set -euo pipefail
+
+PROSPECT_PRO_ROOT="${1:?Please provide ProspectPro repository path}"
+DEV_TOOLS_ROOT="$(pwd)"
+
+echo "=== Extracting Testing Infrastructure ==="
+
+# Copy test configurations
+rsync -av --progress \
+  "$PROSPECT_PRO_ROOT/dev-tools/testing/configs/" \
+  "$DEV_TOOLS_ROOT/testing/configs/"
+
+# Copy agent test suites
+rsync -av --progress \
+  "$PROSPECT_PRO_ROOT/dev-tools/testing/agents/" \
+  "$DEV_TOOLS_ROOT/testing/agents/" \
+  --exclude="node_modules" \
+  --exclude="coverage"
+
+# Copy test utilities
+rsync -av --progress \
+  "$PROSPECT_PRO_ROOT/dev-tools/testing/utils/" \
+  "$DEV_TOOLS_ROOT/testing/utils/"
+
+# Copy README
+cp "$PROSPECT_PRO_ROOT/dev-tools/testing/README.md" \
+   "$DEV_TOOLS_ROOT/testing/"
+
+echo "=== Testing extraction complete ==="
+```
+
+#### 3.6: Archive Historical Artifacts
+
+**Tasks:**
+- [ ] Copy archive directory from ProspectPro
+- [ ] Organize by date and category
+- [ ] Create archive manifest with provenance
+- [ ] Document what each archive contains
+
+**Commands:**
+```bash
+# Copy archives
+rsync -av --progress \
+  "$PROSPECT_PRO_ROOT/dev-tools/workspace/context/archive/" \
+  "$DEV_TOOLS_ROOT/legacy/context/"
+
+# Create archive manifest
+cat > legacy/MANIFEST.md << 'EOF'
+# Dev-Tools Archive Manifest
+
+This directory contains historical artifacts from the ProspectPro development workflow.
+
+## Contents
+
+### context/
+Agent context archives, migration plans, and historical playbooks from ProspectPro.
+
+### config-backup/
+Legacy configuration backups from various migration phases.
+
+## Usage
+
+These files are maintained for historical reference and should not be used in active development.
+For current configuration and context, see the main repository directories.
+
+## Provenance
+
+All artifacts extracted from ProspectPro repository on $(date +%Y-%m-%d).
+Original source: https://github.com/Appsmithery/ProspectPro
+EOF
+```
+
+#### 3.7: Create npm Package Configuration
+
+**Tasks:**
+- [ ] Configure package.json with proper metadata
+- [ ] Set up workspace structure for multi-package support
+- [ ] Configure build scripts for TypeScript compilation
+- [ ] Set up test scripts and lint commands
+- [ ] Configure exports for agent profiles and utilities
+
+**Package Configuration:**
+```json
+{
+  "name": "@prospectpro/dev-tools",
+  "version": "1.0.0",
+  "description": "Portable development tooling, agent workflows, and test infrastructure",
+  "type": "module",
+  "keywords": [
+    "development-tools",
+    "agents",
+    "mcp",
+    "testing",
+    "automation"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Alextorelli/Dev-Tools.git"
+  },
+  "workspaces": [
+    "agents/client-service-layer",
+    "agents/mcp-servers/utility"
+  ],
+  "exports": {
+    "./agents/*": "./agents/*/config.json",
+    "./testing/*": "./testing/*",
+    "./scripts/*": "./scripts/*"
+  },
+  "scripts": {
+    "build": "npm run build --workspaces --if-present",
+    "test": "vitest run",
+    "test:watch": "vitest watch",
+    "test:agents": "vitest run --config testing/configs/vitest.agents.config.ts",
+    "lint": "eslint . --ext .ts,.js,.tsx,.jsx",
+    "validate": "npm run lint && npm run test"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "eslint": "^8.0.0",
+    "typescript": "^5.0.0",
+    "vitest": "^1.0.0",
+    "playwright": "^1.40.0"
+  }
+}
+```
+
+#### 3.8: Create Integration Documentation
+
+**Tasks:**
+- [ ] Write comprehensive README with quick start guide
+- [ ] Document how to integrate Dev-Tools into projects
+- [ ] Create agent profile usage guide
+- [ ] Document MCP server deployment
+- [ ] Add troubleshooting section
+
+**README Template:**
+```markdown
+# ProspectPro Dev-Tools
+
+Portable development tooling, agent workflows, and test infrastructure extracted from ProspectPro.
+
+## Features
+
+- **Agent Profiles**: Portable AI agent configurations for development, observability, production ops, and system architecture
+- **MCP Servers**: Model Context Protocol servers for extended agent capabilities
+- **Testing Infrastructure**: Vitest and Playwright configurations with agent test suites
+- **Automation Scripts**: CI/CD, setup, and validation automation
+- **Context Management**: Agent context store and session management
+
+## Installation
+
+### As npm Package
+
+\`\`\`bash
+npm install @prospectpro/dev-tools
+\`\`\`
+
+### As Git Submodule
+
+\`\`\`bash
+git submodule add https://github.com/Alextorelli/Dev-Tools.git dev-tools-package
+git submodule update --init --recursive
+\`\`\`
+
+## Quick Start
+
+### Using Agent Profiles
+
+Agent profiles are located in \`agents/\` and include:
+- \`_development-workflow\`: Development workflow automation
+- \`_observability\`: System monitoring and telemetry
+- \`_production-ops\`: Deployment and operations
+- \`_system-architect\`: Architecture and design
+
+Each agent has:
+- \`config.json\`: Agent configuration
+- \`instructions.md\`: Agent instructions and context
+- \`toolset.jsonc\`: Available tools and MCP servers
+- \`taskfile.yaml\`: Task automation
+
+### Running Tests
+
+\`\`\`bash
+# Run all tests
+npm test
+
+# Run agent tests
+npm run test:agents
+
+# Watch mode
+npm run test:watch
+\`\`\`
+
+### Building MCP Servers
+
+\`\`\`bash
+# Build all workspaces
+npm run build
+
+# Build specific MCP server
+npm run build --workspace agents/mcp-servers/utility
+\`\`\`
+
+## Integration Guide
+
+### Integrating into Your Project
+
+1. Add as git submodule or npm dependency
+2. Update your Taskfile.yml to reference dev-tools tasks
+3. Configure your .vscode/settings.json to use MCP servers
+4. Copy agent profiles to your .github/agents/ directory
+5. Update import paths in your scripts
+
+### Example Integration
+
+\`\`\`yaml
+# Taskfile.yml
+agents:test:
+  cmds:
+    - task: -d dev-tools-package/ agents:test:full
+\`\`\`
+
+## Documentation
+
+- [Agent Profiles](docs/agents/README.md)
+- [MCP Servers](docs/mcp/README.md)
+- [Testing Guide](docs/testing/README.md)
+- [Automation Scripts](docs/automation/README.md)
+
+## License
+
+MIT
+\`\`\`
+
+#### 3.9: Validation and Testing
+
+**Tasks:**
+- [ ] Run extraction scripts and verify directory structure
+- [ ] Build all TypeScript packages
+- [ ] Run test suites to ensure portability
+- [ ] Validate agent profiles load correctly
+- [ ] Test MCP servers start without errors
+- [ ] Run lint and type checks
+
+**Validation Script:**
+```bash
+#!/usr/bin/env bash
+# scripts/validate-extraction.sh
+set -euo pipefail
+
+echo "=== Validating Dev-Tools Extraction ==="
+
+# Check directory structure
+echo "Checking directory structure..."
+test -d agents || { echo "❌ Missing agents/"; exit 1; }
+test -d automation || { echo "❌ Missing automation/"; exit 1; }
+test -d testing || { echo "❌ Missing testing/"; exit 1; }
+test -d scripts || { echo "❌ Missing scripts/"; exit 1; }
+test -d workspace || { echo "❌ Missing workspace/"; exit 1; }
+test -d legacy || { echo "❌ Missing legacy/"; exit 1; }
+test -d docs || { echo "❌ Missing docs/"; exit 1; }
+echo "✅ Directory structure valid"
+
+# Check agent profiles
+echo "Checking agent profiles..."
+for agent in _development-workflow _observability _production-ops _system-architect; do
+  test -f "agents/$agent/config.json" || { echo "❌ Missing $agent/config.json"; exit 1; }
+  test -f "agents/$agent/instructions.md" || { echo "❌ Missing $agent/instructions.md"; exit 1; }
+  test -f "agents/$agent/toolset.jsonc" || { echo "❌ Missing $agent/toolset.jsonc"; exit 1; }
+  test -f "agents/$agent/taskfile.yaml" || { echo "❌ Missing $agent/taskfile.yaml"; exit 1; }
+done
+echo "✅ Agent profiles valid"
+
+# Install dependencies
+echo "Installing dependencies..."
+npm install
+
+# Build packages
+echo "Building packages..."
+npm run build || { echo "❌ Build failed"; exit 1; }
+echo "✅ Build successful"
+
+# Run linter
+echo "Running linter..."
+npm run lint || { echo "❌ Lint failed"; exit 1; }
+echo "✅ Lint passed"
+
+# Run tests
+echo "Running tests..."
+npm test || { echo "⚠️  Some tests failed (expected for initial extraction)"
+echo "✅ Tests executed"
+
+echo "=== Validation complete ==="
+```
+
+#### 3.10: Commit and Push to prospect-pro-tools Branch
+
+**Tasks:**
+- [ ] Stage all extracted files
+- [ ] Create initial commit with extraction metadata
+- [ ] Push to prospect-pro-tools branch
+- [ ] Create GitHub release with v1.0.0 tag
+
+**Commands:**
+```bash
+# Stage all files
+git add .
+
+# Create initial commit
+git commit -m "feat: Extract portable dev-tools from ProspectPro
+
+- Agent profiles: development-workflow, observability, production-ops, system-architect
+- MCP servers: utility, client-service-layer
+- Testing infrastructure: Vitest and Playwright configs, agent test suites
+- Automation scripts: CI/CD, setup, validation
+- Documentation: Agent guides, integration instructions
+
+Extracted from ProspectPro repository (Phase 3 of REPO_RESTRUCTURE_PLAN)
+Source: https://github.com/Appsmithery/ProspectPro
+Date: $(date +%Y-%m-%d)"
+
+# Push to prospect-pro-tools branch
+git push origin prospect-pro-tools
+
+# Create release tag
+git tag -a v1.0.0 -m "Initial release of ProspectPro Dev-Tools"
+git push origin v1.0.0
+```
+
+#### 3.11: Post-Extraction Cleanup Tasks
+
+**Tasks:**
+- [ ] Update extraction manifest with file counts and checksums
+- [ ] Generate dependency report for npm packages
+- [ ] Create migration checklist for ProspectPro integration (Phase 4)
+- [ ] Document any ProspectPro-specific code that needs app-specific wrappers
+- [ ] Update Dev-Tools README with actual file counts and structure
+
+**Manifest Generation:**
+```bash
+# Generate extraction manifest
+cat > EXTRACTION_MANIFEST.md << EOF
+# Dev-Tools Extraction Manifest
+
+**Extraction Date:** $(date +%Y-%m-%d)
+**Source Repository:** https://github.com/Appsmithery/ProspectPro
+**Target Branch:** prospect-pro-tools
+
+## Statistics
+
+- **Total Files:** $(find . -type f | wc -l)
+- **Agent Profiles:** $(ls -1 agents/_* | wc -l)
+- **Test Files:** $(find testing -name "*.test.*" -o -name "*.spec.*" | wc -l)
+- **Scripts:** $(find scripts -name "*.sh" -o -name "*.js" -o -name "*.ts" | wc -l)
+
+## Directory Structure
+
+\`\`\`
+$(tree -L 2 -d .)
+\`\`\`
+
+## Next Steps
+
+See Phase 4 of REPO_RESTRUCTURE_PLAN for ProspectPro integration instructions.
+EOF
+```
+
+#### Success Criteria
+
+Phase 3 is complete when:
+
+- [ ] Dev-Tools repository exists with all extracted components
+- [ ] All agent profiles have complete configuration files
+- [ ] npm package builds successfully without errors
+- [ ] Test suites run (even if some tests need adaptation)
+- [ ] MCP servers can be built and started
+- [ ] Documentation is comprehensive and accurate
+- [ ] All files are committed to prospect-pro-tools branch
+- [ ] v1.0.0 release tag is created
+- [ ] Extraction manifest documents the migration
+- [ ] No ProspectPro-specific secrets or credentials included
+
+#### Next Phase
+
+Once Phase 3 is complete, proceed to **Phase 4: ProspectPro Integration** to add Dev-Tools back into ProspectPro as a git submodule or npm workspace.
 
 ### Phase 4: ProspectPro Integration
 
