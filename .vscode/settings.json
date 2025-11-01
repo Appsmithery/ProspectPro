@@ -141,7 +141,7 @@
     }
   },
   "tasks.showQuickPick": true,
-  "chat.todoListTool.writeOnly": false,
+  "chat.todoListTool.writeOnly": true,
   "chat.agent.todoList": {
     "position": "default"
   },
