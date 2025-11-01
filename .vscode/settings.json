@@ -1,9 +1,9 @@
 {
   "deno.enable": true,
   "deno.enablePaths": ["./app/backend/functions"],
-  "deno.lint": true,
+  "deno.lint": false,
   "deno.unstable": ["bare-node-builtins", "byonm", "sloppy-imports"],
-  "deno.path": "/usr/local/bin/deno",
+  "deno.path": "",
   "supabase.projectRef": "sriycekxdqnesdsgwiuc",
   "supabase.workspaceFolder": "${workspaceFolder}",
   "supabase.functions.autoWatch": true,
@@ -235,5 +235,6 @@
   "vite.host": "0.0.0.0",
   "vite.showTerminal": true,
   "vite.devCommand": "npm run dev --prefix app/frontend -- --host 0.0.0.0 --port 5173\"",
-  "task.autoDetect": "on"
+  "task.autoDetect": "on",
+  "deno.trace.server": "messages"
 }
