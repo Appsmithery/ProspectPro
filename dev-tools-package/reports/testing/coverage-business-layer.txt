@@ -1,0 +1,37 @@
+
+ RUN  v3.2.4 /workspaces/ProspectPro
+      Coverage enabled with v8
+
+ ✓ dev-tools/agents/client-service-layer/__tests__/MCPClientManager.test.ts (11 tests) 4122ms
+   ✓ MCPClientManager > retry logic > should retry on failure and succeed  1059ms
+   ✓ MCPClientManager > retry logic > should fail after max attempts  2949ms
+ ✓ dev-tools/agents/client-service-layer/__tests__/MCPClientManager.integration.test.ts (5 tests) 930ms
+   ✓ MCPClientManager Integration Tests: Stress Testing > should handle rapid create/dispose cycles  503ms
+ ✓ app/frontend/src/utils/__tests__/campaignTransforms.test.ts (3 tests) 8ms
+stdout | dev-tools/agents/client-service-layer/__tests__/ConfigLocator.test.ts > ConfigLocator > loadConfig > should load config from primary location (.vscode/mcp_config.json)
+Result: {
+  config: { mcpServers: { test: {} } },
+  source: [32m'/workspace/.vscode/mcp_config.json'[39m,
+  warnings: []
+}
+
+ ✓ dev-tools/agents/client-service-layer/__tests__/ConfigLocator.test.ts (4 tests) 9ms
+ ✓ dev-tools/agents/client-service-layer/__tests__/WorkspaceContext.test.ts (4 tests) 4ms
+ ✓ dev-tools/testing/agents/context/unit/context.test.ts (1 test) 3ms
+ ✓ app/frontend/src/utils/__tests__/basic.test.ts (1 test) 3ms
+ ✓ dev-tools/testing/agents/mcp-servers/unit/mcp-servers.test.ts (1 test) 3ms
+ ✓ app/frontend/src/utils/__tests__/smoke.test.ts (1 test) 3ms
+ ✓ dev-tools/testing/agents/client-service-layer/unit/client-service-layer.test.ts (1 test) 3ms
+
+ Test Files  10 passed (10)
+      Tests  32 passed (32)
+   Start at  05:15:27
+   Duration  8.88s (transform 156ms, setup 608ms, collect 227ms, tests 5.09s, environment 3ms, prepare 1.11s)
+
+JSON report written to /workspaces/ProspectPro/reports/vitest-results.json
+ % Coverage report from v8
+----------|---------|----------|---------|---------|-------------------
+File      | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+----------|---------|----------|---------|---------|-------------------
+All files |       0 |        0 |       0 |       0 |                   
+----------|---------|----------|---------|---------|-------------------

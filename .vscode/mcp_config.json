@@ -5,7 +5,7 @@
       "type": "promptString",
       "description": "Path to the Utility MCP memory store",
       "password": false,
-      "default": "${workspaceFolder}/dev-tools/workspace/context/session_store/memory.jsonl"
+      "default": "${workspaceFolder}/dev-tools-package/workspace/context/session_store/memory.jsonl"
     },
     {
       "id": "browser_url",
@@ -52,7 +52,7 @@
       "type": "stdio",
       "command": "node",
       "args": [
-        "./dev-tools/agents/mcp-servers/utility/dist/index.js"
+        "./dev-tools-package/agents/mcp-servers/utility/dist/index.js"
       ],
       "env": {
         "MCP_MEMORY_FILE_PATH": "${input:memory_file_path}"
@@ -94,7 +94,7 @@
     "development-mcp": {
       "command": "node",
       "args": [
-        "dev-tools/agents/mcp-servers/environments/development.js"
+        "dev-tools-package/agents/mcp-servers/environments/development.js"
       ],
       "env": {
         "ENVIRONMENT": "development"
@@ -103,7 +103,7 @@
     "staging-mcp": {
       "command": "node",
       "args": [
-        "dev-tools/agents/mcp-servers/environments/production.js"
+        "dev-tools-package/agents/mcp-servers/environments/production.js"
       ],
       "env": {
         "ENVIRONMENT": "staging"
@@ -112,7 +112,7 @@
     "production-mcp": {
       "command": "node",
       "args": [
-        "dev-tools/agents/mcp-servers/environments/production.js"
+        "dev-tools-package/agents/mcp-servers/environments/production.js"
       ],
       "env": {
         "ENVIRONMENT": "production"

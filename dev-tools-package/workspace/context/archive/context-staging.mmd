@@ -1,0 +1,59 @@
+%%{init: { "theme": "dark", "fontFamily": "Inter", "flowchart": { "htmlLabels": false, "curve": "monotoneX" } }}%%
+flowchart LR
+    subgraph OBS_FLOW["📈 Observability Agent"]
+        direction TB
+        OBS_START["🚀 Start"]
+        OBS_ORCH["🧠 Orchestrator<br/>Monitor Stack"]
+        OBS_MEM["�� Load Context<br/>60 entries"]
+        OBS_MCP["�� MCP Mesh<br/>Query Metrics · Logs"]
+        OBS_SIG["📊 Metrics<br/>📜 Logs · 🚨 Alerts"]
+        OBS_SAVE["💾 Checkpoint<br/>Hourly"]
+        OBS_END["✅ Complete"]
+        
+        OBS_START --> OBS_ORCH
+        OBS_ORCH --> OBS_MEM
+        OBS_MEM --> OBS_MCP
+        OBS_MCP --> OBS_SIG
+        OBS_SIG --> OBS_SAVE
+        OBS_SAVE --> OBS_END
+        OBS_END -.-> OBS_START
+    end
+
+    subgraph SHARED["🔄 Shared Infrastructure"]
+        ENV["📊 Staging/Observability<br/>Read-Mostly"]
+        CM["🗂️ Context Manager"]
+        MEMORY["🧠 Memory Store<br/>Metrics · Baselines · Checkpoints"]
+        MCP["🌐 Read-Focus MCP<br/>Supabase (RO) · Utility"]
+    end
+
+    subgraph DEV_FLOW["💻 Dev Workflow Agent (Support)"]
+        direction TB
+        DEV_START["🚀 Start"]
+        DEV_ORCH["🧠 Orchestrator<br/>Support Diagnostics"]
+        DEV_MEM["🧠 Load Context<br/>Limited Write"]
+        DEV_MCP["🌐 MCP Mesh<br/>Diagnostics"]
+        DEV_SIG["🔍 Diagnostic Results"]
+        DEV_SAVE["💾 Checkpoint<br/>Selective"]
+        DEV_END["✅ Complete"]
+        
+        DEV_START --> DEV_ORCH
+        DEV_ORCH --> DEV_MEM
+        DEV_MEM --> DEV_MCP
+        DEV_MCP --> DEV_SIG
+        DEV_SIG --> DEV_SAVE
+        DEV_SAVE --> DEV_END
+        DEV_END -.-> DEV_START
+    end
+
+    OBS_FLOW -.-> SHARED
+    DEV_FLOW -.-> SHARED
+    SHARED -.-> OBS_FLOW
+    SHARED -.-> DEV_FLOW
+
+    style OBS_FLOW fill:#2a1a4a,stroke:#a78bfa,stroke-width:2px
+    style DEV_FLOW fill:#1a2a3a,stroke:#60a5fa,stroke-width:2px,stroke-dasharray: 5 5
+    style SHARED fill:#1a1a2a,stroke:#818cf8,stroke-width:2px
+    style OBS_START fill:#4c1d95,stroke:#a78bfa,stroke-width:3px
+    style DEV_START fill:#1e3a5f,stroke:#60a5fa,stroke-width:2px,stroke-dasharray: 5 5
+    style OBS_END fill:#4c1d95,stroke:#a78bfa,stroke-width:3px
+    style DEV_END fill:#1e3a5f,stroke:#60a5fa,stroke-width:2px,stroke-dasharray: 5 5

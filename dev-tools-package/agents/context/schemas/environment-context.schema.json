@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://prospectpro.app/context/environment-context.schema.json",
+  "title": "EnvironmentContext",
+  "type": "object",
+  "required": ["name", "permissions", "supabase", "vercel"],
+  "properties": {
+    "name": {
+      "type": "string",
+      "enum": ["production", "troubleshooting", "development"]
+    },
+    "description": {
+      "type": "string"
+    },
+    "supabase": {
+      "type": "object",
+      "required": ["projectRef", "apiUrl"],
+      "properties": {
+        "projectRef": { "type": "string" },
+        "apiUrl": { "type": "string", "format": "uri" },
+        "anonKey": { "type": ["string", "null"] },
+        "serviceRoleKey": { "type": ["string", "null"] }
+      },
+      "description": "Supabase project configuration. All DB/migration/testing is handled via Supabase MCP and Drizzle ORM."
+    },
+    "vercel": {
+      "type": "object",
+      "required": ["deploymentUrl"],
+      "properties": {
+        "deploymentUrl": { "type": "string", "format": "uri" },
+        "projectName": { "type": ["string", "null"] }
+      }
+    },
+    "apiRateLimits": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "monthlyLimit": { "type": "number" },
+          "alertThreshold": { "type": "number" },
+          "unit": { "type": "string" }
+        }
+      }
+    },
+    "featureFlags": {
+      "type": "object",
+      "additionalProperties": { "type": "boolean" },
+      "description": "Feature flags for environment. Should match current MCP-first and Drizzle ORM tool wiring."
+    },
+    "monitoring": {
+      "type": "object",
+      "properties": {
+        "otelEndpoint": { "type": "string", "format": "uri" },
+        "jaegerUrl": { "type": "string", "format": "uri" },
+        "logDashboard": { "type": "string", "format": "uri" }
+      },
+      "description": "Monitoring configuration. Should reference only current observability stack and not legacy/removed services."
+    },
+    "permissions": {
+      "type": "object",
+      "required": [
+        "writeOperations",
+        "canDeploy",
+        "canFetchLogs",
+        "canRunTests"
+      ],
+      "properties": {
+        "writeOperations": { "type": "boolean" },
+        "canDeploy": { "type": "boolean" },
+        "canFetchLogs": { "type": "boolean" },
+        "canRunTests": { "type": "boolean" },
+        "requiresApproval": {
+          "type": "boolean",
+          "description": "Whether agent must request human approval before switching into this environment."
+        }
+      }
+    },
+    "constraints": {
+      "type": "object",
+      "properties": {
+        "maxScratchpadEntries": { "type": "integer" },
+        "maxTaskConcurrency": { "type": "integer" }
+      }
+    }
+  }
+}

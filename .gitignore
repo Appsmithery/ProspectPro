@@ -107,6 +107,14 @@ dev-tools/agents/mcp-servers/utility/dist/
 dev-tools/agents/client-service-layer/dist/
 dev-tools/observability/highlight-node/dist/
 
+# Dev-Tools Package (submodule/workspace) - exclude build artifacts
+dev-tools-package/node_modules/
+dev-tools-package/dist/
+dev-tools-package/.env.local
+dev-tools-package/agents/mcp-servers/*/dist/
+dev-tools-package/agents/client-service-layer/dist/
+dev-tools-package/observability/highlight-node/dist/
+
 # TypeScript build info (incremental build cache)
 *.tsbuildinfo
 tsconfig.tsbuildinfo

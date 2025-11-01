@@ -1,0 +1,136 @@
+{
+  "name": "observability",
+  "version": "2.1.0",
+  "role": "monitoring_engineer",
+  "capabilities": [
+    "log_analysis",
+    "trace_correlation",
+    "performance_monitoring",
+    "incident_detection",
+    "anomaly_detection",
+    "compliance_monitoring"
+  ],
+  "mcp_dependencies": {
+    "primary": ["supabase-troubleshooting", "supabase"],
+    "secondary": []
+  },
+  "tools_access": [
+    "supabase_troubleshooting.correlate_errors",
+    "supabase_troubleshooting.generate_incident_timeline",
+    "supabase.analyze_slow_queries",
+    "supabase.check_pool_health"
+  ],
+  "testing_tooling": ["Playwright"],
+  "environment_credentials": {
+    "development": {
+      "supabase_project_ref_var": "AGENT_DEV_SUPABASE_PROJECT_REF",
+      "supabase_url_var": "AGENT_DEV_SUPABASE_URL",
+      "vercel_project_var": "AGENT_DEV_VERCEL_PROJECT"
+    },
+    "production": {
+      "supabase_project_ref_var": "AGENT_PROD_SUPABASE_PROJECT_REF",
+      "supabase_url_var": "AGENT_PROD_SUPABASE_URL",
+      "vercel_project_var": "AGENT_PROD_VERCEL_PROJECT"
+    },
+    "troubleshooting": {
+      "supabase_project_ref_var": "AGENT_TROUBLESHOOT_SUPABASE_PROJECT_REF",
+      "supabase_url_var": "AGENT_TROUBLESHOOT_SUPABASE_URL",
+      "vercel_project_var": "AGENT_TROUBLESHOOT_VERCEL_PROJECT"
+    }
+  },
+  "secrets_management": {
+    "env_file": "dev-tools/agents/.env",
+    "template": "dev-tools/agents/.env.agent.example",
+    "required_variables": [
+      "AGENT_SUPABASE_ACCESS_TOKEN",
+      "AGENT_SUPABASE_DEFAULT_JWT",
+      "AGENT_DEV_SUPABASE_PROJECT_REF",
+      "AGENT_PROD_SUPABASE_PROJECT_REF",
+      "AGENT_TROUBLESHOOT_SUPABASE_PROJECT_REF"
+    ]
+  },
+  "monitoring_config": {
+    "collection_interval_seconds": 300,
+    "retention_days": 30,
+    "trace_sampling_rate": 0.1,
+    "critical_paths": ["business-discovery", "enrichment", "export", "auth"],
+    "context_snapshot_script": "dev-tools/agents/scripts/context-snapshot.sh",
+    "redis_observability_script": "scripts/automation/redis-observability.sh"
+  },
+  "alerting_thresholds": {
+    "edge_function_error_rate_percent": 5,
+    "pool_utilization_percent": 80,
+    "mcp_latency_p95_ms": 1000,
+    "circuit_breaker_open_count": 1,
+    "api_rate_limit_consumed_percent": 90
+  },
+  "otel_config": {
+    "service_name": "prospectpro",
+    "service_version": "4.3.0",
+    "trace_exporter": "otlp_http",
+    "endpoint": "http://localhost:4318/v1/traces",
+    "span_attributes": ["user.id", "session.id", "campaign.id", "tier.key"]
+  },
+  "jaeger_config": {
+    "ui_url_local": "http://localhost:16686",
+    "ui_url_production": "https://jaeger.prospectpro.app",
+    "query_patterns": {
+      "slow_discovery": "service=prospectpro operation=business-discovery duration>2s",
+      "enrichment_failures": "service=prospectpro operation=enrichment-orchestrator error=true"
+    }
+  },
+  "performance_targets": {
+    "mttd_minutes": 5,
+    "mttr_minutes": 30,
+    "false_positive_rate_percent": 5,
+    "trace_coverage_percent": 90,
+    "zero_fake_data_violations_per_month": 0
+  },
+  "zero_fake_data_monitoring": {
+    "email_patterns": [
+      "info@",
+      "contact@",
+      "hello@",
+      "sales@",
+      "test@example.com"
+    ],
+    "phone_patterns": ["555-\\d{4}"],
+    "audit_frequency": "per_campaign",
+    "violation_severity": "critical"
+  },
+  "escalation_criteria": [
+    "error_rate_gt_5_percent_5_min",
+    "pool_utilization_gt_95_percent",
+    "circuit_breaker_open_gt_1_min",
+    "trace_latency_p99_gt_5s",
+    "zero_fake_data_violation"
+  ],
+  "knowledge_base": {
+    "dev_tools_fast_readme": "/docs/mmd-shared/FAST_README.md",
+    "otel_config": "/integration/monitoring/otel-config.yml",
+    "observability_stack": "/integration/monitoring/diagnostics/observability/",
+    "context_store": "/dev-tools/agents/context/README.md",
+    "mcp_registry": "/dev-tools/agents/mcp-servers/active-registry.json",
+    "filetrees": {
+      "app": "/dev-tools/context/session_store/app-filetree.txt",
+      "dev_tools": "/dev-tools/context/session_store/dev-tools-filetree.txt",
+      "integration": "/dev-tools/context/session_store/integration-filetree.txt"
+    }
+  },
+  "dashboard_access": {
+    "supabase_logs": "https://supabase.com/dashboard/project/${env:AGENT_PROD_SUPABASE_PROJECT_REF}/logs",
+    "jaeger_local": "http://localhost:16686",
+    "vercel_analytics": "https://vercel.com/appsmithery/prospect-pro/analytics"
+  },
+  "collaboration": [
+    "system-architect",
+    "development-workflow",
+    "production-ops"
+  ],
+  "notification_channels": {
+    "slack": "integration_hub.send_notification",
+    "pagerduty": "integration_hub.execute_workflow"
+  },
+  "routing_helper": "scripts/automation/lib/participant-routing.sh",
+  "dry_run_guidance": "All automation scripts support --dry-run for safe diagnostics. Load agent credentials from dev-tools/agents/.env (see .env.agent.example) before invoking MCP tools."
+}

@@ -1,0 +1,167 @@
+{
+  "extraction_date": "2025-11-01",
+  "phase": "Phase 2 - Extraction Scope Definition",
+  "total_files": 318,
+  "summary": {
+    "dev_tools_domain": "318 files total",
+    "portable_components": "~305 files (96%)",
+    "app_specific_exclusions": "~13 files (4%)"
+  },
+  "categories": {
+    "agents": {
+      "description": "Portable agent profiles with taskfiles, toolsets, and instructions",
+      "estimated_files": 94,
+      "includes": [
+        "agents/_development-workflow/",
+        "agents/_observability/",
+        "agents/_production-ops/",
+        "agents/_system-architect/",
+        "agents/client-service-layer/",
+        "agents/context/",
+        "agents/mcp-servers/",
+        "agents/scripts/"
+      ],
+      "portable": true
+    },
+    "automation": {
+      "description": "CI/CD automation scripts",
+      "estimated_files": 8,
+      "includes": [
+        "automation/ci-cd/repo_scan.sh",
+        "automation/ci-cd/generate-diagram-bundle.sh",
+        "automation/ci-cd/render-diagrams.sh"
+      ],
+      "portable": true
+    },
+    "testing": {
+      "description": "Test configurations, fixtures, and utilities",
+      "estimated_files": 47,
+      "includes": [
+        "testing/configs/",
+        "testing/fixtures/",
+        "testing/utils/"
+      ],
+      "portable": true
+    },
+    "scripts": {
+      "description": "Automation, operations, and setup scripts",
+      "estimated_files": 43,
+      "includes": [
+        "scripts/automation/",
+        "scripts/operations/",
+        "scripts/setup/",
+        "scripts/testing/",
+        "scripts/tooling/"
+      ],
+      "portable": true,
+      "exclusions": [
+        "scripts/automation/integrate-highlight-edge-functions.ts",
+        "scripts/automation/vercel-validate.sh",
+        "scripts/automation/deploy-highlight-integration.sh",
+        "scripts/automation/highlight-integration-inventory.sh"
+      ]
+    },
+    "workspace": {
+      "description": "Session stores, archives, and context management",
+      "estimated_files": 100,
+      "includes": [
+        "workspace/context/session_store/",
+        "workspace/context/archive/"
+      ],
+      "portable": true,
+      "notes": "Archive may be moved to Dev-Tools/legacy/"
+    },
+    "observability": {
+      "description": "Highlight.io integration and telemetry",
+      "estimated_files": 15,
+      "includes": [
+        "observability/highlight-node/"
+      ],
+      "portable": false,
+      "reason": "ProspectPro-specific telemetry implementation"
+    },
+    "reports": {
+      "description": "Consolidated telemetry artifacts and observability outputs",
+      "estimated_files": 11,
+      "includes": [
+        "reports/highlight-integration-*.md",
+        "reports/testing/",
+        "reports/validation/"
+      ],
+      "portable": true
+    }
+  },
+  "app_specific_exclusions": [
+    {
+      "file": "scripts/automation/integrate-highlight-edge-functions.ts",
+      "reason": "ProspectPro-specific Highlight.io edge function integration"
+    },
+    {
+      "file": "scripts/automation/vercel-validate.sh",
+      "reason": "ProspectPro Vercel deployment validation"
+    },
+    {
+      "file": "scripts/automation/deploy-highlight-integration.sh",
+      "reason": "ProspectPro Highlight deployment automation"
+    },
+    {
+      "file": "scripts/automation/highlight-integration-inventory.sh",
+      "reason": "ProspectPro Highlight inventory script"
+    },
+    {
+      "pattern": "observability/highlight-node/**",
+      "reason": "ProspectPro-specific Highlight.io Node.js integration"
+    },
+    {
+      "pattern": "reports/highlight-integration-*.md",
+      "reason": "ProspectPro Highlight integration reports"
+    }
+  ],
+  "legacy_cleanup_targets": [
+    {
+      "path": "dev-tools/context/repo-GPS/",
+      "action": "Remove in Phase 5 - duplicate location",
+      "canonical": "dev-tools/workspace/context/session_store/"
+    },
+    {
+      "path": "dev-tools/context/session_store/",
+      "action": "Remove in Phase 5 - duplicate location",
+      "canonical": "dev-tools/workspace/context/session_store/"
+    },
+    {
+      "path": "dev-tools/workspace/context/archive/",
+      "action": "Move to Dev-Tools/legacy/ after extraction"
+    }
+  ],
+  "extraction_strategy": {
+    "method": "git submodule or npm workspace",
+    "preserve_history": true,
+    "target_repo": "Dev-Tools (new repository)",
+    "integration_points": [
+      ".vscode/mcp_config.json - update paths to point to submodule",
+      ".github/workflows/ - update CI/CD references",
+      "package.json - add workspace configuration or submodule scripts",
+      "dev-tools/agents/.env.agent.local - hydration script coordination"
+    ]
+  },
+  "dependency_analysis": {
+    "shared_packages": 10,
+    "dev_tools_specific": 13,
+    "app_specific": 51,
+    "notes": "See dependency-analysis.txt for full breakdown"
+  },
+  "environment_variables": {
+    "total_identified": 16,
+    "notes": "See env-variables-inventory.txt for complete list"
+  },
+  "mcp_configuration": {
+    "references_found": 100,
+    "notes": "See mcp-references.txt for detailed paths"
+  },
+  "ci_workflows": {
+    "workflows_to_update": [
+      ".github/workflows/mcp-agent-validation.yml",
+      ".github/workflows/docs-automation.yml"
+    ]
+  }
+}
