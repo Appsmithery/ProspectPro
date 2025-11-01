@@ -1,6 +1,7 @@
 {
   "version": "2.0.0",
   "tasks": [
+    // Uses the maintained bash wrapper to ensure compatibility with repo context automation. Do not call node scripts directly.
     {
       "label": "Env: Generate All Configs",
       "type": "shell",
