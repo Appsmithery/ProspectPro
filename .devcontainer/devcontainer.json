@@ -29,7 +29,9 @@
         "chrisdias.promptboost",
         "GitHub.codespaces",
         "GitHub.copilot",
-        "GitHub.copilot-chat"
+        "GitHub.copilot-chat",
+        "ms-python.python",
+        "vscjava.vscode-java-test"
       ],
       "settings": {
         "terminal.integrated.defaultProfile.linux": "bash",

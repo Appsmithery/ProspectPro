@@ -21,7 +21,8 @@
     "antfu.vite",
     "huggingface.huggingface-vscode-chat",
     "chrisdias.promptboost",
-    "vira.vsc-vira-theme"
+    "vira.vsc-vira-theme",
+    "vscjava.vscode-java-test"
   ],
   "unwantedRecommendations": [
     "ms-mssql.mssql",
@@ -34,7 +35,6 @@
     "ms-vscode.node-debug2",
     "hookyqr.beautify",
     "vscjava.vscode-java-debug",
-    "ms-python.python",
     "ms-vscode.vscode-typescript-next"
   ]
 }

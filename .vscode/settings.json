@@ -193,7 +193,7 @@
   "mermaidChart.externalSnippets": ["docs/shared/mermaid/config/mermaid.json"],
   "vitest.nodeEnv": {},
   "deno.cacheOnSave": true,
-  "chat.mcp.autostart": "never",
+  "chat.mcp.autostart": "newAndOutdated",
   "chat.agent.thinkingStyle": "collapsed",
   "chat.allowAnonymousAccess": true,
   "chat.mcp.assisted.nuget.enabled": true,
