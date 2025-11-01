@@ -41,6 +41,42 @@ All Phase 2 deliverables have been verified as complete:
 - ✅ Confirmed comprehensive Phase 2 entry exists in `coverage.md` (lines 839-959)
 - ✅ Phase 2 validation summary shows all preparation tasks complete
 
+### Phase 3 Preparation Updates
+
+**Date:** 2025-11-01
+
+1. **Root TypeScript Configuration Added**
+   - Created `/tsconfig.json` with workspace path mappings
+   - Supports `@frontend/*`, `@backend/*`, `@shared/*`, `@dev-tools/*` aliases
+   - Foundation for multi-package TypeScript project structure
+
+2. **Package.json Workspace Configuration**
+   - Added `workspaces` field for dev-tools sub-packages
+   - Added build scripts: `build:mcp-servers`, `build:dev-tools`, `build:all`
+   - Enables independent building of portable modules
+
+3. **Migration Validation Script Created**
+   - `dev-tools/scripts/automation/migration-dry-run.sh` (executable)
+   - Validates structure, Phase 2 reports, linting, tests, MCP, agents, inventories, TypeScript
+   - Designed for repeated execution during Phase 3
+   - Provides detailed feedback for manual review
+
+4. **Updated .gitignore**
+   - Added `*.tsbuildinfo` entries to exclude TypeScript incremental build cache
+   - Added dist/ patterns for dev-tools modules
+   - Prevents build artifacts from polluting repository
+
+5. **Inventory Updates**
+   - Regenerated inventories after Phase 3 preparation changes
+   - `dev-tools-filetree.txt` updated to reflect:
+     - New `tsconfig.json` at root
+     - New `migration-dry-run.sh` script
+     - Phase 2 reports in `dev-tools/reports/`
+     - tsconfig.tsbuildinfo entries (now gitignored)
+   - All changes logged in `settings-staging.md`
+
+**Rationale**: These Phase 3 preparation changes establish the build infrastructure and validation tooling needed for clean extraction. The workspace structure mirrors what will be used in the Dev-Tools repository, enabling straightforward migration.
+
 ### Next Steps
 
 With Phase 2 fully validated and documented, the repository is ready for:
