@@ -1,3 +1,58 @@
+# 2025-11-01: Supabase Directory Migration Completion
+
+## Migration Summary
+
+Successfully completed the consolidation of Supabase assets from the root symlink and scattered integration files into `/app/backend/`:
+
+### Completed Actions
+
+- ✅ **Directory Structure**: All Supabase assets now live under `/app/backend/` (config.toml, functions/, migrations/, schema/, scripts/, tests/)
+- ✅ **Symlink Removal**: Removed the root `/supabase` symlink that pointed to `app/backend`
+- ✅ **Script Updates**: All package.json scripts updated to use `cd app/backend` for Supabase CLI operations
+- ✅ **VS Code Configuration**: Updated `.vscode/settings.json` file associations and exclusions to use `app/backend/` paths
+- ✅ **Task Configuration**: VS Code tasks properly reference `app/backend` directory
+- ✅ **Integration Cleanup**: Removed duplicate files from `/integration/platform/supabase/` (now consolidated)
+- ✅ **Validation Scripts**: Updated monitoring scripts to look for `app/backend/config.toml`
+- ✅ **CLI Verification**: Tested `supabase:link`, `supabase:status`, and `functions:list` - all working correctly
+- ✅ **Documentation**: Updated filetree inventories via `npm run repo:scan`
+
+### Updated References
+
+**package.json**: Changed `/supabase/schema-sql/` → `/app/backend/schema/`
+**.vscode/settings.json**:
+
+- `supabase/migrations/*.sql` → `app/backend/migrations/*.sql`
+- `**/supabase/.temp/**` → `**/app/backend/.temp/**`
+
+**integration/monitoring/diagnostics/validate-supabase-architecture.sh**:
+
+- `supabase/config.toml` → `app/backend/config.toml`
+
+### Final Structure
+
+```
+app/
+├── backend/           # All Supabase assets (formerly scattered/symlinked)
+│   ├── config.toml
+│   ├── functions/
+│   ├── migrations/
+│   ├── schema/
+│   ├── scripts/
+│   └── tests/
+├── frontend/          # React/Vite application
+└── tests/             # Cross-domain integration tests
+```
+
+### Validation Results
+
+- Supabase CLI commands work from new location
+- Functions list retrieved successfully (12 active functions)
+- Project linked to production environment
+- No remaining symlinks or duplicate assets
+- All automation scripts updated and tested
+
+---
+
 # 2025-10-31: Automated Test Audit & Agent Test Tree Proposal
 
 ## Audit Summary
@@ -641,12 +696,14 @@ Successfully migrated all Supabase assets from split locations into a consolidat
 ### Changes Made
 
 1. **Directory Structure**
+
    - Removed root-level `supabase/` symlink (previously pointed to `app/backend`)
    - Merged `integration/platform/supabase/scripts/` → `app/backend/scripts/`
    - Merged `integration/platform/supabase/tests/` → `app/backend/tests/`
    - Copied support files (supabase.js, supabase-ca-2021.crt, package-supabase.json) to `app/backend/`
 
 2. **Script Updates**
+
    - Updated 30+ npm scripts in `package.json`
    - Updated 5 tasks in `.vscode/tasks.json`
    - Updated 7 shell scripts in integration/monitoring and dev-tools
@@ -692,4 +749,3 @@ Successfully migrated all Supabase assets from split locations into a consolidat
 - [ ] Run deployment scripts to confirm functionality
 - [ ] Update integration-filetree.txt if needed
 - [ ] Stage summary in docs/tooling/settings-staging.md
-
