@@ -882,9 +882,79 @@ vars:
 
 All scripts, MCP servers, and automation now reference `dev-tools-package/` paths.
 
+### Phase 4 to 5 Transition: External Publication & Submodule Integration
+
+**Status:** ⏳ Ready to Execute  
+**Reference:** See `DEV_TOOLS_MIGRATION_GUIDE.md` for complete command sequences
+
+This transition phase publishes the extracted Dev-Tools package to GitHub and swaps ProspectPro from an npm workspace copy to a git submodule approach.
+
+**Objectives:**
+
+1. **Publish the Extracted Package to GitHub**
+   - Push dev-tools-package to https://github.com/Alextorelli/Dev-Tools (prospect-pro-tools branch)
+   - Create package.json, tsconfig.json, .gitignore, LICENSE
+   - Include EXTRACTION_MANIFEST.md, REPO_RESTRUCTURE_PLAN.md, coverage.md
+   - Tag v1.0.0 with comprehensive release notes
+   - **Guide:** See DEV_TOOLS_MIGRATION_GUIDE.md Step 1
+
+2. **Add Automation on Dev-Tools Repository**
+   - Create GitHub Actions CI workflow (.github/workflows/ci.yml)
+   - Enable npm install/build validation
+   - Configure CodeQL security scanning
+   - Add automatic release notes generation
+   - Create CHANGELOG.md for version tracking
+   - **Guide:** See DEV_TOOLS_MIGRATION_GUIDE.md Step 2
+
+3. **Swap ProspectPro to Remote Submodule**
+   - Backup current state (optional but recommended)
+   - Remove workspace copy: `rm -rf dev-tools-package`
+   - Add git submodule: `git submodule add -b prospect-pro-tools https://github.com/Alextorelli/Dev-Tools.git dev-tools-package`
+   - Initialize and update submodule: `git submodule update --init --recursive`
+   - Validate integration (npm install, tests, lint)
+   - Commit .gitmodules and submodule pointer
+   - **Guide:** See DEV_TOOLS_MIGRATION_GUIDE.md Step 3
+
+4. **Update Documentation and Guards**
+   - Add submodule management tasks to Taskfile.yml:
+     - `task submodule:check` - Verify submodule is up to date
+     - `task submodule:update` - Update to latest remote commit
+   - Document submodule change in settings-staging.md
+   - Update REPO_RESTRUCTURE_PLAN.md (this file)
+   - Update coverage.md with transition log
+   - **Guide:** See DEV_TOOLS_MIGRATION_GUIDE.md Step 4
+
+5. **Validation Scripts**
+   - Created: `dev-tools-package/scripts/automation/validate-submodule-integration.sh`
+   - Validates: Submodule health, branch tracking, directory structure, workspace config
+   - Use for pre-Phase 5 checks before removing legacy dev-tools/
+   - **Guide:** See DEV_TOOLS_MIGRATION_GUIDE.md Step 5
+
+**Success Criteria:**
+
+- [ ] Dev-Tools repository exists at https://github.com/Alextorelli/Dev-Tools
+- [ ] Branch prospect-pro-tools contains all extracted content
+- [ ] Tag v1.0.0 created with release notes
+- [ ] GitHub Actions CI configured and passing
+- [ ] CodeQL security scanning enabled
+- [ ] ProspectPro .gitmodules file created and committed
+- [ ] Submodule tracks prospect-pro-tools branch
+- [ ] npm install works with submodule
+- [ ] All tests pass (5/5)
+- [ ] Lint clean (0 errors)
+- [ ] Submodule management tasks added to Taskfile
+- [ ] Documentation updated (settings-staging.md, REPO_RESTRUCTURE_PLAN.md, coverage.md)
+- [ ] Validation script passes all checks
+
+**Command Sequence:**
+
+All commands documented in `DEV_TOOLS_MIGRATION_GUIDE.md` with detailed explanations, validation steps, and troubleshooting guidance.
+
+**Ready for Execution:** Yes - All Phase 4 validations passed, ready for external publication.
+
 ### Phase 5: Cleanup and Validation
 
-**Status:** ⏳ Ready to Begin (Phase 4 Complete)
+**Status:** ⏳ Ready to Begin After Phase 4-5 Transition
 
 **Prerequisites Met:**
 - ✅ Phase 4 integration complete and validated

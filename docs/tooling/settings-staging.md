@@ -107,6 +107,89 @@ Using workspace approach (copy) until GitHub repository becomes available:
 
 ---
 
+## 2025-11-01 - Submodule Management Tasks Added ✅
+
+### Taskfile.yml - Submodule Automation
+
+Added four new tasks for managing the dev-tools-package submodule:
+
+1. **`task submodule:check`**
+   - Description: Check submodule status and ensure it's up to date
+   - Action: Fetches remote and compares local vs remote commit
+   - Output: Warns if submodule is behind, confirms if up to date
+
+2. **`task submodule:update`**
+   - Description: Update submodule to latest commit on prospect-pro-tools branch
+   - Action: Runs `git submodule update --remote --merge dev-tools-package`
+   - Output: Shows instructions for reviewing and committing changes
+
+3. **`task submodule:init`**
+   - Description: Initialize and update submodule (run after clone)
+   - Action: Runs `git submodule update --init --recursive dev-tools-package`
+   - Usage: For fresh clones or when submodule isn't initialized
+
+4. **`task submodule:validate`**
+   - Description: Run comprehensive validation of submodule integration
+   - Action: Executes `validate-submodule-integration.sh` script
+   - Checks: 15+ validation checks (directory structure, branch, configs, imports)
+
+### Validation Script Created
+
+Created `dev-tools-package/scripts/automation/validate-submodule-integration.sh`:
+
+**Features:**
+- Validates dev-tools-package directory exists and is a submodule
+- Checks .gitmodules configuration
+- Verifies submodule is on correct branch (prospect-pro-tools)
+- Validates directory structure (agents, automation, scripts, testing)
+- Checks all 4 agent profiles exist
+- Verifies MCP servers present
+- Validates workspace and Taskfile configurations
+- Searches for legacy dev-tools/ imports
+- Checks if old dev-tools/ directory removed (Phase 5 indicator)
+- Validates remote URL points to correct repository
+- Provides actionable fix suggestions if checks fail
+
+**Usage:**
+```bash
+# Quick check
+task submodule:validate
+
+# Or directly
+bash dev-tools-package/scripts/automation/validate-submodule-integration.sh
+```
+
+### Documentation Created
+
+Created `DEV_TOOLS_MIGRATION_GUIDE.md` in repository root:
+
+**Content:**
+- Complete command sequences for all migration steps
+- Step 1: Publish extracted package to GitHub (initialization, commits, tags)
+- Step 2: Add automation (GitHub Actions CI, CodeQL security, CHANGELOG)
+- Step 3: Swap ProspectPro to submodule (remove workspace, add submodule, validate)
+- Step 4: Update documentation and guards (Taskfile tasks, settings-staging.md)
+- Step 5: Phase 5 entry checklist (pre-cleanup validation, cleanup commands)
+- Troubleshooting section (submodule issues, npm failures, import paths)
+- Complete validation procedures
+
+**Ready for:** External execution when Dev-Tools GitHub repository is available.
+
+### Integration with CI/CD
+
+The `submodule:check` task should be added to CI workflows to ensure:
+- Developers don't accidentally commit outdated submodule pointers
+- CI builds always use the latest dev-tools-package version
+- Submodule stays synchronized with remote repository
+
+**Example CI Addition:**
+```yaml
+- name: Check submodule status
+  run: task submodule:check
+```
+
+---
+
 ## Phase 3 Execution Complete ✅
 
 ### Extraction Summary
