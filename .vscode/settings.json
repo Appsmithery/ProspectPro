@@ -239,5 +239,6 @@
   "deno.trace.server": "messages",
   "github.copilot.chat.responsesApiReasoningEffort": "medium",
   "git.terminalGitEditor": true,
-  "window.density.editorTabHeight": "compact"
+  "window.density.editorTabHeight": "compact",
+  "gitlens.advanced.caching.gitPath": false
 }
